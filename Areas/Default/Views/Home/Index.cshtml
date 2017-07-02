@@ -1,0 +1,74 @@
+﻿@model WholesaleTradingPortal.Areas.Default.Models.EnterprisePageViewModel
+@{
+    ViewBag.title = "Wholesale Trading Portal";
+    var i = 1;
+    var boxSize = "title-tg";
+}
+
+<title>@ViewBag.title</title>
+        <div class="dashboard display-animation" style="margin: 0 auto; width: 1400px;">
+            @foreach (var Enterprise in Model.Enterprises)
+            {
+                if (i == 1)
+                {
+                    boxSize = "tile tile-lg tile-pink ripple-effect";
+                }
+                if (i == 2)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+                }
+                if (i == 3)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+                }
+                if (i == 4)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+                }
+                if (i == 5)
+                {
+                    boxSize = "tile tile-lg tile-pink ripple-effect";
+                }
+                if (i == 6)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+                }
+                if (i == 7)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+
+                }
+                if (i == 8)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+                }
+                if (i == 9)
+                {
+                    boxSize = "tile tile-lg tile-pink ripple-effect";
+
+                }
+                <a withpjax="with-ajax" data-pjax=".right" class="@boxSize" href="/Default/Sellers/Seller/@Enterprise.EnterpriseId">
+                    <span class="content-wrapper">
+                        <span class="tile-content">
+                            <span class="tile-img" style="background-image:url('/Images/@Enterprise.EnterpriseId/logo.png')"></span>
+                            <span class="tile-holder tile-holder-sm">
+                                <span class="title">@Enterprise.EnterpriseName</span>
+                            </span>
+                        </span>
+                    </span>
+                </a>
+
+                if (i == 9)
+                {
+                    i = 1;
+                    continue;
+                }
+                i++;
+
+            }
+        </div>
+
+@section script{
+    <script>
+    </script>
+}

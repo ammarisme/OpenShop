@@ -1,0 +1,59 @@
+﻿@model ETrading.Models.JobCard
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>JobCard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IssuedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssuedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DueDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DueDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerOrderId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerOrderId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JobCardId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

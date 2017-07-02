@@ -1,0 +1,18 @@
+﻿<div class="right" style="width: 80%">
+    <div class="showLeft" style="padding-left: 10px; padding-right:10px;">
+        <div><i class="material-icons side-bar-toggle">menu</i></div>
+        @RenderBody()
+    </div>
+
+</div>
+
+@if (IsSectionDefined("script"))
+{
+    @RenderSection("script");
+}
+else
+{
+    @Html.Partial("Enterprise_default_script");
+}
+
+@Html.Partial("inter_view_script");

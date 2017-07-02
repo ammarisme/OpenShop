@@ -1,0 +1,18 @@
+﻿@* Assume user is authenticated *@
+@{
+    if (Session["AccountModeTesting"]!=null)
+    {
+        if (Request.Headers["X-PJAX"] != null)
+        {
+            Layout = "Shared/_PjaxLayout.cshtml";
+        }
+        else
+        {
+            Layout = "Shared/_Layout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Areas/Default/Views/Shared/_Layout.cshtml";
+    }
+}

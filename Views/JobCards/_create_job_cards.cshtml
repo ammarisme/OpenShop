@@ -1,0 +1,188 @@
+﻿<h1>Create Job Card</h1>
+
+<div class="col-md-12">
+    <div class="col-md-6  well">
+        <h3>Add Products to the Job Card</h3>
+        <form action="no-implemetation" id="product-in-job-card-form" method="POST">
+                        @*auto generated -
+                            ProductInJobCardId
+                            JobCardId
+                        *@
+            <div id="name-group" class="form-group">
+                @Html.DropDownList("ProductId", new SelectList(ViewBag.products, "ProductId", "ProductName"), htmlAttributes: new { @class = "form-control", id = "ProductName" })
+
+                <label for="name">Quantity</label>
+                <input type="number" pattern="[0-9]+" class="form-control" name="Quantity" placeholder="eg :- red, 1.2 , 1">
+
+                <label for="name">Remark</label>
+                <input type="text" class="form-control" name="Remark" placeholder="eg :- red, 1.2 , 1">
+            </div>
+            <button type="submit" class="btn btn-success">Add Product to Job<span class="fa fa-arrow-down"></span></button>
+        </form>
+        <button class="btn btn-warning" id="removeProduct">Remove Product from Job<span class="fa fa-arrow-right"></span></button>
+    </div>
+
+    <div class="col-md-6">
+        <table id="products-in-job-card-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ProductId</th>
+                    <th>ProductName</th>
+                    <th>Quantity</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="col-md-6  well">
+        <h3>Materials for the Job</h3>
+        <form action="no-implemetation" id="material-in-job-card-form" method="POST">
+                                    @*
+        auto generated -MaterialInJobCardId
+                        JobCardId
+
+                                    *@
+            <div id="name-group" class="form-group">
+
+                @*public int MaterialId { get; set; }*@
+                @Html.DropDownList("MaterialId", new SelectList(ViewBag.materials, "MaterialId", "MaterialName"), htmlAttributes: new { @class = "form-control", id = "MaterialName" })
+
+
+                @*public float Quantity { get; set; }*@
+                <label for="name">Quantity Used</label>
+                <input type="number" class="form-control" name="Quantity" placeholder="eg :- red, 1.2 , 1">
+
+                <label for="name">Remark</label>
+                <input type="text" class="form-control" name="Remark" placeholder="eg :- red, 1.2 , 1">
+            </div>
+            <button type="submit" class="btn btn-success">Add Material to Job<span class="fa fa-arrow-down"></span></button>
+        </form>
+        <button class="btn btn-warning" id="removeMaterial">Remove Material<span class="fa fa-arrow-right"></span></button>
+    </div>
+
+    <div class="col-md-6">
+        <table id="materials-in-job-card-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>MaterialId</th>
+                    <th>MaterialName</th>
+                    <th>Quantity</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div />
+    <div class="col-md-12  well">
+        <form action="no-implementation" id="create-job-card-form" method="POST">
+            <div id="name-group" class="form-group">
+                @*
+        auto generated
+            JobCardId
+            Status
+                *@
+                <label for="name">IssuedDate</label>
+                <input type="date" name="IssuedDate" class="form-control">
+                
+                <label for="name">DueDate</label>
+                <input type="date" name="DueDate" class="form-control">
+                
+                <label for="name">Customer Order Id</label>
+                @Html.DropDownList("CustomerOrderId", new SelectList(ViewBag.customerOrders, "CustomerOrderId", "CustomerOrderId"), htmlAttributes: new { @class = "form-control", id = "CustomerOrderId" })
+                
+                <label for="name">Employee</label>
+                @Html.DropDownList("EmployeeId", new SelectList(ViewBag.employees, "EmployeeId", "EmployeeFullName"), htmlAttributes: new { @class = "form-control", id = "EmployeeFullName" })
+
+            </div>
+        </form>
+        <button class="btn btn-success" id="create-job-card-button">Create Job Card</button>
+    </div>
+
+    <script>
+        viewControllerRoute = "../JobCards/CreateJobCard"; // where the user is in
+
+        /*
+        * Initiating the products in Job card part
+        */
+
+        var productsInJobCardTable = initiateTable("products-in-job-card-table", {
+            "columns": [
+                    { "data": "ProductId" },
+                    { "data": "ProductName" },
+                    { "data": "Quantity" },
+                    { "data": "Remark" }
+            ]
+        });
+
+        $("#removeProduct").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#products-in-job-card-table"));
+            productsInJobCardTable.row(selectedRowIndex).remove().draw(false);
+        }); //can be used commonly with as a table removal button
+
+        // on-client linking the form and the associated table
+        syncFormWithTable("product-in-job-card-form", productsInJobCardTable, "ProductId", function () { }, function () { });
+
+
+
+        /*
+        * Initiating the materials in Job card part
+        */
+
+        var materialsInJobCardTable = initiateTable("materials-in-job-card-table", {
+            "columns": [
+                    { "data": "MaterialId" },
+                    { "data": "MaterialName" },
+                    { "data": "Quantity" },
+                    { "data": "Remark" }
+            ]
+        });
+        // table row remover button
+        $("#removeMaterial").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#materials-in-job-card-table"));
+            materialsInJobCardTable.row(selectedRowIndex).remove().draw(false);
+        });
+
+        syncFormWithTable("material-in-job-card-form", materialsInJobCardTable, "MaterialId", function () { }, function () { });
+
+
+        /*
+        Sending the final object on click
+        */
+
+        $("#" + "create-job-card-button").on('click', function (event) {
+            var submitData = {}; // the data that will be sent using ajax
+
+            var productsInJobCardData = getTableData(productsInJobCardTable); // the table that will be attached to the data
+            var materialsInJobCardData = getTableData(materialsInJobCardTable);
+
+            productsInJobCardTable.clear().draw(false);
+            materialsInJobCardTable.clear().draw(false);
+
+            submitData = getFormValues("create-job-card-form");
+
+            submitData["ProductsInJobCard"] = productsInJobCardData; // adding the materials in datatable
+            submitData["MaterialsInJobCard"] = materialsInJobCardData;
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/JobCards/AddJobCard",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data);
+                }
+            });
+            event.preventDefault();
+        });
+
+    </script>
+
+    @* delete belwo*@

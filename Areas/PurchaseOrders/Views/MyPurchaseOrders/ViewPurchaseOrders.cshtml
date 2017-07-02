@@ -1,0 +1,113 @@
+﻿@{
+    ViewBag.title = "Purchase Order History";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+
+
+<div class="col-md-12 panel sub-content-panel">
+    <table id="orders-table" class="display table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Delivered Date</th>
+                <th>Delivery Status</th>
+                <th>Remark</th>
+                <th>Supplier</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Order Id</th>
+                <th>Order Date</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Delivered Date</th>
+                <th>Delivery Status</th>
+                <th>Remark</th>
+                <th>Supplier</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+    <h5> Products in Purchase Order</h5>
+    <table id="products-in-order-table" class="display table-hover table-striped col-md-12 panel sub-content-panel" cellspacing="0" >
+        <thead>
+            <tr>
+                <th>Product In P/O Id</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Unit Cost</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+
+@section script{
+    <script>
+
+        // PRODUCTS IN PURCHASE ORDER TABLE
+        var productsInOrderTable = initiateTable1(
+            "products-in-order-table",
+            {
+                "bLengthChange": false, "columns": [
+                { "data": "ProductInPurchaseOrderId" },
+                { "data": "ProductId" },
+                { "data": "ProductName" },
+                { "data": "Quantity" },
+                { "data": "Cost" },
+                { "data": "Remark" }
+                ],
+                "sDom": "t"
+            },
+            function () { }, function () { }
+            );
+
+
+        // PURCHASE ORDER TABLE
+        
+        // Order table DataTable initiation
+        // on Order table row selection, the product in order table must update related products
+        var onOrderSelection = function () {
+            var id = getTableSelectedRowKey($("#orders-table"));
+            updateTableFromApi(productsInOrderTable, "../../api/PurchaseOrders/GetProductsInPurchaseOrder/" + id, function () { });
+        }
+
+        var onOrderUnselection = function () {
+            productsInOrderTable.clear().draw();
+        }
+        var ordersTable = initiateTable1(
+            "orders-table",
+            {
+                "bLengthChange": false, "columns": [
+                        { "data": "OrderId" },
+                        { "data": "OrderDate" },
+                        { "data": "OrderDueDate" },
+                        { "data": "OrderStatus" },
+                        { "data": "DeliveredDate" },
+                        { "data": "DeliveryStatus" },
+                        { "data": "Remark" },
+                        { "data": "SupplierId" }
+                ],
+                fullreport: true,
+                reportname : "Purchase Orders"
+                
+            }, onOrderSelection
+             , onOrderUnselection
+            );
+        // loading the PO table from the API
+        updateTableFromApi(ordersTable, "../../api/PurchaseOrders/GetPurchaseOrders", function () { })
+
+        $(".navigation-help").html("Purchase Orders / All POs");
+    </script>
+}

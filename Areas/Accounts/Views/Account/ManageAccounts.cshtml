@@ -1,0 +1,106 @@
+﻿@using WholesaleTradingPortal.Areas.Accounts.Models
+
+@model AddAccountViewModel
+@{
+    ViewBag.Title = "Edit Accounts";
+
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="panel sub-content-panel col-md-12">
+    <table id="accounts-table" class="display table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Designation</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="panel sub-content-panel col-md-12">
+    <form action="../../api/Accounts/EditAccount" id="account-form" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="name">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{4,12}", title = "First Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{4,12}", title = "Last Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Address</label>
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control custom-text-box", required = "true", title = "" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber2, new { @class = "form-control custom-text-box", required = "true", pattern = "[0-9]{10}", title = "Phone number must contain 10 numeric characters." })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Designation</label>
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{2,10}", title = "Designation can only contain alphabetic letters and should contain less than 10 characters" })
+        </div>
+        <input name="Id" value="" id="account-id" hidden>
+        <input type="submit" class="btn btn-primary btn-raised" value="Update" />
+    </form>
+</div>
+
+
+
+@section script{
+    <script>
+
+        // Initiated Account DT
+        var accountsTable = initiateTable1("accounts-table",
+            {
+                "bLengthChange": false, "columns": [
+                        { "data": "Id" },
+                        { "data": "Name" },
+                        { "data": "Address" },
+                        { "data": "PhoneNumber" },
+                        { "data": "Designation" },
+                ],
+                "columnDefs": [
+            {
+                "targets": [0],
+                "visible": false,
+                "searchable": true
+            }
+                ]
+            }
+            , function () {
+                var id = getTableSelectedRowKey1(accountsTable, $("#accounts-table"));
+                // get account information through ajax and update the form
+                var account = getDataFromServer("../../api/Accounts/GetAccount/?id=" + id);
+
+                setFormValues($("#account-form"), account);
+
+            }, function () { });
+
+        var onAccountSelection = function () {
+            var id = getTableSelectedRowKey1(accountsTable);
+            // get account information through ajax and update the form
+            var account = getDataFromServer("../../api/Accounts/GetAccount/" + id);
+
+            $("#account-id").val(id);
+        }
+
+        ajaxFormSubmit("accounts-form", function () { }, function () {
+            
+            showModalMessage("Account updated", "Please refresh the page to see your updated information in the table");
+        },
+        function () {
+            
+            showModalMessage("Account update error", "Please contact support");
+        }
+        );
+        
+        // Update Accounts DT from API
+        updateTableFromApi(accountsTable, "../../api/Accounts/GetAccounts", onAccountSelection);
+
+        $(".navigation-help").html("Accounts / All Accounts");
+    </script>
+}

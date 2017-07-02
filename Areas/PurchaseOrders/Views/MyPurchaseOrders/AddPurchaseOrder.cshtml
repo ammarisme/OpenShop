@@ -1,0 +1,243 @@
+﻿@using RetailTradingPortal.Models
+@using RetailTradingPortal.Areas.PurchaseOrders.Models
+@model CreatePurchaseOrderView
+@{
+    ViewBag.title = "Create Purchase Order (P/O)";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#products" data-toggle="tab">Products in P/O</a></li>
+    <li class=""><a href="#general-information" data-toggle="tab">General Informtion</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="products">
+        <div class="row">
+            <div class="col-md-4 panel custom-panel">
+                <h5>Add Product(s) to P/O</h5>
+                <form action="no-implemetation" id="products-in-po-form" method="POST">
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Product</label>
+                        @Html.DropDownListFor(m => m.ProductId,
+                                  new SelectList(Model.ProductId,
+                               "ProductId", "ProductName",
+                                        Model.ProductId.First().ProductId), new { @class = "form-control custom-text-box  custom-label", id = "ProductName" })
+                    </div>
+                    @*public float Quantity { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Quantity</label>
+                        <input type="number" min="0" step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control custom-text-box " name="Quantity" id="quantity-input" required>
+                    </div>
+
+                    @*public float Cost { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Unit Cost</label>
+                        <input type="number" min="0" step="0.01" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" class="form-control custom-text-box " id="unit-cost-input" name="Cost" required>
+                    </div>
+                    @*public string Remarks { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Remark</label>
+                        <input type="text" class="form-control custom-text-box materialize-textarea" name="Remark">
+                    </div>
+                    <input type="text" id="subtotal-input" class="form-control custom-text-box" name="SubTotal" value="" hidden>
+
+                    <button type="submit" class="btn btn-primary btn-raised">Add Product<span class="fa fa-arrow-down"></span></button>
+                </form>
+                <button type="button" class="btn btn-default btn-raised" id="removeProduct">Remove Product<span class="fa fa-arrow-right"></span></button>
+            </div>
+            <div class="col-md-7 panel sub-content-panel">
+                <table id="products-in-po-table" class="table table-hover display table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Product Id</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Cost</th>
+                            <th>Remark</th>
+                            <th>Sub Total</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+                <div class="col-md-7 panel sub-content-panel">
+                    <h5 class="pull-right">Total: <strong>Rs.</strong><span id="total-po-amount" style="font-weight:bold">0.00</span></h5>
+                </div>
+            <button class="btn btn-primary btn-raised" id="add-PO-button">Complete</button>
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade" id="general-information">
+            <div class="panel sub-content-panel">
+                <form action="no-implementation" id="product-PO-form" method="POST">
+
+                    <div id="name-group" class="form-group">
+                        <label for="name">P/O Sent Date</label>
+                        <input type="date" name="OrderDate" class="form-control custom-text-box" required>
+                    </div>
+
+                    <div id="name-group" class="form-group">
+                        <label for="name">Due Date</label>
+                        <input type="date" name="OrderDueDate" class="form-control custom-text-box ">
+                    </div>
+
+                    <div id="name-group" class="form-group">
+                        <label for="name">Delivery Date</label>
+                        <input type="date" name="DeliveryDate" class="form-control custom-text-box ">
+                    </div>
+
+
+                    <div id="name-group" class="form-group">
+                        <label for="name">Delivery Status</label>
+                        <select id="DeliveryStatus" class="form-control">
+                            <option value="Sent">Dispatched</option>
+                            <option value="Pending">Processing</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Completed">Returned</option>
+                        </select>
+                    </div>
+
+                    <div id="name-group" class="form-group">
+                        <label for="name">Order Status</label>
+                        <select id="OrderStatus" class="form-control">
+                            <option value="Sent">Sent</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Completed">Cancelled</option>
+                        </select>
+                    </div>
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Supplier</label>
+                        @Html.DropDownListFor(m => m.SupplierId,
+                                  new SelectList(Model.SupplierId,
+                               "SupplierId", "SupplierName",
+                                        Model.SupplierId.First().SupplierId), new { @class = "form-control custom-text-box  custom-label", id = "SupplierName" })
+                    </div>
+
+                    <div id="name-group" class="form-group">
+                        <label for="name">Any remark of the P/O</label>
+                        <input type="text" name="Remark" class="form-control custom-text-box ">
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+@section script{
+    <script>
+        // PRODUCTS IN PO TABLE
+
+        // update the form
+        var productForm = $("#products-in-po-form");
+        //var productsTable = $("#products-in-PO-table");
+        var productSelected = function () {
+            var tableIndex = getTableSelectedRowIndex($("#products-in-po-table"));
+            var ProductData = productsInStocksTable.row(tableIndex).data();
+            setFormValues(productForm, ProductData);
+
+            // select the product
+            $('#ProductName').val(getTableSelectedRowKey($("#products-in-po-table")));
+        }
+
+        var productUnselected = function () {
+
+        }
+        /// Initiating the products-in-Stocks-table
+        var productsInStocksTable = initiateTable1("products-in-po-table", {
+            "bLengthChange": false, "columns": [
+            { "data": "ProductId" },
+            { "data": "ProductName" },
+            { "data": "Quantity" },
+            { "data": "Cost" },
+            { "data": "Remark" },
+            { "data": "SubTotal" }
+            ],
+            "sDom": "t"
+        }
+            , productSelected, productUnselected
+        );
+
+        $("#removeProduct").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#products-in-po-table"));
+            productsInStocksTable.row(selectedRowIndex).remove().draw(false);
+            onCompletion();
+        }); //can be used commonly with as a table removal button
+
+
+        var onCompletion = function () {
+            var sale = getTableData(productsInStocksTable);
+            var total = 0.00;
+            for (var key in sale) {
+                if (sale.hasOwnProperty(key)) {
+                    var unitPrice = sale[key]["Cost"];
+                    var quantity = sale[key]["Quantity"];
+                    var subTotal = unitPrice * quantity;
+                    total = total + subTotal;
+                }
+            }
+
+
+            if (total - parseInt(total) > 0) {
+                // this is a float number
+                if (((total - parseInt(total)) * 100) < 10 || parseInt(((total - parseInt(total)) * 100)) % 10 != 0) {
+                    $("#total-po-amount").html(total + "0");
+                } else {
+                    $("#total-po-amount").html(total + "0");
+
+                }
+
+            } else {
+                $("#total-po-amount").html(total + ".00")
+            }
+        };
+
+        var beforeSubmission = function () {
+            var subtotal = parseFloat($("#unit-cost-input").val()) * parseFloat($("#quantity-input").val());
+            $("#subtotal-input").val(subtotal);
+        }
+        //  Linking the the table and form
+        syncFormWithTable("products-in-po-form", productsInStocksTable, "ProductId", beforeSubmission, onCompletion); // connecting the table with the form
+
+        // sending the final object
+        $("#" + "add-PO-button").on('click', function (event) {
+
+            //check if the stock information table is correct
+            if (!$("#product-PO-form")[0].checkValidity()) {
+                showMessageModal("Validation error detected", "Errors in the visible page will be shown in-place. </br> You have to check Errors in pages that are not focusable manually.");
+                return;
+            }
+
+            var submitData = {}; // the data that will be sent using ajax
+
+            var productsInStocksData = getTableData(productsInStocksTable); // the table that will be attached to the data
+
+            //productsInStocksTable.clear().draw(false);
+
+            submitData = getFormValues("product-PO-form");
+
+            submitData["ProductsInPurchaseOrders"] = productsInStocksData; // adding the materials in datatable
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/PurchaseOrders/AddOrder",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                statusCode: {
+                    201: function (data) {
+                        showModalMessage("Purchase Order created", 'You may download the P/O here.<a href="#" data-table="#products-in-po-table" report-name="' + data + '- Purchase Order" id="generate-report-button" onClick="generatePurchaseOrder(this, ' + data + ')" class="btn report-button">P/O</a></br><a class="btn btn-default" href="AddPurchaseOrder">Create new P/O</a>');
+                    }
+                }
+            });
+
+            event.preventDefault();
+        });
+        $(".navigation-help").html("POs / New Purchase Order");
+    </script>
+}

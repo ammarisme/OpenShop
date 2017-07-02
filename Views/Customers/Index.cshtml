@@ -1,0 +1,48 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <!-- This content goes into index.cshtml-->
+</section>
+<!-- Main content -->
+<section class="content">
+
+    <table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Customer Id</th>
+                <th>First name</th>
+                <th>Last nxame</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Customer Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+        </tfoot>
+    </table>
+</section>
+<!-- /.content -->
+<script>
+    var function1 = function () {
+        $(document).ready(function () {
+            $.ajax({
+                url: "../api/Customers/GetCustomers",
+                type: "GET",
+                dataType: "json"
+            }
+            ).done(function (dataSet) {
+                $('#example').DataTable({
+                    data: dataSet,
+                    "columns": [
+                        { "data": "CustomerId" },
+                        { "data": "FirstName" },
+                        { "data": "LastName" }
+                    ]
+                });
+            });
+        });
+    }
+    functionQueue.push(function1);
+</script>

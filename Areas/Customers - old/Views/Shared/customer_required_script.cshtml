@@ -1,0 +1,62 @@
+﻿<script>
+
+    $.material.init();
+
+    $("#dropdown-menu select").dropdown();
+    $("#RetailCart").on('click', function (event) {
+        $("#RetailCartModal").modal('show');
+        if (localStorage.getItem("retailOrder")) {
+            var retailOrder = getLocalStorageData("retailOrder");
+
+            // clear tables
+            $("#retail-order-tables").children().remove();
+            // loop through retailers,
+            for (var retailer in retailOrder) {
+                // create a table
+                var table = "";
+                table = '<table class="table table-striped table-hover"  id="' + retailer + '"><thead><tr><th>ProductId</th><th>ProductName</th><th>Quantity</th><th>UnitPrice</th></tr></thead>';
+                table = table + '<tbody>';
+
+                // loop through products in retailorder and add rows
+                for (var product in retailOrder[retailer]["ProductsInRetailOrder"]) {
+                    table = table + "<tr><td>" + retailOrder[retailer]["ProductsInRetailOrder"][product]["ProductId"] + "</td><td>" + retailOrder[retailer]["ProductsInRetailOrder"][product]["ProductName"] + "</td><td>" + retailOrder[retailer]["ProductsInRetailOrder"][product]["Quantity"] + "</td><td>" + retailOrder[retailer]["ProductsInRetailOrder"][product]["UnitPrice"] + "<td></tr>";
+                }
+
+                table = table + '</tbody></table>'
+                $("#retail-order-tables").append(table);
+                $("#retail-order-tables").append('<a class="btn btn-primary btn-raised" href="/Sales/MyRetailOrder/PlaceOrder?id=' + retailer + '">Checkout!</a>');
+                $("#retail-order-tables").append('<a class="btn btn-default btn-raised" id="resetOrder">Reset</a>');
+
+            }
+
+        } else {
+            // empty order
+        }
+        event.preventDefault();
+    });
+
+    // Initialize collapse button
+    $(".button-collapse").sideNav();
+    // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+    //$('.collapsible').collapsible();
+
+    var loader = $("#loader");
+
+    $.pjax.defaults.timeout = false;
+
+    $('a[withpjax]').each(function () {
+        console.log("pjaxification");
+        $(this).pjax(
+            {
+                container: ".content-panel",
+            }
+        );
+    });
+
+
+    $(document).on({
+        "ajaxStart": function () { $(".cs-loader").show(); },
+        "ajaxStop": function () { $(".cs-loader").hide();; },
+    });
+    $(".cs-loader").hide();
+</script>

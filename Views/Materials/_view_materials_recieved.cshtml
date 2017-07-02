@@ -1,0 +1,90 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="col-md-4">
+    <table id="materials-recieved-table" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>MaterialsRecievedId</th>
+                <th>PurchaseOrderId</th>
+                <th>RecievedDate</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>MaterialsRecievedId</th>
+                <th>PurchaseOrderId</th>
+                <th>RecievedDate</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-6">
+        <table id="materials-in-materials-recieved-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>MaterialInMaterialsRecievedId</th>
+                    <th>MaterialId</th>
+                    <th>MaterialsRecievedId</th>
+                    <th>QuantityRecieved</th>
+                    <th>QuantityDispatched</th>
+                    <th>Cost</th>
+                    <th>Remarks</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>MaterialInMaterialsRecievedId</th>
+                    <th>MaterialId</th>
+                    <th>MaterialsRecievedId</th>
+                    <th>QuantityRecieved</th>
+                    <th>QuantityDispatched</th>
+                    <th>Cost</th>
+                    <th>Remarks</th>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+</section>
+<!-- /.content -->
+<script>
+    viewControllerRoute = "../Materials/ViewMaterialsRecieved";
+
+    var materialsRecievedTable = $("#materials-recieved-table").DataTable({
+        "columns": [
+            { "data": "MaterialsRecievedId" },
+            { "data": "PurchaseOrderId" },
+            { "data": "RecievedDate" }
+        ]
+    });// materials recieved table
+
+
+    // initiating the materials table
+    var materialsTable = $("#materials-in-materials-recieved-table").DataTable({
+        "bFilter": false,
+        "bInfo": false,
+        "columns": [
+            { "data": "MaterialInMaterialsRecievedId" },
+            { "data": "MaterialId" },
+            { "data": "MaterialsRecievedId" },
+            { "data": "QuantityRecieved" },
+            { "data": "QuantityDispatched" },
+            { "data": "Cost" },
+            { "data": "Remarks" }
+        ]
+    });
+
+    //update materials recieved table
+    var materialRecievedSelected = function () {
+        var id = getTableSelectedRowKey($("#materials-recieved-table"));
+        updateTableFromApi(materialsTable, "../api/Materials/GetMaterialsinMaterialsRecieved/" + id, function () { });
+    }//set to update the specifications table
+
+    updateTableFromApi(materialsRecievedTable, "../api/Materials/GetMaterialsRecieved", materialRecievedSelected);
+</script>

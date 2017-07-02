@@ -1,0 +1,155 @@
+﻿@using RetailTradingPortal.Areas.Enterprises.Models ;
+@model EditEnterprisesViewModel
+@{
+    ViewBag.title = "Edit Enterprise Profiles";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="col-md-12 panel sub-content-panel">
+    <table id="enterprises-table" class="display table table-hover table-striped" cellspacing="0" >
+        <thead>
+            <tr>
+                <th>EnterpriseId </th>
+                <th>EnterpriseTypeId </th>
+                <th>EnterpriseName </th>
+                <th>EntepriseAddress </th>
+                <th>Rating </th>
+                <th>BusinessPhoneNumber </th>
+                <th>Status </th>
+                <th>BRCNumber </th>
+                <th>Category </th>
+                <th>Currency </th>
+                <th>Country </th>
+                <th>Region </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+
+<div class="panel sub-content-panel col-md-12 " style="white-space:nowrap">
+    <form action="no-implementation" class="col-md-12" id="enterprise-form" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="name">Enterprise Type</label>
+            @Html.TextBoxFor(m => m.EnterpriseType, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{4,12}", title = "Last Name field can only contain alphabetic characters, and must of length between 5 - 12" , disabled="true"})
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Name</label>
+            @Html.TextBoxFor(m => m.EnterpriseName, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{4,12}", title = "Last Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Address</label>
+            @Html.TextBoxFor(m => m.EntepriseAddress, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Z0-9a-z\\s]", title = "" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Business Phone number</label>
+            @Html.TextBoxFor(m => m.BusinessPhoneNumber, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{2,10}", title = "Designation can only contain alphabetic letters and should contain less than 10 characters" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Status</label>
+            @Html.TextBoxFor(m => m.Status, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Business Registration Ceritificate Number</label>
+            @Html.TextBoxFor(m => m.BRCNumber, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Z]{2}\\d{4,8}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Category of the Business</label>
+            @Html.TextBoxFor(m => m.Category, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Currency</label>
+            @Html.TextBoxFor(m => m.Currency, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Country</label>
+            @Html.TextBoxFor(m => m.Country, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Region</label>
+            @Html.TextBoxFor(m => m.Region, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <input type="submit" class="btn btn-primary btn-raised" value="Update" />
+    </form>
+</div>
+@*<div class="col-md-12 panel sub-content-panel">
+    <table id="services-of-enterprise-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ServiceId</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>*@
+
+
+@section script{
+    <script>
+
+         //Initiate Services in enterprise DT
+        //var servicesOfEnterprise = initiateTable1("services-of-enterprise-table",
+        //    {
+        //        "bLengthChange": false, "columns": [
+        //            { "data": "ServiceId" },
+        //            { "data": "Type" },
+        //            { "data": "Status" },
+        //        ],
+        //        "columnDefs": [
+        //                {
+        //                    "targets": [0],
+        //                    "visible": false,
+        //                    "searchable": false
+        //                }
+        //        ],
+        //        "sDom": "t"
+        //    },
+        //    function () { },
+        //    function () { }
+        //    );
+
+
+        // Initiated Enterprise DT
+        var enterpriseForm = $("#enterprise-form");
+
+        var onEnterpriseSelection = function () {
+            var tableIndex = getTableSelectedRowIndex($("#enterprises-table"));
+            var ProductData = enterprisesTable.row(tableIndex).data();
+            setFormValues(enterpriseForm, ProductData);
+        }
+
+        var enterprisesTable = initiateTable1("enterprises-table",
+            {
+                "bLengthChange": false,
+                 "columns": [
+                { "data": "EnterpriseId" },
+                { "data": "EnterpriseTypeId" },
+                { "data": "EnterpriseName" },
+                { "data": "EntepriseAddress" },
+                { "data": "Rating" },
+                { "data": "BusinessPhoneNumber" },
+                { "data": "Status" },
+                { "data": "BRCNumber" },
+                { "data": "Category" },
+                { "data": "Currency" },
+                { "data": "Country" },
+                { "data": "Region" }
+                 ]
+            }
+            , onEnterpriseSelection, function () {
+                //specificationsInEnterprise.clear().draw(false);
+            });
+        
+
+        // Update Enterprises DT from API
+        updateTableFromApi(enterprisesTable, "../../api/Enterprises/GetEnterprises", onEnterpriseSelection);
+
+        $(".navigation-help").html("Enterprises / All Enterprises");
+
+
+    </script>
+}

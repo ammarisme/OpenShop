@@ -1,0 +1,66 @@
+﻿@model WholesaleTradingPortal.Areas.Accounts.Models.RegisterEnterpriseViewModel
+@{
+    ViewBag.Title = "Temporary user registration";
+}
+
+<h5>@ViewBag.Title.</h5>
+
+<div class="col-md-12">
+    <div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@* User Creation Form *@
+<div class="col-md-6 col-sm-12" id="user-registration-forms">
+    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+    <form action="/Accounts/Account/Register" id="Enterprise-form" method="POST" class="panel sub-content-panel">
+        
+        <div id="name-group" class="form-group">
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">Password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">ConfirmPassword</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+        </div>
+            <label for="name">Address</label>
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+        <div id="name-group" class="form-group">
+            <label for="name">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Designation</label>
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber2, new { @class = "form-control" })
+        </div>
+        <input type="submit" class="btn btn-primary btn-raised" value="Register Enterprise" />
+    </form>
+</div>
+

@@ -1,0 +1,181 @@
+﻿
+@model WholesaleTradingPortal.Areas.Default.Models.PlaceOrderViewModel
+@{
+    ViewBag.title = "Place Order";
+}
+
+<title>@ViewBag.title</title>
+<form action="no-implemented" id="place-order-form">
+        <input class="form-control" name="EnterpriseId" value="@Model.Enterprise.EnterpriseId"/>
+    <div class="panel panel-in-right">
+        <p>1. Login : </p>
+        <p style="color:green"> Ok</p>
+        <input class="form-control hidden" name="AccountId" value="@Model.Account.Id"/>
+    </div>
+    <div class="panel panel-in-right">
+        <p>2. Delivery</p>
+        <div id="name-group" class="form-group">
+        <label>Delivery Address</label>
+            <input class="form-control custom-text-box"  name="DeliveryAddress"/>
+        </div>
+        <div id="name-group" class="form-group">
+            <label>Delivery Method</label>
+            @Html.DropDownListFor(m => m.DeliveryMode,
+                                  new SelectList(Model.DeliveryMode,
+                                                          "DeliveryModeName", "DeliveryModeName",
+                                                 Model.DeliveryMode.First().DeliveryModeName), new { @class = "form-control custom-text-box  custom-label", id = "DeliveryModeName" })
+            
+        </div>
+    </div>
+    <div class="panel panel-in-right">
+        <p>3. Confirm Order</p>
+        <div id="place-order-table">
+
+        </div>
+        <div id="name-group" class="form-group">
+            <label>Remark</label>
+            <input class="form-control custom-text-box" name="Remark" />
+        </div>
+    </div>
+    <div class="panel panel-in-right">
+        <p>3. Payments</p>
+        <div id="name-group" class="form-group">
+            <label>Payment Method</label>
+            @Html.DropDownListFor(m => m.PaymentMethod,
+                                  new SelectList(Model.PaymentMethod,
+                                        "PaymentMethodName", "PaymentMethodName",
+                                        Model.PaymentMethod.First().PaymentMethodName), new { @class = "form-control custom-text-box  custom-label", id = "PaymentMethodName" })
+        </div>
+    </div>
+    <button type="submit" class="btn btn-action">Place Order</button>
+</form>
+<form action="no-implemented" class="hidden" id="account-form">
+    <input class="form-control hidden" name="AccountId" value="@Model.Account.Id" />
+    <input class="form-control hidden" name="FirstName" value="@Model.Account.FirstName" />
+    <input class="form-control hidden" name="LastName" value="@Model.Account.LastName" />
+    <input class="form-control hidden" name="Address" value="@Model.Account.Address" />
+    <input class="form-control hidden" name="PhoneNumber2" value="@Model.Account.PhoneNumber2" />
+    <input class="form-control hidden" name="Status" value="@Model.Account.Status" />
+    <input class="form-control hidden" name="Designation" value="@Model.Account.Designation" />
+    <input class="form-control hidden" name="Email" value="@Model.Account.Email2" />
+</form>
+@section script{
+    <script>        
+            var retailOrder = getLocalStorageData("retailOrder");
+            var Enterprise = "@Model.Enterprise.EnterpriseId";
+
+            // Get the Enterprise name from the API and place it here.
+            var EnterpriseName = "@Model.Enterprise.EnterpriseName";
+
+            $("#place-order-table").append('<p id="seller-name-' + Enterprise + '" class="pull-right col-md-12 title" style="text-align:left;background-color:lightgray">Seller  : <strong>' + EnterpriseName + '</strong></p>');
+            // create a table
+            var table = "";
+            var total = 0; // total sale amount
+            table = '<table Enterprise-id="@Model.Enterprise.EnterpriseId" class="table  table-striped table-hover"  id="order-table-' + Enterprise + '"><thead><tr><th hidden>ProductId</th><th>ProductName</th><th>Quantity</th><th>UnitPrice</th><th>SubTotal</th><th>as</th></tr></thead>';
+            table = table + '<tbody>';
+
+            // loop through products in retailorder and add rows to the table
+            for (var product in retailOrder[Enterprise]["ProductsInRetailOrder"]) {
+                table = table + '<tr product-id="'+retailOrder[Enterprise]["ProductsInRetailOrder"][product]["ProductId"] +'" ><td hidden>' + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["ProductId"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["ProductName"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["Quantity"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["UnitPrice"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["SubTotal"] + "</td><td>" + '<i Enterprise-id="@Model.Enterprise.EnterpriseId" class="material-icons remove-row-btn">cancel</i></td></tr>';
+                total = total + parseFloat(retailOrder[Enterprise]["ProductsInRetailOrder"][product]["SubTotal"]);
+            }
+
+            table = table + '</tbody></table>'
+            // appending the order table
+            $("#place-order-table").append(table);
+
+            // appending the total prices
+            $("#place-order-table").append('<p id="order-total-' + Enterprise + '" class="pull-right col-md-12 title" style="text-align:right">Total : Rs. ' + total + '</p>');
+
+
+            $('#reset-order-' + Enterprise).on('click', function () {
+                var EnterpriseId = $(this).attr("Enterprise-id");
+                var retailOrder = JSON.parse(localStorage.getItem('retailOrder'));
+                if (retailOrder[EnterpriseId]) {
+                    // delete the order data
+                    delete retailOrder[EnterpriseId];
+                    localStorage.setItem('retailOrder', JSON.stringify(retailOrder));
+                    console.log(EnterpriseId);
+
+                    // delete order information UI elements from the modal
+                    $("#order-total-" + EnterpriseId).remove();
+                    $("#order-table-" + EnterpriseId).remove();
+                    $("#order-checkout-" + EnterpriseId).remove();
+                    $('#seller-name-' + EnterpriseId).remove();
+                    $(this).remove();
+
+                    var retailOrder = getLocalStorageData("retailOrder");
+
+                    if (jQuery.isEmptyObject(retailOrder)) {
+                        $("#place-order-table").append("<p>Empty shopping cart!</p>");
+                        return;
+                    }
+                }
+            });
+ 
+            $(".remove-row-btn").on("click", function () {
+                // get information from the table 
+                var EnterpriseId = $(this).parent().parent().parent().parent().attr("Enterprise-id");
+                var productId = $(this).parent().parent().attr("product-id");
+
+                // delete the product from local storage
+                deleteProductFromOrder(EnterpriseId,productId,"retailOrder");
+                
+                var total= getOrderTotal(EnterpriseId, "retailOrder");
+                // if there is no more products, delete the Enterprise from the local storage
+                if (total == 0) {
+                    deleteOrder(EnterpriseId, "retailOrder");
+                }
+                $("#order-total-" + EnterpriseId).html("Total :Rs. " + total);
+
+                $(this).parent().parent().remove();
+            });
+
+            $("#place-order-form").on('submit', function () {
+
+                var valid = true;// to keep track of the validity
+                var errorMessage = "";
+                //check if the stock information table is correct
+                if (!$("#place-order-form")[0].checkValidity()) {
+                    valid = false;
+                }
+
+                var submitData = {}; // the data that will be sent using ajax
+
+                var ProductsInOrder = retailOrder[Enterprise]; // the table that will be attached to the data
+
+                if (Object.keys(ProductsInOrder).length === 0 && ProductsInOrder.constructor === Object) {
+                    valid = false;
+                    errorMessage = errorMessage + "</br>No Products found in the new Stock";
+                }
+
+                if (!valid) {
+                    showModalMessage("Errors detected", errorMessage);
+                    return;
+                }
+
+                // adding payload information
+                submitData = getFormValues("place-order-form");
+                submitData["ProductsInRetailOrder"] = ProductsInOrder["ProductsInRetailOrder"]; // adding the materials in datatable
+                submitData["Account"] = getFormValues("account-form");
+
+                console.log(submitData); // to make sure we got the the right object going
+
+                $.ajax({
+                    type: 'post',
+                    url: "/api/Orders/AddOrder",
+                    data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    statusCode: {
+                        201: function (data) {
+                            showModalMessage("Order Placed", 'You may download invoice from <a withpjax="with-ajax" data-pjax=".content-panel" href="">here</a>');
+                            deleteOrder(Enterprise, "retailOrder");
+                        }
+                    }
+                });
+
+                event.preventDefault();
+            });
+    </script>
+}

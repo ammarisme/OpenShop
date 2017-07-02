@@ -1,0 +1,208 @@
+﻿
+
+<div class="col-md-12">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@*// foreign key to MaterialsRecievedTable
+    public int MaterialsRecievedId { get; set; }*@
+<!-- this form is filled and form values are added the datatable on submission-->
+<div class="col-md-6">
+
+    <form action="../api/MaterialInMaterialsRecieved/Create" id="material-in-materials-recieved-form" method="POST">
+        <div id="name-group" class="form-group">
+
+            @*// foreign key to Materials Table
+                public int MaterialId { get; set; }*@
+
+            <label for="name">Material Name</label>
+            @*<select class="form-control" id="MaterialName" name="MaterialId">
+            </select>*@
+           @Html.DropDownList("MaterialId", new SelectList(ViewBag.materials, "MaterialId", "MaterialName"), htmlAttributes: new { @class = "form-control", id = "MaterialName"})
+           
+            <label for="name">default unit </label>
+
+            @*public float QuantityRecieved { get; set; }*@
+            <label for="number">Quantity Recieved</label>
+            <input type="number" class="form-control" name="QuantityRecieved" placeholder="eg :- 100">
+
+            @*public float QuantityDispatched { get; set; }*@
+            <label for="number">Quantity Dispatched</label>
+            <input type="number" class="form-control" name="QuantityDispatched" placeholder="eg :- 100">
+
+            @*public float Cost { get; set; }*@
+            <label for="number">Cost</label>
+            <input type="number" class="form-control" name="Cost" placeholder="eg :- 100">
+
+            @*public string Remarks { get; set; }*@
+            <label for="number">Remarks</label>
+            <input type="text" class="form-control" name="Remarks" placeholder="eg :- 100">
+            
+        </div>
+        <button type="submit" class="btn btn-default">Add Material to Materials Recieved<span class="fa fa-arrow-down"></span></button>
+    </form>
+    <button class="btn btn-warning" id="removeRow">Remove Material From Materials Recieved<span class="fa fa-arrow-right"></span></button>
+</div>
+
+<div class="col-md-6 col-sm-12">
+    <form action="/api/MaterialsRecieveds/AddMaterialsRecieved" id="materials-recieved-form" method="POST">
+
+        <div id="name-group" class="form-group">
+
+            @*public int PurchaseOrderId { get; set; }*@
+            <label for="name">Purchase OrderID</label>
+            @Html.DropDownList("PurchaseOrderId", new SelectList(ViewBag.purchaseOrders, "PurchaseOrderId", "PurchaseOrderId"), htmlAttributes: new { @class = "form-control", id = "PurchaseOrderId" })
+
+            <label for="date">Recieved date</label>
+            <input type="datetime" name="RecievedDate" id="RecievedDate" class="form-control" />
+
+
+        </div>
+    </form>
+    <button class="btn btn-success" id="create-materials-recieved-note">Create Materials Recieved Note</button>
+</div>
+
+<!-- this table stores the rows that is being added from the form-->
+<div class="col-md-12 col-sm-12">
+    <table id="materials-table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Material Id</th>
+                <th>Material Name</th>
+                <th>Quantity Recieved</th>
+                <th>Quantity Dispatched</th>
+                <th>Cost</th>
+                <th>Remarks</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Material Id</th>
+                <th>Material Name</th>
+                <th>Quantity Recieved</th>
+                <th>Quantity Dispatched</th>
+                <th>Cost</th>
+                <th>Remarks</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<script>
+    viewControllerRoute = "../Material/AddMaterialsRecieved"; // where the user is in
+
+    // creating a date picker
+    var issueDate = $("#RecievedDate").datepicker();
+
+
+    /// Initiating the specifications-in-materials-table
+    var materialsTable = initiateTable("materials-table", {
+        "columns": [
+                { "data": "MaterialId" },
+                { "data": "MaterialName" },
+                { "data": "QuantityRecieved" },
+                { "data": "QuantityDispatched" },
+                { "data": "Cost" },
+                { "data": "Remarks" }
+        ]
+    }); // initiating the table with all the defauls features loaded in this function
+
+    // Initiating the specifications creation and updation form
+    var createMaterialForm = $("#material-in-materials-recieved-form"); // jquery object of specification form
+
+    // initiating the material form
+    var createMaterialsRecivedForm = $("#materials-recieved-form");
+
+    $("#removeRow").on('click', function () {
+        var selectedRowIndex = getTableSelectedRowIndex($("#materials-table"));
+        materialsTable.row(selectedRowIndex).remove().draw(false);
+    }); //can be used commonly with as a table removal button
+
+    var onCompletion = function () { }; // a dummy functio
+
+    //  Linking the above created form and table
+    syncFormWithTable("material-in-materials-recieved-form", materialsTable, "MaterialId", onCompletion, onCompletion); // connecting the table with the form
+
+    //sendComplexObjectOnClick("create-material", specificationsInMaterialTable, "SpecificationsInMaterial", "create-material-form", "/api/Materials/AddMaterial", onCompletion, onCompletion);
+
+
+    $("#" + "create-materials-recieved-note").on('click', function (event) {
+        onCompletion(); // before submission
+        var submitData = {}; // the data that will be sent using ajax
+
+        var tableData = getTableData(materialsTable); // the table that will be attached to the data
+
+        materialsTable.clear().draw(false);
+
+        submitData = getFormValues("materials-recieved-form");
+
+        submitData["MaterialInMaterialsRecieved"] = tableData; // adding the materials in datatable
+
+        console.log(submitData); // to make sure we got the the right object going
+
+        $.ajax({
+            type: 'post',
+            url: "/api/Materials/AddMaterialsRecieved",
+            data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                onCompletion();
+            }
+        });
+
+        event.preventDefault();
+    });
+
+
+
+    //// the Datatable handler
+    //var materialsInMaterialsRecieved = $("#materials-in-materials-recieved").DataTable({
+    //    "dataSrc": "data",
+    //    "columns": [
+    //        { "data": "MaterialId" },
+    //        { "data": "MaterialName" },
+    //        { "data": "QuantityRecieved" },
+    //        { "data": "QuantityDispatched" },
+    //        { "data": "Cost" },
+    //        { "data": "Remarks" }
+    //    ]
+    //});
+    //materialsInMaterialsRecieved.columns([0]).visible(false, false);
+    //var modal = $("#myModal");
+
+    //$(document).ready(function () {
+    //    // loading list boxes from database to an input selection list box in the form 
+    //    function onCompletion () {
+    //        console.log("submited");
+    //        modal.modal();
+    //    }
+
+    //    // binding a form and a table
+    //    syncFormWithTable("create-material-in-materials-recieved", materialsInMaterialsRecieved, "MaterialId", onCompletion, onCompletion);
+
+    //    // binding a button to send an ajax object by getting data from a form and table
+    //    sendComplexObjectOnClick("create-materials-recieved-note", materialsInMaterialsRecieved, "MaterialInMaterialsRecieved", "materials-recieved", "/api/MaterialsRecieveds/AddMaterialsRecieved", onCompletion, onCompletion);
+
+    //});
+</script>

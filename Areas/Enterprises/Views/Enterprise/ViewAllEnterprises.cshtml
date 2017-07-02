@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.title = "View all Enterprises";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="col-md-12 panel sub-content-panel">
+    <table id="enterprises-table" class="display table table-hover table-striped" cellspacing="0" >
+        <thead>
+            <tr>
+                <th>EnterpriseId </th>
+                <th>EnterpriseTypeId </th>
+                <th>EnterpriseName </th>
+                <th>EntepriseAddress </th>
+                <th>Rating </th>
+                <th>BusinessPhoneNumber </th>
+                <th>Status </th>
+                <th>BRCNumber </th>
+                <th>Category </th>
+                <th>Currency </th>
+                <th>Country </th>
+                <th>Region </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>EnterpriseId </th>
+                <th>EnterpriseTypeId </th>
+                <th>EnterpriseName </th>
+                <th>EntepriseAddress </th>
+                <th>Rating </th>
+                <th>BusinessPhoneNumber </th>
+                <th>Status </th>
+                <th>BRCNumber </th>
+                <th>Category </th>
+                <th>Currency </th>
+                <th>Country </th>
+                <th>Region </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="col-md-12 panel sub-content-panel">
+    <table id="services-of-enterprise-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ServiceId</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+@section script{
+    <script>
+
+         //Initiate Services in enterprise DT
+        var servicesOfEnterprise = initiateTable1("services-of-enterprise-table",
+            {
+                "bLengthChange": false, "columns": [
+                    { "data": "ServiceId" },
+                    { "data": "Type" },
+                    { "data": "Status" },
+                ],
+                "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        }
+                ],
+                "sDom": "t"
+            },
+            function () { },
+            function () { }
+            );
+
+
+        // Initiated Enterprise DT
+        var onEnterpriseSelection = function () {
+            var id = getTableSelectedRowKey($("#enterprises-table"));
+            updateTableFromApi(servicesOfEnterprise, "../../api/Enterprises/GetServicesOfEnterprise/" + id, function () { });
+        }
+
+        var enterprisesTable = initiateTable1("enterprises-table",
+            {
+                "bLengthChange": false,
+                 "columns": [
+                { "data": "EnterpriseId" },
+                { "data": "EnterpriseTypeId" },
+                { "data": "EnterpriseName" },
+                { "data": "EntepriseAddress" },
+                { "data": "Rating" },
+                { "data": "BusinessPhoneNumber" },
+                { "data": "Status" },
+                { "data": "BRCNumber" },
+                { "data": "Category" },
+                { "data": "Currency" },
+                { "data": "Country" },
+                { "data": "Region" }
+                 ],
+                 fullreport: true,
+                 reportname : "Enterprises"
+            }
+            , onEnterpriseSelection, function () {
+                //specificationsInEnterprise.clear().draw(false);
+            });
+        
+
+        // Update Enterprises DT from API
+        updateTableFromApi(enterprisesTable, "../../api/Enterprises/GetEnterprises", onEnterpriseSelection);
+
+        $(".navigation-help").html("Enterprises / All Enterprises");
+
+
+    </script>
+}

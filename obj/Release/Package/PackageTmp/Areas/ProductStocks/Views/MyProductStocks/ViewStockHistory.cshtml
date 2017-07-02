@@ -1,0 +1,93 @@
+﻿@{
+    ViewBag.Title = "Stock History";   
+}
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <!-- This content goes into index.cshtml-->
+</section>
+<!-- Main content -->
+<section class="content">
+        <div class="col-md-12">
+            <table id="product-stocks-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ProductStockId</th>
+                        <th>OrderId</th>
+                        <th>RecievedDate</th>
+                        <th>ApplicationUserId</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th>ProductStockId</th>
+                        <th>OrderId</th>
+                        <th>RecievedDate</th>
+                        <th>ApplicationUserId</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    <div class="col-md-12">
+        <div class="col-md-6 well">
+            <table id="products-in-stock-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ProductInProductStockId</th>
+                        <th>ProductId</th>
+                        <th>ProductStockId</th>
+                        <th>QuantityRecieved</th>
+                        <th>QuantityDispatched</th>
+                        <th>Cost</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+<script>
+
+    // initiate the products in stock table
+    var productsInStockTable = $("#products-in-stock-table").DataTable(
+        {
+            "bFilter": false,
+            "bInfo": false,
+            "columns": [
+            { "data": "ProductInProductStockId" },
+            { "data": "ProductId" },
+            { "data": "ProductStockId" },
+            { "data": "QuantityRecieved" },
+            { "data": "QuantityDispatched" },
+            { "data": "Cost" },
+            { "data": "Remarks" }
+                        ]
+        }
+        );
+    
+
+    // Initiate the product stocks table
+    var onProductStockSelection = function () {
+        var id = getTableSelectedRowKey($("#product-stocks-table"));
+
+        updateTableFromApi(productsInStockTable, "../../api/ProductStocks/GetProductsInStock/" + id, function () { });
+    }
+
+    var productStocksTable = $("#product-stocks-table").DataTable(
+        {
+            "columns": [
+            { "data": "ProductStockId" },
+            { "data": "OrderId" },
+            { "data": "RecievedDate" },
+            { "data": "ApplicationUserId" }
+                ]
+        }, onProductStockSelection
+        );
+
+    updateTableFromApi(productStocksTable, "../../api/ProductStocks/GetProductStocks", onProductStockSelection);
+
+</script>
+}

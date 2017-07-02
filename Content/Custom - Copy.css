@@ -1,0 +1,147 @@
+﻿/* Start by setting display:none to make this hidden.
+   Then we position it in relation to the viewport window
+   with position:fixed. Width, height, top and left speak
+   for themselves. Background we set to 80% white with
+   our animation centered, and no-repeating */
+/*.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('http://i.stack.imgur.com/FhHRx.gif') 
+                50% 50% 
+                no-repeat;
+}*/
+
+
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+}
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden
+    // content-wrapper
+*/
+content.loading { 
+    overflow: hidden;   
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+content.loading.modal {
+    display: block;
+}
+
+.custom-content-wrapper {
+overflow: hidden ;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background:#3498db;
+}
+
+.cs-loader {
+  /*position: absolute;*/
+  position:fixed;
+    top: 50%;
+    left: 50%;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cs-loader-inner {
+  transform: translateY(-50%);
+  top: 50%;
+  position: absolute;
+  width: calc(100% - 200px);
+  color: #FFF;
+  padding: 0 100px;
+  text-align: center;
+}
+
+.cs-loader-inner label {
+  font-size: 20px;
+  opacity: 0;
+  display:inline-block;
+}
+
+@keyframes lol {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  33% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  66% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+}
+
+@-webkit-keyframes lol {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-300px);
+  }
+  33% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  66% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(300px);
+  }
+}
+
+.cs-loader-inner label:nth-child(6) {
+  -webkit-animation: lol 3s infinite ease-in-out;
+  animation: lol 3s infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(5) {
+  -webkit-animation: lol 3s 100ms infinite ease-in-out;
+  animation: lol 3s 100ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(4) {
+  -webkit-animation: lol 3s 200ms infinite ease-in-out;
+  animation: lol 3s 200ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(3) {
+  -webkit-animation: lol 3s 300ms infinite ease-in-out;
+  animation: lol 3s 300ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(2) {
+  -webkit-animation: lol 3s 400ms infinite ease-in-out;
+  animation: lol 3s 400ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(1) {
+  -webkit-animation: lol 3s 500ms infinite ease-in-out;
+  animation: lol 3s 500ms infinite ease-in-out;
+}

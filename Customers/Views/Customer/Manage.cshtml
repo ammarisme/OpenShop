@@ -1,0 +1,51 @@
+﻿@model ETrading.Models.ManageCustomerViewModel
+@{
+    ViewBag.Title = "View profile";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@* User Creation Form *@
+<div class="col-md-6 col-sm-12" id="user-registration-forms">
+    <form action="Edit" id="wholesaler-form" method="POST" class="well">
+        <div id="name-group" class="form-group">
+            <fieldset disabled>
+            @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+            <label for="name">FirstName</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+
+            <label for="name">LastName</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+
+            <label for="name">City</label>
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+
+            <label for="name">BillingAddress</label>
+            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+
+            <label for="name">PhoneNumber</label>
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+            <br>
+            <input type="submit" class="btn btn-success" value="Edit Profile" />
+            </fieldset>
+        </div>
+    </form>
+    <input type="checkbox" id="edit-enable-checkbox">Enable Editing profile</input>
+</div>
+
+@section Scripts 
+    {
+    <script>
+        $("#edit-enable-checkbox").change(function () {
+            if ($(this).is(':checked')){
+                $("fieldset").removeAttr("disabled");
+            } else {
+                $("fieldset").attr("disabled", "");
+            }
+        });
+    </script>
+    }

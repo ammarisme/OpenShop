@@ -1,0 +1,146 @@
+﻿@{
+    ViewBag.title = "Create Product";
+}
+
+<h5>@ViewBag.title</h5>
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#general-info" data-toggle="tab">General Info</a></li>
+    <li class=""><a href="#specifications" data-toggle="tab">Specifications</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="specifications">
+        <div class="row">
+            <div class="col-md-4  panel">
+                <h5>Add Specifications to the Product</h5>
+                <form action="no-implemetation" id="create-specification-in-product-form" method="POST">
+                    <div id="name-group" class="form-group">
+                        @*public string Specification { get; set; }*@
+                        <label for="name" class="custom-label">Specification</label>
+                        <input type="text" class="form-control custom-text-box" name="Specification" placeholder="eg: - Name">
+                    </div>
+                    <div id="name-group" class="form-group">
+                        @*public string Value { get; set; }*@
+                        <label for="name" class="custom-label">Value</label>
+                        <input type="text" class="form-control custom-text-box" name="Value" placeholder="eg :- red, 1.2 , 1">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-raised">Add Specification<span class="fa fa-arrow-down"></span></button>
+                    <button type="button" class="btn btn-default btn-raised" id="removeSpecification">Remove Specification<span class="fa fa-arrow-right"></span></button>
+                </form>
+            </div>
+
+            <div class="panel col-md-pull-6 ">
+                <table id="specifications-in-product-table" class="table table-striped table-hover" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Specification</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Specification</th>
+                            <th>Value</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade active in" id="general-info">
+        <div class="col-md-5  panel  sub-content-panel">
+            <form action="no-implementation" id="create-product-form" method="POST">
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Product Name</label>
+                    <input type="text" name="ProductName" class="form-control custom-text-box">
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Unit </label>
+                    <input type="text" name="Unit" class="form-control custom-text-box">
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">RetailPrice </label>
+                    <input type="text" name="RetailPrice" class="form-control custom-text-box">
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">ShortDescription</label>
+                    <input type="text" name="ShortDescription" class="form-control custom-text-box">
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">WholesalePrice  (Currency : LKR)</label>
+                    <input type="number" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" name="WholesalePrice" class="form-control custom-text-box" />
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">StockQuantity   (Currency : LKR)</label>
+                    <input type="number" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" name="StockQuantity" class="form-control custom-text-box" />
+                </div>
+            </form>
+            <button class="btn btn-primary btn-raised" id="create-product-button">Create Product</button>
+        </div>
+        <div class="col-md-6 panel sub-content-panel">
+            <h5>Add images</h5>
+            <form action="/file-upload"
+                  class="dropzone"
+                  id="my-awesome-dropzone"></form>
+        </div>
+    </div>
+</div>
+
+
+
+@section script{
+    <script src="~/Scripts/dropzone.js"></script>
+    <script>
+        /// Initiating the specifications-in-materials-table
+        var specificationsInProductTable = initiateTable("specifications-in-product-table", {
+            "columns": [
+                    { "data": "Specification" },
+                    { "data": "Value" }
+            ],
+            "sDom": "t"
+        }); // initiating the table with all the defauls features loaded in this function
+
+        $("#removeSpecification").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#specifications-in-product-table"));
+            specificationsInProductTable.row(selectedRowIndex).remove().draw(false);
+        }); //can be used commonly with as a table removal button
+
+        var onCompletion = function () { }; // a dummy functio
+
+        //  Linking the specifications table to specifications form
+        syncFormWithTable("create-specification-in-product-form", specificationsInProductTable, "Specification", onCompletion, onCompletion); // connecting the table with the form
+
+
+        // sending the final object
+
+        $("#" + "create-product-button").on('click', function (event) {
+            onCompletion(); // before submission
+            var submitData = {}; // the data that will be sent using ajax
+
+            var specificationsInProduct = getTableData(specificationsInProductTable); // the table that will be attached to the data
+
+            specificationsInProductTable.clear().draw(false);
+
+            submitData = getFormValues("create-product-form");
+
+            submitData["SpecificationsInProduct"] = specificationsInProduct; // adding the materials in datatable
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/Products/AddProduct",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    onCompletion();
+                }
+            });
+
+            event.preventDefault();
+        });
+
+    </script>
+}

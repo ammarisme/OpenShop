@@ -1,0 +1,84 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header"></section>
+<!-- Main content -->
+<section class="content">
+    <div class="col-md-12">
+        <table id="purchase-orders-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>PurchaseOrderId</th>
+                    <th>VendorId</th>
+                    <th>CreatedTime </th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>PurchaseOrderId</th>
+                    <th>VendorId</th>
+                    <th>CreatedTime </th>
+                    <th>Status</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <table id="materials-in-purchase-order-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>MaterialInPurchaseOrderId</th>
+                    <th>PurchaseOrderId</th>
+                    <th>MaterialId</th>
+                    <th>PurchaseOrderId</th>
+                    <th>Quantity</th>
+                    <th>UnitCost</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+<!-- /.content -->
+<script>
+    viewControllerRoute = "../Materials/ViewPurchaseOrders";
+
+    // initiating the materials table
+
+    var PurchaseOrdersTable = $("#purchase-orders-table").DataTable({
+        "columns": [
+            { "data": "PurchaseOrderId" },
+            { "data": "VendorId" },
+            { "data": "CreatedTime" },
+            { "data": "Status" }
+        ]
+    });
+    var materialsInPurchaseOrderTable = $("#materials-in-purchase-order-table").DataTable({
+        "bFilter": false,
+        "bInfo": false,
+        "columns": [
+            
+            { "data": "MaterialInPurchaseOrderId" },
+            { "data": "PurchaseOrderId" },
+            { "data": "MaterialId" },
+            { "data": "Quantity" },
+            { "data": "UnitCost" },
+            { "data": "Description" }
+        ]
+    });// specifications table
+
+    //update materials table
+    var purchaseOrderSelected = function () {
+        var id = getTableSelectedRowKey($("#purchase-orders-table"));
+
+        updateTableFromApi(materialsInPurchaseOrderTable, "../api/PurchaseOrders/GetMaterialsOfPurchaseOrder/" + id, function () { });
+    }//set to update the specifications table
+
+    updateTableFromApi(PurchaseOrdersTable, "../api/PurchaseOrders/GetPurchaseOrders", purchaseOrderSelected);
+</script>
+

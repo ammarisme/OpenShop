@@ -1,0 +1,236 @@
+﻿.items {
+
+    }
+.item {
+    width : 250px ;
+    list-style-type : none ;
+    margin : 5px ;
+}
+.custom-panel{
+    margin:5px ;
+}
+.item img {
+}
+
+.item .panel-heading{
+    background-color : white !important;
+}
+
+.shopping-cart {
+ padding-top : 5px !important ;
+ padding-bottom : 5px !important;   
+}
+
+        .custom-navbar-links {
+        padding-top : 10px !important ;
+        padding-bottom : 10px !important ;
+        }
+.shopping-cart i {
+            display: inline-block;
+    background: url('http://cdn1.iconfinder.com/data/icons/jigsoar-icons/24/_cart.png') no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+        }
+.item .description{
+
+}
+
+.item .price{
+    font-weight: bold;
+    display: inline-block;
+    background-color: lightgreen;
+    float: right;
+    font-size: large;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.item .discounted-price{
+    text-decoration : line-through;
+}
+.clear {
+    clear: both;
+}
+.items-panel{
+    margin-top: 60px !important;
+}
+
+.items-panel .panel-heading{
+    background-color : #fdfdfd !important;
+}
+
+.custom-navbar{
+ box-shadow:  0 0 0 1px rgba(0,0,0,0.20), 0 5px 10px rgba(0,0,0,0.22)
+}
+
+.add-to-cart {
+    width : 45% ;
+    float : right;
+    white-space:normal ;
+    padding:5px ;
+}
+.add-to-retail-cart {
+    width : 90% ;
+    float : right;
+    white-space:normal ;
+    padding:5px ;
+}
+.add-to-quote{
+    width: 45%;
+    float : left;
+    white-space:normal ;
+    padding:5px ;
+}
+
+.content-panel{
+    margin-top: 60px !important;
+}
+
+.content-panel .panel-heading{
+    background-color : #fdfdfd !important;
+}
+
+.sub-content-panel{
+    margin : 5px !important ;
+}
+
+.treeview:hover li > a {
+    background-color: beige;
+}
+.treeview:hover a {
+    text-decoration: none;
+    background-color: grey;
+}
+.treeview:hover .treeview-menu {
+    display: block;
+}
+.treeview {
+    display: block;
+}
+.treeview:hover ul {
+    display: block;
+}
+.treeview ul {
+    display: none;
+}
+.custom-side-nav{
+    margin-top : 60px ;
+}
+
+.custom-label {
+    color: black !important;
+}
+
+.custom-text-box{
+    background-color: #eee !important;
+}
+ li.active{
+     background-color : black;
+ }
+
+ 
+ form#my-awesome-dropzone {
+    margin: 10px;
+    height: 200px;
+    background-color: #eee;
+    border: 2px dashed blue;
+}
+
+
+ /*from code pen*/
+.cs-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index:  100;
+  opacity : 0.8 ;
+  background-color : #eee ;
+
+}
+
+.cs-loader-inner {
+  transform: translateY(-50%);
+  top: 50%;
+  position: absolute;
+  width: calc(100% - 200px);
+  padding: 0 100px;
+  text-align: center;
+}
+
+.cs-loader-inner label {
+  font-size: 20px;
+  opacity: 0;
+  display:inline-block;
+  color : black ;
+}
+
+@keyframes lol {
+  0% {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
+  33% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  66% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(300px);
+  }
+}
+
+@-webkit-keyframes lol {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-300px);
+  }
+  33% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  66% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(300px);
+  }
+}
+
+.cs-loader-inner label:nth-child(6) {
+  -webkit-animation: lol 3s infinite ease-in-out;
+  animation: lol 3s infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(5) {
+  -webkit-animation: lol 3s 100ms infinite ease-in-out;
+  animation: lol 3s 100ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(4) {
+  -webkit-animation: lol 3s 200ms infinite ease-in-out;
+  animation: lol 3s 200ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(3) {
+  -webkit-animation: lol 3s 300ms infinite ease-in-out;
+  animation: lol 3s 300ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(2) {
+  -webkit-animation: lol 3s 400ms infinite ease-in-out;
+  animation: lol 3s 400ms infinite ease-in-out;
+}
+
+.cs-loader-inner label:nth-child(1) {
+  -webkit-animation: lol 3s 500ms infinite ease-in-out;
+  animation: lol 3s 500ms infinite ease-in-out;
+}
+/**/

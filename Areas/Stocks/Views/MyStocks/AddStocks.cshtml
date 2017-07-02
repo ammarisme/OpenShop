@@ -1,0 +1,185 @@
+﻿@using RetailTradingPortal.Models
+@using RetailTradingPortal.Areas.Stocks.Models
+@model CreateProductStocksViewModel
+@{
+    ViewBag.title = "Add Stock recieved";
+}
+<title>@ViewBag.title</title> <h5>@ViewBag.title</h5>
+
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#products" data-toggle="tab">Products in recieved Stock</a></li>
+    <li class=""><a href="#general-information" data-toggle="tab">General Informtion</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="products">
+        <div class="row">
+            <div class="col-md-4 panel custom-panel">
+                <h5>Add Product(s) to Stocks</h5>
+                <form action="no-implemetation" id="products-in-Stocks-form" method="POST">
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Product</label>
+                        @Html.DropDownListFor(m => m.ProductId,
+                                  new SelectList(Model.ProductId,
+                               "ProductId", "ProductName",
+                                        Model.ProductId.First().ProductId), new { @class = "form-control custom-text-box  custom-label", id = "ProductName" })
+                    </div>
+                    @*public float QuantityRecieved { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Quantity Recieved</label>
+                        <input type="number" min="0" step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');" class="form-control custom-text-box " name="QuantityRecieved" required>
+                    </div>
+                    @*public float QuantityDispatched { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label" >Quantity Dispatched</label>
+                        <input type="number" min="0" step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');"   class="form-control custom-text-box  " name="QuantityDispatched">
+                    </div>
+                    @*public float Cost { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Unit Cost</label>
+                        <input type="number"  min="0" step="0.01" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" class="form-control custom-text-box " name="Cost" required>
+                    </div>
+                    @*public string Remarks { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Remarks</label>
+                        <input type="text"  class="form-control custom-text-box materialize-textarea" name="Remarks" >
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-raised">Add Product<span class="fa fa-arrow-down"></span></button>
+                </form>
+                    <button type="button" class="btn btn-default btn-raised" id="removeProduct">Remove Product<span class="fa fa-arrow-right"></span></button>
+            </div>
+            <div class="col-md-7 panel sub-content-panel">
+                <table id="products-in-Stocks-table" class="table table-hover display table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Product Id</th>
+                            <th>Material Name</th>
+                            <th>Quantity Recieved</th>
+                            <th>Quantity Dispatched</th>
+                            <th>Cost</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                    </tfoot>
+                </table>
+            </div>
+            <button class="btn btn-primary btn-raised" id="add-Stocks-button">Complete</button>
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade" id="general-information">
+        <div class="row">
+            <div class="panel custom-panel">
+                <form action="no-implementation" id="product-Stocks-form" method="POST">
+                    @*public string RecievedDate { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="name">RecievedDate</label>
+                        <input type="date" name="RecievedDate" class="form-control custom-text-box " required>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        // PRODUCTS IN STOCK TABLE
+
+        // update the form
+        var productForm = $("#products-in-Stocks-form");
+
+        var productSelected = function () {    
+            var tableIndex = getTableSelectedRowIndex($("#products-in-Stocks-table"));
+            var ProductData = productsInStocksTable.row(tableIndex).data();
+            setFormValues(productForm, ProductData);
+
+            // select the product
+            //$('#ProductName option[selected=selected]').removeAttr("selected");
+            //$("#ProductName option[value='" + getTableSelectedRowKey($("#products-in-Stocks-table")) + "']").attr("selected", "true");
+            $('#ProductName').val(getTableSelectedRowKey($("#products-in-Stocks-table")));
+            //$("#ProductName option[value='" + getTableSelectedRowKey($("#products-in-Stocks-table")) + "']").attr("selected", "true");
+        }
+
+        var productUnselected = function () {
+
+        }
+        /// Initiating the products-in-Stocks-table
+        var productsInStocksTable = initiateTable1("products-in-Stocks-table", {
+            "bLengthChange": false, "columns": [
+            { "data": "ProductId" },
+            { "data": "ProductName" },
+            { "data": "QuantityRecieved" },
+            { "data": "QuantityDispatched" },
+            { "data": "Cost" },
+            { "data": "Remarks" }
+            ],
+            "sDom": "t"
+        }
+            , productSelected , productUnselected
+        );
+
+        $("#removeProduct").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#products-in-Stocks-table"));
+            productsInStocksTable.row(selectedRowIndex).remove().draw(false);
+        }); //can be used commonly with as a table removal button
+
+        //  Linking the the table and form
+        syncFormWithTable("products-in-Stocks-form", productsInStocksTable, "ProductId", function () { }, function () { }); // connecting the table with the form
+
+
+
+        // sending the final object
+        $("#" + "add-Stocks-button").on('click', function (event) {
+            
+            var valid = true;// to keep track of the validity
+            var errorMessage = "";
+            //check if the stock information table is correct
+            if (!$("#product-Stocks-form")[0].checkValidity()) {
+                valid = false;
+                errorMessage = errorMessage + "Recieved Date is required";
+                
+            }
+
+            var submitData = {}; // the data that will be sent using ajax
+
+            var productsInStocksData = getTableData(productsInStocksTable); // the table that will be attached to the data
+            
+            if (Object.keys(productsInStocksData).length === 0 && productsInStocksData.constructor === Object) {
+                valid = false;
+                errorMessage = errorMessage + "</br>No Products found in the new Stock";
+            }
+            
+            if (!valid) {
+                showModalMessage("Errors detected", errorMessage);
+                return;
+            }
+
+            productsInStocksTable.clear().draw(false);
+
+            submitData = getFormValues("product-Stocks-form");
+
+            submitData["ProductsInStocks"] = productsInStocksData; // adding the materials in datatable
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/Stocks/AddStocks",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                statusCode: {
+                    201: function (data) {
+                        showModalMessage("Stock Added", 'You can view current stock from <a withpjax="with-ajax" data-pjax=".content-panel" href="/Stocks/MyStocks/ViewCurrentStock">here</a>');
+                    }
+                }
+            });
+
+            event.preventDefault();
+        });
+    </script>
+}

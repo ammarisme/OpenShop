@@ -1,0 +1,75 @@
+﻿<script>
+
+    $.material.init();
+
+    $("#dropdown-menu select").dropdown();
+    $("#Cart").on('click', function (event) {
+        $("#CartModal").modal('show');
+
+        $("#cart-products tbody").children().remove();
+        cart = JSON.parse(localStorage.getItem('cart'));
+
+        // check if the product already exist
+        for (var i = 0; i < cart["products"].length ; i++) {
+            $("#cart-products tbody").append("<tr><td>" + cart['products']["" + i + ""]["name"] + "</td><td>" + cart["products"]["" + i + ""]["quantity"] + "</td><td>x</td> </tr>");
+
+        }
+        event.preventDefault();
+    });
+    $("#LoginRegister").on('click', function (event) {
+        $("#LoginRegisterModal").modal('show');
+        event.preventDefault();
+    });
+
+
+    $("#Quote").on('click', function (event) {
+        
+        $("#QuoteModal").modal('show');
+        if (localStorage.getItem("Quotation")) {
+        var Quotation = getLocalStorageData("Quotation");
+        
+            // clear tables
+        $("#quotation-tables").children().remove();
+            // loop through wholesalers,
+        for (var wholesaler in Quotation) {
+            // create a table
+            var table ="";
+            table = '<table class="table table-striped table-hover"  id="'+wholesaler+'"><thead><tr><th>ProductId</th><th>ProductName</th><th>Quantity</th><th>UnitPrice</th></tr></thead>';
+            table = table + '<tbody>';
+
+            // loop through products in quotation and add rows
+            for (var product in Quotation[wholesaler]["ProductsInQuotation"]) {
+                table = table + "<tr><td>" + Quotation[wholesaler]["ProductsInQuotation"][product]["ProductId"] + "</td><td>" + Quotation[wholesaler]["ProductsInQuotation"][product]["ProductName"] + "</td><td>" + Quotation[wholesaler]["ProductsInQuotation"][product]["Quantity"] + "</td><td>" + Quotation[wholesaler]["ProductsInQuotation"][product]["UnitPrice"] + "<td></tr>";
+            }
+
+            table = table + '</tbody></table>'
+            $("#quotation-tables").append(table);
+            $("#quotation-tables").append('<a class="btn btn-primary" href="/WholesalePortal/Quotation/RequestQuote?id='+wholesaler+'">Request Quotation</a>');
+            $("#quotation-tables").append('<a class="btn btn-primary" id="resetQuote">Reset</a>');
+            
+        }
+
+        } else {
+            // empty quotation
+        }
+
+
+        //$("#quote-products tbody").children().remove();
+        //cart = JSON.parse(localStorage.getItem('ProductsInQuotation'));
+
+        //// check if the product already exist
+        //for (var i = 0; i < cart.length ; i++) {
+        //    $("#quote-products tbody").append("<tr><td>" + cart["" + i + ""]["ProductName"]+"</td><td>" + cart["" + i + ""]["Quantity"] + "</td><td>"+cart["" + i + ""]["UnitPrice"]+"</td> </tr>");
+
+        //}
+        event.preventDefault();
+    });
+
+    $("#resetQuote").on('click', function (event) {
+        $("#quote-products tbody").children().remove();
+        
+        localStorage.removeItem('ProductsInQuotation')
+        event.preventDefault();
+    });
+
+</script>

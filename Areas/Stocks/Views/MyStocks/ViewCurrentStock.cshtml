@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.title = "Current Stock level";
+}
+<title>@ViewBag.title</title> 
+<div class="col-md-12 panel sub-content-panel">
+    <h5>@ViewBag.title</h5>
+    <table id="products-table" class="display table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+            </tr>
+        </tfoot>
+    </table>    
+</div>
+
+
+@section script{
+    <script>
+        // Initiated Product DT
+        var onProductSelection = function () {
+            //var id = getTableSelectedRowKey($("#products-table"));
+            //updateTableFromApi(specificationsInProduct, "../../api/Products/GetSpecificationsInProduct/" + id, function () { });
+        }
+
+        var stocksTable = initiateTable1("products-table", 
+            {
+                "bLengthChange": false, "columns": [
+                        { "data": "ProductId" },
+                        { "data": "ProductName" },
+                        { "data": "StocksQuantity" },
+                ],
+                fullreport: true,
+                reportname : "Product"
+            }
+            , onProductSelection, function () { });
+        
+        // Update Stocks DT from API
+        updateTableFromApi(stocksTable, "../../api/Stocks/GetStocks", onProductSelection);
+
+        $(".navigation-help").html("My Stocks / View Current Stock");
+    </script>
+}

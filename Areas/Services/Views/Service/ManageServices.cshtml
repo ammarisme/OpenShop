@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.title = "Manage Services";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="col-md-12 panel sub-content-panel">
+    <table id="services-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ServiceId</th>
+                <th>Type</th>
+                <th>Uri</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+<div class="panel sub-content-panel col-md-6 pull-left " style="white-space:nowrap">
+    <h6>Add Service</h6>
+    <form action="no-implementation" class="col-md-12" id="add-service-form" method="POST">
+        <div id="name-group" class="form-group">
+            @* Name of the Service *@
+            <label for="name" class="custom-label">Service Name</label>
+            <input type="text" class="form-control custom-text-box" pattern="[a-zA-Z0-9\s]+" title="Service Name must not be null and must be lesser than 12 characters in length. Also must only contain alphabetic letters." name="Type" placeholder="eg: - Retail Portal">
+        </div>
+        <div id="name-group" class="form-group">
+            @* Name of the Service *@
+            <label for="name" class="custom-label">Service Uri</label>
+            <input type="text" class="form-control custom-text-box" pattern="(^(\bhttp)(|s):\/{2})(?=[a-z0-9-_.]{1,255})\.([a-z]{3,7})" title="URL must star with a 'http://' or 'https://'" name="Uri" placeholder="eg: - https://google.com">
+        </div>
+        <input type="submit" class="btn btn-default" value="Add Service" />
+    </form>
+</div>
+<div class="panel sub-content-panel col-md-6  pull-right" style="white-space:nowrap">
+    <h6>Update Service</h6>
+    <form action="no-implementation" class="col-md-12" id="update-service-form" method="POST">
+        <div id="name-group" class="form-group">
+            @* Name of the Service *@
+            <label for="name" class="custom-label">Service Name</label>
+            <input type="text" class="form-control custom-text-box" pattern="[a-zA-Z0-9\s]+" title="Service Name must not be null and must be lesser than 12 characters in length. Also must only contain alphabetic letters." name="Type" placeholder="eg: - Retail Portal">
+        </div>
+        <div id="name-group" class="form-group">
+            @* Name of the Service *@
+            <label for="name" class="custom-label">Service Uri</label>
+            <input type="url" pattern="https?://.+" required class="form-control custom-text-box" title="URL must star with a 'http://' or 'https://'" name="Uri" placeholder="eg: - https://google.com">
+        </div>
+        <button type="submit" class="btn btn-update " >Update Service</button>
+    </form>
+</div>
+@*<div class="col-md-12 panel sub-content-panel">
+        <table id="services-of-enterprise-table" class="display table table-hover table-striped" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ServiceId</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>*@
+
+
+@section script{
+    <script>
+
+        //Initiate Services in enterprise DT
+        //var servicesOfEnterprise = initiateTable1("services-of-enterprise-table",
+        //    {
+        //        "bLengthChange": false, "columns": [
+        //            { "data": "ServiceId" },
+        //            { "data": "Type" },
+        //            { "data": "Status" },
+        //        ],
+        //        "columnDefs": [
+        //                {
+        //                    "targets": [0],
+        //                    "visible": false,
+        //                    "searchable": false
+        //                }
+        //        ],
+        //        "sDom": "t"
+        //    },
+        //    function () { },
+        //    function () { }
+        //    );
+
+
+        // Initiated Enterprise DT
+        var enterpriseForm = $("#update-service-form");
+
+        var onEnterpriseSelection = function () {
+            var tableIndex = getTableSelectedRowIndex($("#services-table"));
+            var ProductData = servicesTable.row(tableIndex).data();
+            setFormValues(enterpriseForm, ProductData);
+        }
+
+        var servicesTable = initiateTable1("services-table",
+            {
+                "paging" : false ,
+                "bLengthChange": false,
+                "columns": [
+               { "data": "ServiceId" },
+               { "data": "Type" },
+               { "data": "Uri" },
+                ]
+            }
+            , onEnterpriseSelection, function () {
+                //specificationsInEnterprise.clear().draw(false);
+            });
+
+
+        // Update Services DT from API
+        updateTableFromApi(servicesTable, "../../api/Services/GetServices", onEnterpriseSelection);
+
+        $("#update-service-form").on('submit', function (event) {
+            if (getTableSelectedRowKey($("#services-table")) == null) {
+                showModalMessage("Not enough inputs", "Please select a service to update.");
+            }
+            if (!$(this)[0].checkValidity()) {
+                document.forms["update-service-form"].reportValidity();
+                return;
+            }
+
+            var serviceId = getTableSelectedRowKey($("#services-table"));
+            var data = getFormValues("update-service-form");
+            data.ServiceId = serviceId;
+
+            sendObjectToServer('../../api/Services/UpdateService', data, function () {
+                showModalMessage("Service Updated!", "");
+            }, function () {
+                showModalMessage("Operation failed", "Please contact support");
+            });
+
+            event.preventDefault();
+
+        });
+
+        $("#add-service-form").on('submit', function (event) {
+            if (!$(this)[0].checkValidity()) {
+                document.forms["add-service-form"].reportValidity();
+                return;
+            }
+            
+
+            var data = getFormValues("add-service-form");
+            
+
+            sendObjectToServer('../../api/Services/AddService', data, function () {
+                showModalMessage("Service Added!", "");
+            }, function () {
+                showModalMessage("Operation failed", "Please contact support");
+            });
+
+            event.preventDefault();
+
+        });
+
+        $(".navigation-help").html("Services / All Services");
+
+
+    </script>
+}

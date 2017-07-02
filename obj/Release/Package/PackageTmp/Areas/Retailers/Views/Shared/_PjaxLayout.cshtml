@@ -1,0 +1,14 @@
+﻿    <!-- Body -->
+        @RenderBody()
+
+
+        @if (IsSectionDefined("script"))
+        {
+            @RenderSection("script");
+        }
+        else
+        {
+            @Html.Partial("retailer_default_script");
+        }
+    
+

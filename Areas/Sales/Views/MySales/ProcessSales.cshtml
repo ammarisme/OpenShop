@@ -1,0 +1,175 @@
+﻿@using RetailTradingPortal.Areas.Sales.Models
+@model ProcessSalesViewModel
+@{
+    ViewBag.title = "Process Sales";
+}
+<title>@ViewBag.title</title> 
+
+<div class="col-md-12 panel sub-content-panel">
+    <h5>@ViewBag.title</h5>
+    <table id="sales-table" class="display table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Sale Id</th>
+                <th>Date of Sale</th>
+                <th>Sale Due Date</th>
+                <th>Sale Status</th>
+                <th>Customer</th>
+                <th>Delivered Date</th>
+                <th>Delivery Status</th>
+                <th>Delivery Mode</th>
+                <th>Payment Method</th>
+                <th>Payment Duration</th>
+                <th>Remark</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var retailsale in Model.RetailSales){
+                <tr>
+                    <td>@retailsale.OrderId</td>
+                    <td>@retailsale.OrderDate</td>
+                    <td>@retailsale.OrderDueDate</td>
+                    <td>@retailsale.OrderStatus</td>
+                    <td>@retailsale.CustomerId</td>
+                    <td>@retailsale.DeliveredDate</td>
+                    <td>@retailsale.DeliveryStatus</td>
+                    <td>@retailsale.DeliveryMode</td>
+                    <td>@retailsale.PaymentMethod</td>
+                    <td>@retailsale.PaymentDuration</td>
+                    <td>@retailsale.Remark</td>
+                    <td>Retail</td>
+                </tr>
+            }
+            @foreach (var wholesalesale in Model.WholesaleSales)
+            {
+                <tr>
+                    <td>@wholesalesale.OrderId</td>
+                    <td>@wholesalesale.OrderDate</td>
+                    <td>@wholesalesale.OrderDueDate</td>
+                    <td>@wholesalesale.OrderStatus</td>
+                    <td>@wholesalesale.EnterpriseId</td>
+                    <td>@wholesalesale.DeliveredDate</td>
+                    <td>@wholesalesale.DeliveryStatus</td>
+                    <td>@wholesalesale.DeliveryMode</td>
+                    <td>@wholesalesale.PaymentMethod</td>
+                    <td>@wholesalesale.PaymentDuration</td>
+                    <td>@wholesalesale.Remark</td>
+                    <td>Wholesale</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Sale Id</th>
+                <th>Date of Sale</th>
+                <th>Sale Due Date</th>
+                <th>Sale Status</th>
+                <th>Customer</th>
+                <th>Delivered Date</th>
+                <th>Delivery Status</th>
+                <th>Delivery Mode</th>
+                <th>Payment Method</th>
+                <th>Payment Duration</th>
+                <th>Remark</th>
+                <th>Type</th>
+            </tr>
+        </tfoot> 
+    </table>
+</div>
+
+<div class="col-md-12 panel sub-content-panel" id="process-buttons">
+    
+    <button class="btn btn-update btn-raised" id="sales-return-button" disabled>Sale Returned</button>
+    <button class="btn btn-update btn-raised" id="sales-completed-button" disabled>Sale Completed</button>
+    
+
+</div>
+
+
+@section script{
+    <script>
+        // Initiated Sale DT
+        var orderId;
+        var onSaleSelection = function () {
+            $("#process-buttons").children().each(function () {
+            $(this).removeAttr("disabled");
+            });
+            orderId = getTableSelectedRowKey($("#sales-table"));
+        }
+        var onSaleUnselection = function () {
+            $("#process-buttons").children().each(function () {
+                $(this).attr("disabled", "true");
+            });
+            orderId = null;
+        }
+
+        var salesTable = initiateTable1("sales-table",
+            {
+                "bLengthChange": false, "columns": [
+                { "data": "OrderId" },
+                        { "data": "OrderDate" },
+                        { "data": "OrderDueDate" },
+                        { "data": "OrderStatus" },
+                        { "data": "CustomerFullName" },
+                        { "data": "DeliveredDate" },
+                        { "data": "DeliveryStatus" },
+                        { "data": "DeliveryMode" },
+                        { "data": "PaymentMethod" },
+                        { "data": "PaymentDuration" },
+                        { "data": "Remark" },
+                        { "data": "Type" }
+                ],
+                fullreport : true
+            }
+            , onSaleSelection, onSaleUnselection);
+
+        // Update Sales DT from API
+        //updateTableFromApi(salesTable, "../../api/Sales/GetSales", onSaleSelection);
+
+        //change sales status to return
+        $("#sales-return-button").on('click', function () {
+
+            var apiUrl = "../../api/Sales/ChangeSaleStatus";
+            
+            var data = {
+                OrderId: orderId ,
+                Status: "Returned"
+            };
+            var onSuccess = function () { console.log("success") }
+            var onFailure = function () { console.log("failure") }
+
+            $.ajax({
+                type: 'post',
+                url: apiUrl,
+                data: JSON.stringify(data), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (response) {
+                    onSuccess();
+                },
+                error: function (response) {
+                    onFailure();
+                }
+                    }
+                        );
+        });
+
+        $("#sales-completed-button").on('click', function () {
+
+            var apiUrl = "../../api/Sales/ChangeSaleStatus";
+
+            var data = {
+                OrderId: orderId,
+                Status: "Completed"
+            };
+            var onSuccess = function () { console.log("success") }
+            var onFailure = function () { console.log("failure") }
+
+            sendObjectToServer(apiUrl, data, onSuccess, onFailure)
+        });
+
+        $(".navigation-help").html("My Sales / Process Sales");
+
+    </script>
+}

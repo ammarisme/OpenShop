@@ -1,0 +1,181 @@
+﻿@using RetailTradingPortal.Models
+@using RetailTradingPortal.Areas.Stocks.Models
+@model StockDeductionViewModel
+@{
+    ViewBag.title = "Deduct Stock wasted";
+}
+<title>@ViewBag.title</title> 
+<h5>@ViewBag.title</h5>
+
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#products" data-toggle="tab">Products in Stock waste</a></li>
+    <li class=""><a href="#general-information" data-toggle="tab">General Informtion</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="products">
+        <div class="row">
+            <div class="col-md-4 panel custom-panel">
+                <h5>Add wasted Product(s) to deduct</h5>
+                <form action="no-implemetation" id="products-in-wasted-Stocks-form" method="POST">
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Product</label>
+                        @Html.DropDownListFor(m => m.ProductId,
+                                  new SelectList(Model.ProductId,
+                               "ProductId", "ProductName",
+                                        Model.ProductId.First().ProductId), new { @class = "form-control custom-text-box  custom-label", id = "ProductName" })
+                    </div>
+                    @*public float QuantityRecieved { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Quantity</label>
+                        <input type="number"  min="0" step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  class="form-control custom-text-box " name="Quantity" required>
+                    </div>
+                    @*public string Remarks { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="number" class="custom-label">Remarks</label>
+                        <input type="text" class="form-control custom-text-box materialize-textarea" name="Remarks">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-raised">Add Product<span class="fa fa-arrow-down"></span></button>
+                </form>
+                <button type="button" class="btn btn-default btn-raised" id="removeProduct">Remove Product<span class="fa fa-arrow-right"></span></button>
+            </div>
+            <div class="col-md-7 panel sub-content-panel">
+                <table id="products-in-Stocks-wasted-table" class="table table-hover display table-striped" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Product Id</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary btn-raised" id="add-Stock-wasted-button">Complete</button>
+        </div>
+
+    </div>
+
+    <div class="tab-pane fade" id="general-information">
+        <div class="row">
+            <div class="panel custom-panel">
+                <form action="no-implementation" id="stocks-form" method="POST">
+                    @*public string RecievedDate { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="name">Date</label>
+                        <input type="date" name="Date" class="form-control custom-text-box " required>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script{
+    <script>
+        // PRODUCTS IN STOCK TABLE
+
+        // update the form
+        var productForm = $("#products-in-wasted-Stocks-form");
+
+        var productSelected = function () {
+            var tableIndex = getTableSelectedRowIndex($("#products-in-Stocks-wasted-table"));
+            var ProductData = productsInStocksTable.row(tableIndex).data();
+            setFormValues(productForm, ProductData);
+
+            // select the product
+            //$('#ProductName option[selected=selected]').removeAttr("selected");
+            //$("#ProductName option[value='" + getTableSelectedRowKey($("#products-in-Stocks-table")) + "']").attr("selected", "true");
+            $('#ProductName').val(getTableSelectedRowKey($("#products-in-Stocks-wasted-table")));
+            //$("#ProductName option[value='" + getTableSelectedRowKey($("#products-in-Stocks-table")) + "']").attr("selected", "true");
+        }
+
+        var productUnselected = function () {
+
+        }
+        /// Initiating the products-in-Stocks-table
+        var productsInStocksTable = initiateTable1("products-in-Stocks-wasted-table", {
+            "bLengthChange": false, "columns": [
+            { "data": "ProductId" },
+            { "data": "ProductName" },
+            { "data": "Quantity" },
+            { "data": "Remarks" }
+            ],
+            "sDom": "t"
+        }
+            , productSelected, productUnselected
+        );
+
+        $("#removeProduct").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#products-in-Stocks-wasted-table"));
+            productsInStocksTable.row(selectedRowIndex).remove().draw(false);
+        }); //can be used commonly with as a table removal button
+
+        //  Linking the the table and form
+        syncFormWithTable("products-in-wasted-Stocks-form", productsInStocksTable, "ProductId", function () { }, function () { }); // connecting the table with the form
+
+
+
+        // sending the final object
+        $("#" + "add-Stock-wasted-button").on('click', function (event) {
+
+            //check if the stock information table is correct
+            if (!$("#stocks-form")[0].checkValidity()) {
+                return;
+            }
+
+            var submitData = {}; // the data that will be sent using ajax
+
+            var productsInStocksData = getTableData(productsInStocksTable); // the table that will be attached to the data
+
+
+            productsInStocksTable.clear().draw(false);
+
+            submitData = getFormValues("stocks-form");
+
+            submitData["ProductInProductStockWasted"] = productsInStocksData; // adding the materials in datatable
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/Stocks/DeductStock",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                statusCode: {
+                    201: function (data) {
+                        showModalMessage("Stock Deducted", 'You can view current stock from <a withpjax="with-ajax" data-pjax=".content-panel" href="/Stocks/MyStocks/ViewCurrentStock">here</a>');
+                    },
+                    406 : function (data){
+                        showModalMessage("Not enough stocks",'You have attmpted to reduce stock level by a stock amount that is not available. </br>You may check current stock <a withpjax="with-ajax" data-pjax=".content-panel" href="/Stocks/MyStocks/ViewCurrentStock">here</a>');
+                    }
+                }
+            });
+
+            event.preventDefault();
+        });
+
+        $("#ProductName").change(function () {
+            // update the product price field with min attribute and val
+
+            $.ajax({
+                type: 'get',
+                url: "../../api/Products/GetProduct/1",
+                dataType: 'json',
+                async: false,
+                contentType: 'application/json',
+                success: function (response) {
+                    // set the product price field
+                    $("input[name='Quantity']").attr("max", response["StocksQuantity"]);
+                },
+                error: function (response) {
+                    console.log("failure" + response);
+                }
+            });
+        });
+
+        $(".navigation-help").html("My Stocks / Deduct Wasted Stock");
+    </script>
+}

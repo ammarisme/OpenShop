@@ -1,0 +1,57 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+            <a href="~/RetailPortal" class="btn btn-default"><h5> Retail Marketplace</h5></a>
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                <!--  Login / Register Link-->
+                <li><a href="#" id="RetailCart" class="btn btn-raised btn-default shopping-cart"><i></i></a></li>
+                <!-- Account links -->
+                @if (User.Identity.IsAuthenticated)
+                {
+                
+                <li class="dropdown">
+                    <a href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        My Account
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/RetailOrders/MyRetailOrder/PlacedOrders">My Orders</a></li>
+                        <li><a href="/Customers/Customer/Manage">My Profile</a></li>
+                        <li class="divider"></li>
+                            <!-- Logout button -->
+                        @using (Html.BeginForm("LogOff", "../Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li>
+                                <a class="btn btn-warning btn-raised" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </li>
+                        }
+                            
+                    </ul>
+                </li>
+                }
+                else
+                {
+                    <li><a href="/Account/Login" class="btn btn-raised btn-default custom-navbar-links ">Login</a></li>
+                    <li class="dropdown">
+                        <a href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                            Join
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Retailers/Retailer/Register">As A Retailer</a></li>
+                            <li><a href="/Customers/Customer/Register">As A Customer</a></li>
+                            <li><a href="/Wholesalers/Wholesaler/Register">As A Wholesaler</a></li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

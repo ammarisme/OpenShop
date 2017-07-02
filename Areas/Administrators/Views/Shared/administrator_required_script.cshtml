@@ -1,0 +1,30 @@
+﻿<script>
+
+    $.material.init();
+
+    $("#dropdown-menu select").dropdown();
+
+    // Initialize collapse button
+    $(".button-collapse").sideNav();
+    // Initialize collapsible (uncomment the line below if you use the dropdown variation)
+    //$('.collapsible').collapsible();
+
+    var loader = $("#loader");
+
+    $.pjax.defaults.timeout = false;
+
+    $('.side-nav a[withpjax]').each(function () {
+        console.log("pjaxification");
+        $(this).pjax(
+            {
+                container: ".content-panel",
+            }
+        );
+    });
+
+    $(".cs-loader").hide();
+    $(document).on({
+        "ajaxStart": function () { $(".cs-loader").show(); },
+        "ajaxStop": function () { $(".cs-loader").hide();; },
+    });
+</script>

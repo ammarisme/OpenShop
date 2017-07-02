@@ -1,0 +1,176 @@
+﻿@{
+    ViewBag.Title = "Edit Products";
+}
+<title>@ViewBag.title</title> 
+<h5>@ViewBag.title</h5>
+<div class="col-md-12 panel sub-content-panel">
+    <table id="products-table" class="display table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>Short Description</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="col-md-12 panel sub-content-panel">
+    <form action="../../api/Products/UpdateProduct" id="product-form" class="form-horizontal" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="date" hidden>Product Id</label>
+            <input type="text" name="ProductId" class="form-control" hidden required disabled />
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">Product Name</label>
+            <input type="text" name="ProductName" pattern="[A-Za-z0-9\s]{1,12}" title="Product name can only contain alphateic characters, spaces and numbers." class="form-control custom-text-box" required>
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">Unit</label>
+            <input type="text" name="Unit" pattern="[A-Za-z]{1,5}" class="form-control custom-text-box" required>
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">Unit Price</label>
+            <input type="number"  min="0" name="RetailPrice" step="0.01" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" class="form-control custom-text-box" required>
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="date">Short Description</label>
+            <input type="text" pattern="[A-Za-z0-9\s]{5,30}" name="ShortDescription" title="Short Description can only contain alphabetic characters and numbers. Also the text must be lesser than 30 chars." class="form-control custom-text-box" required>
+        </div>
+        <button type="submit" class="form-control btn btn-linkedin">Update Product</button>
+    </form>
+</div>
+<div class="col-md-6 panel sub-content-panel">
+
+    <table id="specifications-table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Specification In Product Id</th>
+                <th>Specification</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="col-md-5 panel sub-content-panel">
+    <form action="/api/Products/UpdateProductSpecifications" class="form-horizontal" id="specification-form" method="POST">
+        <div id="name-group" class="form-group">
+            @*SpecificationInProductId*@
+            <label hidden>SpecificationInProductId</label>
+            <input type="text" name="SpecificationInProductId" class="form-control custom-text-box" disabled hidden />
+        </div>
+        <div id="name-group" class="form-group">
+            @*Specification*@
+            <label for="date">Specification</label>
+            <input type="text" class="form-control custom-text-box" pattern="[a-zA-Z]{1,12}" title="Specification Name must not be null and must be lesser than 12 characters in length. Also must only contain alphabetic letters." name="Specification" placeholder="eg: - Color" required>
+        </div>
+        <div id="name-group" class="form-group">
+
+            @*Value*@
+            <label for="date">Value</label>
+            <input type="text" class="form-control custom-text-box" name="Value" pattern="[a-zA-Z0-9]{1,12}" title="Value can either be a number or containing letters. Length of the value must be between 1 and 12 characters." placeholder="eg :- red, 1.2 , 1, A1, Red" required>
+        </div>
+        <button type="submit" class="form-control btn btn-linkedin">Update Specification</button>
+    </form>
+</div>
+
+
+@section script{
+    <script>
+        $(document).ready(function () {
+
+            // PRODUCT PROCESSING
+            var productId = null;
+            var productForm = $("#product-form");
+            // Update the Product form and Speficication form
+            var onProductSelected = function () {
+                var tableIndex = getTableSelectedRowIndex($("#products-table"));
+                var ProductData = productsTable.row(tableIndex).data();
+                setFormValues(productForm, ProductData);
+                productId = getTableSelectedRowKey($("#products-table"));
+                // needs to put the on specification selection function
+                updateTableFromApi1(specificationsTable, "../../api/Products/GetSpecificationsInProduct/" + productId, onSpecificationSelected, onSpecificationUnSelected);
+            }
+            // Reset product form and specifications table
+            var onProductUnSelected = function () {
+                specificationsTable.clear().draw();
+                resetForm(specificationForm);
+                resetForm(productForm);
+            }
+
+            // Initiating the Products table
+            var productsTable = initiateTable1("products-table",
+                {
+                    "bLengthChange": false, "columns": [
+                            { "data": "ProductId" },
+                            { "data": "ProductName" },
+                            { "data": "Unit" },
+                            { "data": "RetailPrice" },
+                            { "data": "ShortDescription" }
+                    ]
+                }, onProductSelected, onProductUnSelected
+                );
+
+            // Update the product table from API
+            updateTableFromApi(productsTable, "../../api/Products/GetProducts?ApplicationUserId=@ViewBag.userId", onProductSelected);
+
+            //SPECIFICATIONS IN THE PRODUCT PROCESSING
+            // Initiating the Specifications table
+
+            var specificationForm = $("#specification-form");
+            var onSpecificationSelected = function () {
+                var tableIndex = getTableSelectedRowIndex($("#specifications-table"));
+
+                var SpecificationData = specificationsTable.row(tableIndex).data();
+
+                setFormValues(specificationForm, SpecificationData);
+            }
+            var onSpecificationUnSelected = function () {
+                resetForm(specificationForm);
+            }
+            var specificationsTable = initiateTable1("specifications-table",
+                {
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bLengthChange": false, "columns": [
+                            { "data": "SpecificationInProductId" },
+                            { "data": "Specification" },
+                            { "data": "Value" },
+                    ],
+                    "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false
+                        }
+                    ]
+                },
+                onSpecificationSelected, onSpecificationUnSelected
+                );
+
+
+
+            //// Ajaxify form submissions
+            $(document).on('submit', '.form-horizontal', function (event) {
+                event.preventDefault();
+                // get form data and send ajax
+                var formData = getFormValues($(this).attr("id"));
+                $.ajax({
+                    type: 'post',
+                    url: $(this).attr("action"),
+                    data: JSON.stringify(formData),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+
+                    }
+                }
+                );
+            });
+        });
+
+        $(".navigation-help").html("My Customers / Edit Customer");
+    </script>
+}

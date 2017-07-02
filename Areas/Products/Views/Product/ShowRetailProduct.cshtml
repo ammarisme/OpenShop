@@ -1,0 +1,73 @@
+﻿@using RetailShop.Areas.Products.Models;
+@using RetailShop.Models;
+
+@model RetailProductViewModel
+
+
+<div class="row">
+    <div class="panel col-md-6 bordered custom-panel">
+        <img src="~/Content/sample_product.jpg" />
+    </div>
+    <div class="panel col-md-5 custom-panel" data-id="@Model.Product.ProductId" data-name="@Model.Product.ProductName" data-price="@Model.Product.RetailPrice">
+        <h5>@Model.Product.ProductName</h5>
+        <p>@Model.Product.ShortDescription</p>
+        <p>Price : <span class="price">@Model.Retailer.Currency  @Model.Product.RetailPrice </span></p>
+        <div class="form-group label-floating">
+            <label class="control-label" for="focusedInput1">Quantity</label>
+            <input class="form-control" id="focusedInput1" type="number">
+        </div>
+        <a href="javascript:void(0)" class="btn btn-raised btn-warning add-to-retail-cart">Add To Cart</a>
+    </div>
+
+</div>
+
+@section script{
+<script>
+
+    var retailerId = "@Model.Retailer.Id";
+    // -- copy paste from stackoverflow
+
+    // Setting local storage items for the cart and quote if it doesn't exist
+
+    if (localStorage.getItem('retailOrder')) {
+        var cart = {};
+        cart.products = [];
+
+        localStorage.setItem('retailOrder', JSON.stringify(cart));
+    }
+
+
+    var productForOrder;
+
+    $(document).ready(function () {
+
+        // Add to Cart button click event
+        $('.add-to-retail-cart').on('click', function () {
+            var productForOrder = $(this).parent();
+            var product = {};
+            var quantity = $(productForOrder).find('input[type=number]').val();
+            $(productForOrder).find('input[type=number]').val("");
+            $(productForOrder).find('.label-floating').addClass("is-Empty");
+            $(productForOrder).find('.label-floating').removeClass("is-focused");
+
+            product.ProductId = $(productForOrder).attr('data-id');
+            product.ProductName = $(productForOrder).attr('data-name');
+            product.UnitPrice = $(productForOrder).attr('data-price');
+            product.Quantity= quantity;
+
+            addToRetailOrder(product, retailerId);
+        });
+
+        
+        $('a[withpjax]').each(function () {
+            console.log("pjaxification");
+            $(this).pjax(
+                {
+                    container: ".content-panel",
+                }
+            );
+        });
+
+    });
+</script>
+}

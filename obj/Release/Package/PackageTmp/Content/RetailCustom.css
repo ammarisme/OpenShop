@@ -1,0 +1,64 @@
+﻿.items {
+
+}
+.item {
+    width : 250px ;
+    list-style-type : none ;
+    margin : 5px ;
+}
+.custom-panel{
+    margin:5px ;
+}
+.item img {
+}
+
+.item .panel-heading{
+    background-color : white !important;
+}
+
+.shopping-cart {
+ padding-top : 5px !important ;
+ padding-bottom : 10px !important;   
+}
+
+        .custom-navbar-links {
+        padding-top : 10px !important ;
+        padding-bottom : 10px !important ;
+        }
+.shopping-cart i {
+            display: inline-block;
+    background: url('http://cdn1.iconfinder.com/data/icons/jigsoar-icons/24/_cart.png') no-repeat 0 0;
+    width: 24px;
+    height: 24px;
+        }
+.item .description{
+
+}
+
+.item .price{
+    font-weight: bold;
+    display: inline-block;
+    background-color: lightgreen;
+    float: right;
+    font-size: large;
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.item .discounted-price{
+    text-decoration : line-through;
+}
+.clear {
+    clear: both;
+}
+.items-panel{
+    margin-top: 60px !important;
+}
+
+.items-panel .panel-heading{
+    background-color : #fdfdfd !important;
+}
+
+.custom-navbar{
+ box-shadow:  0 0 0 1px rgba(0,0,0,0.20), 0 5px 10px rgba(0,0,0,0.22)
+}

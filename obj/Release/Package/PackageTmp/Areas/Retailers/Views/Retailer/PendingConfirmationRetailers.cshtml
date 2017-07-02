@@ -1,0 +1,35 @@
+﻿@using ETrading.Models
+@using ETrading.Areas.Retailers.Models
+@model PendingConfirmationRetailerViewModel
+@{
+    ViewBag.title = "Pending Confirmation Retailers";
+}
+<h5> @ViewBag.title</h5>
+<div class="panel well">
+
+<table class=" table table-striped table-hover" id="pending-confirmation-ratailers-table">
+    <thead>
+        <tr>
+            <th>RetailerName</th>
+            <th>RetailerAddress</th>
+            <th>BusinessPhoneNumber</th>
+            <th>BRCNumber</th>
+            <th>Category</th>
+            <th>Currency</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var retailer in Model.PendingRetailers) { 
+        <tr>
+            <td>@retailer.RetailerName</td>
+            <td>@retailer.RetailerAddress</td>
+            <td>@retailer.BusinessPhoneNumber</td>
+            <td>@retailer.BRCNumber</td>
+            <td>@retailer.Category</td>
+            <td>@retailer.Currency</td>
+        </tr>
+            }
+    </tbody>
+</table>
+    <a class="btn btn-primary btn-raised">Confirm Retailer</a>
+</div>

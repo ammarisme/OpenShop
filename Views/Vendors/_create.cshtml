@@ -1,0 +1,58 @@
+﻿<div class="col-md-6  ">
+    <h1>Create a Product</h1>
+
+    <!-- OUR FORM -->
+    <form action="../api/Products/PostProducts" id="create-product" method="POST">
+        <!-- NAME -->
+        <div id="name-group" class="form-group">
+            <label for="name">Product Name</label>
+            <input type="text" class="form-control" name="Name" placeholder="Duvet">
+            <!-- errors will go here -->
+
+            <label for="email">Style</label>
+            <input type="text" class="form-control" name="style" placeholder="1250 - float is not supported until database upgrade">
+            <!-- errors will go here -->
+
+            <label for="name">Cut Size</label>
+            <input type="text" class="form-control" name="cutsize" placeholder="Silk">
+            <!-- errors will go here -->
+
+            <label for="email">Material Fin. Size</label>
+            <input type="text" class="form-control" name="finsize" placeholder="1250 - float is not supported until database upgrade">
+            <!-- errors will go here -->
+
+            <label for="name">Filling</label>
+            <input type="text" class="form-control" name="filling" placeholder="Silk">
+            <!-- errors will go here -->
+
+            <label for="email">Padding Layer</label>
+            <input type="text" class="form-control" name="paddinglayer" placeholder="1250 - float is not supported until database upgrade">
+            <!-- errors will go here -->
+
+            <label for="name">Cover Width</label>
+            <input type="text" class="form-control" name="coverwidth" placeholder="Silk">
+            <!-- errors will go here -->
+
+            <label for="email">Cross Width</label>
+            <input type="text" class="form-control" name="crosswidth" placeholder="1250 - float is not supported until database upgrade">
+            <!-- errors will go here -->
+
+            <label for="name">Packing Width</label>
+            <input type="text" class="form-control" name="packingwidth" placeholder="Silk">
+            <!-- errors will go here -->
+
+            <label for="email">Overlock</label>
+            <input type="text" class="form-control" name="overlock" placeholder="1250 - float is not supported until database upgrade">
+            <!-- errors will go here -->
+        </div>
+        <!-- SUPERHERO ALIAS -->
+
+        <button type="submit" class="btn btn-success">Create Product <span class="fa fa-arrow-right"></span></button>
+
+    </form>
+</div>
+
+<script>
+    viewControllerRoute = "../Products/Create";
+    bindajaxformsubmitevent('create-product', '../api/Products/PostProduct');
+</script>

@@ -1,0 +1,59 @@
+﻿@using RetailTradingPortal.Areas.Customers.Models
+
+@model AddCustomerViewModel
+@{
+    ViewBag.Title = "Create a Customer";
+
+}
+
+<title>@ViewBag.title</title>
+ <h5>@ViewBag.title</h5>
+
+<div class="panel sub-content-panel col-md-12">
+    <form action="no-implementation" class="col-md-12" id="customer-form" method="POST">
+        
+        <div id="name-group" class="form-group">
+            <label for="name">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Za-z]{4,12}" ,title="First Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Za-z]{4,12}" ,title="Last Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">BillingAddress</label>
+            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Z0-9a-z\\s]" ,title="" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control custom-text-box"  , required="true" , pattern="[0-9]{10}" ,title="Phone number must contain 10 numeric characters." })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">City</label>
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Za-z]{2,10}" ,title="Designation can only contain alphabetic letters and should contain less than 10 characters" })
+        </div>
+
+        <div id="name-group" class="form-group">
+            <label for="name">Remark</label>
+            @Html.TextBoxFor(m => m.Remark, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}"})
+        </div>
+        <input type="submit" class="btn btn-primary btn-raised" value="Create customer" />
+    </form>
+</div>
+
+@section script
+    {
+    <script>
+        $("#customer-form").on('submit', function (event) {
+            var data = getFormValues("customer-form");
+            sendObjectToServer("../../api/Customers/AddCustomer", data, function () {
+                showModalMessage("Customer added", "Customer added successfully to the system. Now you may add sales for this customer and do other operations.");
+            }, function () {
+                showModalMessage("Customer adding failed", "Please contact support.");
+            });
+            event.preventDefault();
+        });
+
+        $(".navigation-help").html("My Customers / New Customer");
+    </script>
+}

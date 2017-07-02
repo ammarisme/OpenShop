@@ -1,0 +1,76 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="col-md-4">
+    <table id="materials-table" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Material Id</th>
+                <th>Material name</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Material Id</th>
+                <th>Material name</th>
+                <th>Cost</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-success" id="view-material">View Material<span class="fa fa-arrow-right"></span></button>
+    </div>
+    <div class="col-md-6">
+        <table id="material-specifications-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Specification</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>Specification</th>
+                    <th>Value</th>
+                </tr>
+            </tfoot>
+        </table>
+        </div>
+</section>
+<!-- /.content -->
+<script>
+    viewControllerRoute = "../Materials/ViewMaterials";
+
+    // initiating the materials table
+
+    var materialsTable = $("#materials-table").DataTable({
+        "columns": [
+            { "data": "MaterialId" },
+            { "data": "MaterialName" },
+            { "data": "Cost" }
+        ]
+    });
+    var materialSpecificationsTable = $("#material-specifications-table").DataTable({
+        "bFilter": false,
+        "bInfo": false,
+        "columns": [
+            { "data": "Specification" },
+            { "data": "Value" }
+        ]
+    });// specifications table
+
+    //update materials table
+    var materialSelected = function () {
+        var id = getTableSelectedRowKey($("#materials-table"));
+
+        updateTableFromApi(materialSpecificationsTable, "../api/Materials/GetSpecificationsOfMaterial/" + id, function () { });
+    }//set to update the specifications table
+
+    updateTableFromApi(materialsTable, "../api/Materials/GetMaterials", materialSelected);
+</script>

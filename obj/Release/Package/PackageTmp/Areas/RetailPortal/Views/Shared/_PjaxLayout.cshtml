@@ -1,0 +1,15 @@
+﻿<title>@ViewBag.title</title>
+
+        @RenderBody()
+
+
+        @if (IsSectionDefined("script"))
+        {
+            @RenderSection("script");
+        }
+        @*else
+        {
+            @Html.Partial("retail_default_script");
+        }*@
+    
+

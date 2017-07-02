@@ -1,0 +1,97 @@
+﻿@using RetailShop.Areas.Products.Models;
+@using RetailShop.Models;
+
+@model WholesaleProductViewModel
+
+
+<div class="row">
+    <div class="panel col-md-6 bordered custom-panel">
+        <img src="~/Content/sample_product.jpg" />
+    </div>
+    <div class="panel col-md-5 custom-panel" data-id="@Model.Product.ProductId" data-name="@Model.Product.ProductName" data-price="@Model.Product.WholesalePrice">
+        <h5>@Model.Product.ProductName</h5>
+        <p>@Model.Product.ShortDescription</p>
+        <p>Price : <span class="price">@Model.Wholesaler.Currency  @Model.Product.WholesalePrice </span></p>
+        <div class="form-group label-floating">
+            <label class="control-label" for="focusedInput1">Quantity</label>
+            <input class="form-control" id="focusedInput1" type="number">
+        </div>
+        <a href="javascript:void(0)" class="btn btn-raised btn-warning add-to-cart">Add To Cart</a>
+        <a href="javascript:void(0)" class="btn btn-raised btn-primary add-to-quote">Get Quote</a>
+    </div>
+
+</div>
+
+<script>
+
+    var wholesalerId = "@Model.Wholesaler.Id";
+    // -- copy paste from stackoverflow
+
+    // Setting local storage items for the cart and quote if it doesn't exist
+
+    if (localStorage.getItem('cart')) {
+        var cart = {};
+        cart.products = [];
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+
+    var productForQuote;
+
+    $(document).ready(function () {
+
+        // Add to Cart button click event
+        $('.add-to-cart').on('click', function () {
+            var product = $(this).parent();
+
+            var quantity = $(product).find('input[type=number]').val();
+            $(product).find('input[type=number]').val("");
+            $(product).find('.label-floating').addClass("is-Empty");
+            $(product).find('.label-floating').removeClass("is-focused");
+
+            product.id = $(product).attr('data-id');
+            product.name = $(product).attr('data-name');
+            product.price = $(product).attr('data-price');
+            product.quantity = quantity;
+
+            addToCart(product);
+        });
+
+        // Add to Quote button click event
+        $('.add-to-quote').on('click', function () {
+            // show a modal
+            $("#add-to-quote-modal").modal('show');
+
+            // save the product which the modal is going to add to the quote
+            productForQuote = $(this).parent();
+
+        });
+
+        $("#add-to-quote-form").on('submit', function () {
+
+            // ProductInformation
+            var product = {};
+            product.ProductId = $(productForQuote).attr('data-id');
+            product.ProductName = $(productForQuote).attr('data-name');
+            product.Quantity = $(this).find('input[name=Quantity]').val();
+            product.UnitPrice = $(this).find('input[name=UnitPrice]').val();
+
+            addToQuote(product, wholesalerId);
+            resetForm($(this));
+            event.preventDefault();
+        });
+
+    });
+    $(document).ready(function () {
+
+        $('a[withpjax]').each(function () {
+            console.log("pjaxification");
+            $(this).pjax(
+                {
+                    container: ".content-panel",
+                }
+            );
+        })
+    });
+</script>

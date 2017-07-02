@@ -1,0 +1,88 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header"></section>
+<!-- Main content -->
+<section class="content">
+    <div class="col-md-12">
+        <table id="customer-orders-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>CustomerOrderId</th>
+                    <th>CustomerId</th>
+                    <th>OrderDate </th>
+                    <th>OrderDueDate </th>
+                    <th>DeliveryDate</th>
+                    <th>Description </th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>CustomerOrderId</th>
+                    <th>CustomerId</th>
+                    <th>OrderDate </th>
+                    <th>OrderDueDate </th>
+                    <th>DeliveryDate</th>
+                    <th>Description </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <table id="products-in-customer-order-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>CustomerOrderId</th>
+                    <th>ProductsInCustomerOrderId</th>
+                    <th>ProductId</th>
+                    <th>Quantity</th>
+                    <th>UnitPrice</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr></tr>
+            </tfoot>
+        </table>
+    </div>
+</section>
+<!-- /.content -->
+<script>
+    viewControllerRoute = "../CustomerOrders/ViewCustomerOrders";
+
+    // initiating the Customer Orders table
+
+    var customerOrdersTable = $("#customer-orders-table").DataTable({
+        "columns": [
+            { "data": "CustomerOrderId" },
+            { "data": "CustomerId" },
+            { "data": "OrderDate" },
+            { "data": "OrderDueDate" },
+            { "data": "DeliveredDate" },
+            { "data": "Description" }
+        ]
+    });
+    var productsInCustomerOrderTable = $("#products-in-customer-order-table").DataTable({
+        "bFilter": false,
+        "bInfo": false,
+        "columns": [
+
+            { "data": "CustomerOrderId" },
+            { "data": "ProductsInCustomerOrderId" },
+            { "data": "ProductId" },
+            { "data": "Quantity" },
+            { "data": "UnitPrice" },
+            { "data": "Description" }
+        ]
+    });// products table
+
+    //update products table on customer order table selection
+    var customerOrderSelected = function () {
+        var id = getTableSelectedRowKey($("#customer-orders-table"));
+
+        updateTableFromApi(productsInCustomerOrderTable, "../api/CustomerOrders/GetProductsOfCustomerOrder/" + id, function () { });
+    }//set to update the products in customer order table
+
+    updateTableFromApi(customerOrdersTable, "../api/CustomerOrders/GetCustomerOrders", customerOrderSelected);
+</script>
+

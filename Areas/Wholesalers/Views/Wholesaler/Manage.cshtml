@@ -1,0 +1,49 @@
+﻿@model RetailShop.Areas.Wholesalers.Models.ManageWholesalerViewModel
+@{
+    ViewBag.Title = "View profile";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@* User Creation Form *@
+<div class="col-md-6 col-sm-12" id="user-registration-forms">
+    <form action="Edit" id="wholesaler-form" method="POST" class="well">
+        <div id="name-group" class="form-group">
+            <fieldset disabled>
+            @Html.TextBoxFor(m => m.Id, new { @class = "form-control" })
+
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+            <label for="name">BRCNumber</label>
+            @Html.TextBoxFor(m => m.BRCNumber, new { @class = "form-control" })
+
+            <label for="name">BusinessPhoneNumber</label>
+            @Html.TextBoxFor(m => m.BusinessPhoneNumber, new { @class = "form-control" })
+
+            <label for="name">Category</label>
+            @Html.TextBoxFor(m => m.Category, new { @class = "form-control" })
+
+            
+            <label for="name">Rating</label>
+            @Html.TextBoxFor(m => m.Rating, new { @class = "form-control" })
+            <br>
+            <input type="submit" class="btn btn-success" value="Edit Profile" />
+            </fieldset>
+        </div>
+    </form>
+    <input type="checkbox" id="edit-enable-checkbox">Enable Editing profile</input>
+</div>
+
+@section script 
+    {
+    <script>
+        $("#edit-enable-checkbox").change(function () {
+            if ($(this).is(':checked')){
+                $("fieldset").removeAttr("disabled");
+            } else {
+                $("fieldset").attr("disabled", "");
+            }
+        });
+    </script>
+    }

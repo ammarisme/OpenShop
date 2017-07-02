@@ -1,0 +1,48 @@
+﻿<div id="add-to-order-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Add Product to Order</h4>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="add-to-cart-form">
+
+                    <input name="ProductName" class="hidden" value="" />
+                    <input name="ProductId" class="hidden" value="" />
+                    <input name="EnterpriseId" class="hidden " value="" />
+                    
+                    <label class="label col-md-2">Price :</label>
+                    <input name="UnitPrice" type="number" min="1" class="form-control custom-text-box col-md-10" disabled />
+
+                    <label class="label col-md-2">Quantity :</label>
+                    <input name="Quantity" type="number" min="1" class="form-control custom-text-box col-md-10" autofocus />
+
+                    <label class="label col-md-2">Sub-total :</label>
+                    <input name="SubTotal" type="number" min="1" class="form-control custom-text-box col-md-10" disabled />
+                    <button type="submit" class="btn add-to-cart btn-action" >Add</button>
+                <button type="button" class="btn add-to-cart btn-opposite-action" data-dismiss="modal">Back to Shopping</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Retail Cart Modal*@
+<div id="cart-show-modal" class="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">My Order(s)</h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tables" id="retail-order-tables"><p>Empty shopping cart!</p></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

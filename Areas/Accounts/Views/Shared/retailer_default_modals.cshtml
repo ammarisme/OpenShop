@@ -1,0 +1,106 @@
+﻿
+
+<!-- Wholesale Cart Modal -->
+<div class="modal-content modal" id="CartModal">
+    <div class="modal-header">
+        <h4 class="modal-title">My Order(s)</h4>
+    </div>
+    <div class="modal-body">
+        <div id="order-tables"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
+
+<div class="modal-content modal" id="modal-message">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-message-title"></h4>
+    </div>
+    <div class="modal-body">
+        <p id="modal-message-body"></p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
+@* Quotation Request Modal *@
+<div class="modal-content modal" id="QuoteModal">
+    <div class="modal-header">
+        @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*@
+        <h4 class="modal-title">My Quotation(s)</h4>
+    </div>
+    <div class="modal-body">
+        <div id="quotation-tables"></div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-raised" data-dismiss="modal">Close</button>
+    </div>
+</div>
+
+
+<!-- Modal Structure -->
+@*<div class="modal-content modal" id="LoginRegisterModal">
+    <div class="modal-header ">
+        <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+            <li class="active"><a href="#login" data-toggle="tab">Home</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="bootstrap-elements.html" data-target="#">
+                    Register As <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#customer" data-toggle="tab">Customer</a></li>
+                    <li><a href="#Enterprise" data-toggle="tab">Enterprise</a></li>
+                    <li><a href="#wholesaler" data-toggle="tab">Wholesaler</a></li>
+                </ul>
+            </li>
+            <li class="pull-right"><button type="button" aria-hidden="true" data-dismiss="modal">X</button></li>
+        </ul>
+    </div>
+    <div class="modal-body">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="login">
+                @Html.Partial("Enterprise_Login_form")
+            </div>
+            <div class="tab-pane fade" id="Enterprise">
+                @Html.Partial("Enterprise_Registration_form")
+            </div>
+            <div class="tab-pane fade" id="wholesaler">
+                @Html.Partial("wholesaler_Registration_form")
+            </div>
+            <div class="tab-pane fade" id="customer">
+                @Html.Partial("customer_Registration_form")
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+
+    <div class="modal modal-content" id="add-to-quote-modal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Enter Quantity and the Price</h4>
+        </div>
+        <div class="modal-body">
+            <form action="/" method="post" id="add-to-quote-form">
+                <div class="form-group label-floating col-md-6">
+                    <label class="control-label" for="Quantity">Quantity</label>
+                    <input class="form-control" name="Quantity" type="number">
+                </div>
+                <div class="form-group label-floating col-md-6">
+                    <label class="control-label" for="UnitPrice">Price</label>
+                    <input class="form-control" name="UnitPrice" type="number">
+                </div>
+                <button type="submit" class="btn btn-primary btn-raised form-control col-md-6">Add</button>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-raised form-control" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+

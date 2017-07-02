@@ -1,0 +1,57 @@
+﻿@using WholesaleTradingPortal.Models
+@model IEnumerable<Product>
+@{
+    ViewBag.title = "Products by Category";
+    var i = 1;
+    var boxSize = "title-tg";
+}
+
+<title>@ViewBag.title</title>
+        <div class="dashboard display-animation" style="margin: 0 auto; width: 1400px;">
+            @foreach (var product in Model)
+            {
+                if (i == 1)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-pink ripple-effect";
+                }
+                if (i == 2)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-purple ripple-effect animated";
+                }
+                if (i == 3)
+                {
+                    boxSize = "tile tile-lg tile-sqr tile-pink ripple-effect";
+                }
+
+                <a withpjax="with-ajax" id="product-@product.ProductId" data-pjax=".right" class="@boxSize custom-tile" href="/Default/Products/Product/@product.ProductId">
+                    <span class="content-wrapper">
+                        <span class="tile-content">
+                            <span class="tile-img" style="background-image:url('/Images/products/@product.ProductId/product1.png')"></span>
+                            <span class="tile-holder tile-holder-sm">
+                                <span class="title col-md-6">@product.ProductName</span>
+                                <span class="currency col-md-2">Rs.</span>
+                                <span class="title price col-md-4"> @product.Price</span>
+                            </span>
+                        </span>
+                    </span>
+                    <p class="btn btn-pick" Enterprise-id="@product.EnterpriseId" unit-price="@product.Price" product-name="@product.ProductName" product-id="@product.ProductId" style="text-decoration:none">Pick up!</p>
+                    <p class="btn btn-add-to-cart" enterprise-id="@product.EnterpriseId" unit-price="@product.Price" product-name="@product.ProductName" product-id="@product.ProductId" style="text-decoration:none">Add to Quote</p>
+                </a>
+
+
+                if (i == 3)
+                {
+                    i = 1;
+                    continue;
+                }
+                i++;
+
+            }
+
+        </div>
+
+@section script{
+    <script>
+        
+    </script>
+}

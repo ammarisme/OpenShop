@@ -1,0 +1,194 @@
+﻿<script>
+    $.material.init();
+
+    $("#dropdown-menu select").dropdown();
+    $("#cart-button").on('click', function (event) {
+        $("#cart-show-modal").modal('show');
+        $("#cart-show-modal").find(".modal-header").html('<h4 class="modal-title">My Order(s)</h4>');
+        if (localStorage.getItem("retailOrder")) {
+
+            var retailOrder = getLocalStorageData("retailOrder");
+
+            if (jQuery.isEmptyObject(retailOrder)) {
+                return;
+            }
+            // clear tables
+            $("#retail-order-tables").children().remove();
+            // loop through Enterprises,
+
+            for (var Enterprise in retailOrder) {
+                // Get the Enterprise name from the API and place it here.
+                var EnterpriseName;
+                $.ajax({
+                    url: "../../../api/Enterprises/GetEnterpriseName/" + Enterprise,
+                    async : false 
+                }).done(function (data) {
+                    EnterpriseName = data;
+                });
+                $("#retail-order-tables").append('<p id="seller-name-'+Enterprise+'" class="pull-right col-md-12 title" style="text-align:left;background-color:lightgray">Seller  : <strong>' + EnterpriseName + '</strong></p>');
+                // create a table
+                var table = "";
+                var total=0; // total sale amount
+                table = '<table class="table  table-striped table-hover"  id="order-table-'+ Enterprise + '"><thead><tr><th hidden>ProductId</th><th>ProductName</th><th>Quantity</th><th>UnitPrice</th><th>SubTotal</th></tr></thead>';
+                table = table + '<tbody>';
+
+                // loop through products in retailorder and add rows to the table
+                for (var product in retailOrder[Enterprise]["ProductsInRetailOrder"]) {
+                    table = table + "<tr><td hidden>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["ProductId"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["ProductName"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["Quantity"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["UnitPrice"] + "</td><td>" + retailOrder[Enterprise]["ProductsInRetailOrder"][product]["SubTotal"] + "<td></tr>";
+                    total = total + parseFloat(retailOrder[Enterprise]["ProductsInRetailOrder"][product]["SubTotal"]);
+                }
+
+                table = table + '</tbody></table>'
+                // appending the order table
+                $("#retail-order-tables").append(table);
+                // appending the total prices
+                $("#retail-order-tables").append('<p id="order-total-'+Enterprise+'" class="pull-right col-md-12 title" style="text-align:right">Total : Rs. ' + total + '</p>');
+                // appending the checkout button
+                $("#retail-order-tables").append('<a id="order-checkout-' + Enterprise + '" class="btn btn-action btn-raised" href="/Default/Orders/PlaceOrder?id=' + Enterprise + '">Checkout!</a>');
+                // appending the reset button
+                $("#retail-order-tables").append('<a id="reset-order-' + Enterprise + '" class="btn btn-opposite-action btn-raised" Enterprise-id="' + Enterprise + '" >Reset</a>');
+
+                $('#reset-order-'+Enterprise).on('click', function () {
+                    var EnterpriseId = $(this).attr("Enterprise-id");
+                    var retailOrder = JSON.parse(localStorage.getItem('retailOrder'));
+                    if (retailOrder[EnterpriseId]) {
+                        // delete the order data
+                        delete retailOrder[EnterpriseId];
+                        localStorage.setItem('retailOrder', JSON.stringify(retailOrder));
+                        console.log(EnterpriseId);
+
+                        // delete order information UI elements from the modal
+                        $("#order-total-" + EnterpriseId).remove();
+                        $("#order-table-" + EnterpriseId).remove();
+                        $("#order-checkout-" + EnterpriseId).remove();
+                        $('#seller-name-' + EnterpriseId).remove();
+                        $(this).remove();
+
+                        var retailOrder = getLocalStorageData("retailOrder");
+
+                        if (jQuery.isEmptyObject(retailOrder)) {
+                            $("#retail-order-tables").append("<p>Empty shopping cart!</p>");
+                            return;
+                        }
+                    }
+                });
+            }
+
+        } else {
+            // case impossible
+        }
+        event.preventDefault();
+    });
+
+    // showing the quotation cart
+    $("#quote-button").on('click', function (event) {
+        $("#cart-show-modal").modal('show');
+
+        // set the cart name to My Quotations
+        $("#cart-show-modal").find(".modal-header").html('<h4 class="modal-title">My Quotation(s)</h4>');
+
+        if (localStorage.getItem("quotationRequest")) {
+            var quotationRequest = getLocalStorageData("quotationRequest");
+
+            if (jQuery.isEmptyObject(quotationRequest)) {
+                $("#retail-order-tables").children().remove();
+                return;
+            }
+            // clear tables
+            $("#retail-order-tables").children().remove();
+            // loop through Enterprises,
+
+            for (var Enterprise in quotationRequest) {
+                // Get the Enterprise name from the API and place it here.
+                var EnterpriseName;
+                $.ajax({
+                    url: "../../../api/Enterprises/GetEnterpriseName/" + Enterprise,
+                    async: false
+                }).done(function (data) {
+                    EnterpriseName = data;
+                });
+                $("#retail-order-tables").append('<p id="seller-name-' + Enterprise + '" class="pull-right col-md-12 title" style="text-align:left;background-color:lightgray">Seller  : <strong>' + EnterpriseName + '</strong></p>');
+                // create a table
+                var table = "";
+                var total = 0; // total sale amount
+                table = '<table class="table  table-striped table-hover"  id="order-table-' + Enterprise + '"><thead><tr><th hidden>ProductId</th><th>ProductName</th><th>Quantity</th><th>UnitPrice</th><th>SubTotal</th></tr></thead>';
+                table = table + '<tbody>';
+
+                // loop through products in retailorder and add rows to the table
+                for (var product in quotationRequest[Enterprise]["ProductsInQuotationRequest"]) {
+                    table = table + "<tr><td hidden>" + quotationRequest[Enterprise]["ProductsInQuotationRequest"][product]["ProductId"] + "</td><td>" + quotationRequest[Enterprise]["ProductsInQuotationRequest"][product]["ProductName"] + "</td><td>" + quotationRequest[Enterprise]["ProductsInQuotationRequest"][product]["Quantity"] + "</td><td>" + quotationRequest[Enterprise]["ProductsInQuotationRequest"][product]["UnitPrice"] + "</td><td>" + quotationRequest[Enterprise]["ProductsInQuotationRequest"][product]["SubTotal"] + "<td></tr>";
+                    total = total + parseFloat(quotationRequest[Enterprise]["ProductsInQuotationRequest"][product]["SubTotal"]);
+                }
+
+                table = table + '</tbody></table>'
+                // appending the order table
+                $("#retail-order-tables").append(table);
+                // appending the total prices
+                $("#retail-order-tables").append('<p id="order-total-' + Enterprise + '" class="pull-right col-md-12 title" style="text-align:right">Total : Rs. ' + total + '</p>');
+                // appending the checkout button
+                $("#retail-order-tables").append('<a id="order-checkout-' + Enterprise + '" class="btn btn-action btn-raised" href="/Default/Quotations/RequestQuotation?id=' + Enterprise + '">Request Quotation</a>');
+                // appending the reset button
+                $("#retail-order-tables").append('<a id="reset-order-' + Enterprise + '" class="btn btn-opposite-action btn-raised" Enterprise-id="' + Enterprise + '" >Reset</a>');
+
+                $('#reset-order-' + Enterprise).on('click', function () {
+                    var EnterpriseId = $(this).attr("Enterprise-id");
+                    var quotationRequest = JSON.parse(localStorage.getItem('quotationRequest'));
+                    if (quotationRequest[EnterpriseId]) {
+                        // delete quotation data from local storage data
+                        delete quotationRequest[EnterpriseId];
+                        localStorage.setItem('quotationRequest', JSON.stringify(quotationRequest));
+                        // delete order information UI elements from the modal
+                        $("#order-total-" + EnterpriseId).remove();
+                        $("#order-table-" + EnterpriseId).remove();
+                        $("#order-checkout-" + EnterpriseId).remove();
+                        $('#seller-name-' + EnterpriseId).remove();
+                        $(this).remove();
+
+                        var quotationRequest = getLocalStorageData("quotationRequest");
+
+                        if (jQuery.isEmptyObject(quotationRequest)) {
+                            $("#retail-order-tables").append("<p>Empty shopping cart!</p>");
+                            return;
+                        }
+                    }
+                });
+            }
+
+        } else {
+            // case impossible
+        }
+        event.preventDefault();
+    });
+
+
+
+    $(".Search").on('submit', function (event) {
+        var query = $(".Search-Box").val();
+
+        console.log(query);
+        if (qury == '') {
+            return;
+        }
+        // call pjax
+        $.pjax({
+            type: 'POST',
+            url: "/Default/Home/Search"+query,
+            container: ".right",
+        });
+        event.preventDefault();
+    });
+
+
+    $(document).on({
+        "ajaxStart": function () {
+            var loader = $(".cs-loader");
+            loader.show();
+        },
+        "ajaxStop": function () { $(".cs-loader").hide();; },
+    });
+    $(".cs-loader").hide();
+
+    $(document).on('submit', 'form[pjax-container]', function(event) {
+        $.pjax.submit(event, '.right')
+    })
+    </script>    

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+
+@if (IsSectionDefined("head"))
+{
+    @RenderSection("head");
+}
+else
+{
+    @Html.Partial("retail_default_head");
+}
+
+<body class="container ">
+    @Html.Partial("_Loader")
+    <!-- The Navigation Bar -->
+    @if (IsSectionDefined("navbar"))
+    {
+        RenderSection("navbar");
+    }
+    else
+    {
+        @Html.Partial("retail_default_navbar");
+    }
+
+    @* Modals *@
+    @if (IsSectionDefined("modals"))
+    {
+        RenderSection("modals");
+    }
+    else
+    {
+        @Html.Partial("retail_default_modals");
+    }
+
+    <div class="content-panel">
+        <!-- Body -->
+        @RenderBody()
+    </div>
+    <!-- Footer -->
+    @if (IsSectionDefined("footer"))
+    {
+        @RenderSection("footer", false);
+    }
+    else
+    {
+        @Html.Partial("retail_default_footer");
+    }
+
+
+    @if (IsSectionDefined("external_scripts"))
+    {
+        @RenderSection("external_scripts");
+    }
+    else
+    {
+        @Html.Partial("retail_default_external_scripts");
+    }
+
+    @if (IsSectionDefined("required_scripts"))
+    {
+        @RenderSection("required_script");
+    }
+    else
+    {
+        @Html.Partial("retail_required_script");
+    }
+
+
+    @if (IsSectionDefined("script"))
+    {
+        @RenderSection("script");
+    }
+    else
+    {
+        @Html.Partial("retail_default_script");
+    }
+</body>
+</html>

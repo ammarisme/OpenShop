@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Edit Products";
+}
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="col-md-12 well">
+        <div class="col-md-9">
+            <table id="products-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ApplicationUserId</th>
+                        <th>ProductId</th>
+                        <th>ProductName</th>
+                        <th>Unit</th>
+                        <th>UnitPrice</th>
+                        <th>StockQuantity</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>ProductName</th>
+                        <th>Unit</th>
+                        <th>UnitPrice</th>
+                        <th>StockQuantity</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <form action="../../api/Products/UpdateProduct" id="product-form" class="form-horizontal" method="POST">
+                <div id="name-group" class="form-group">
+                    @*ApplicationUserId*@
+                    <label for="date">ApplicationUserId</label>
+                    <input type="text" name="ApplicationUserId" class="form-control" disabled />
+
+                    @*FirstName*@
+                    <label for="date">ProductId</label>
+                    <input type="text" name="ProductId" class="form-control" disabled />
+
+                    @*FirstName*@
+                    <label for="date">ProductName</label>
+                    <input type="text" name="ProductName" class="form-control" />
+
+                    @*LastName*@
+                    <label for="date">Unit</label>
+                    <input type="text" name="Unit" class="form-control" />
+
+                    @*Designation*@
+                    <label for="date">UnitPrice</label>
+                    <input type="text" name="UnitPrice" class="form-control" />
+
+                    @*Remark*@
+                    <label for="date">StockQuantity</label>
+                    <input type="text" name="StockQuantity" class="form-control" />
+                    <br />
+                    <button type="submit" class="form-control btn btn-linkedin">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12 well">
+        <div class="col-md-6">
+            <table id="specifications-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>SpecificationInProductId</th>
+                        <th>ProductId</th>
+                        <th>Specification</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <form action="/api/Products/UpdateProductSpecifications" class="form-horizontal" id="specification-form" method="POST">
+                <div id="name-group" class="form-group">
+                    @*SpecificationInProductId*@
+                    <label for="date">SpecificationInProductId</label>
+                    <input type="text" name="SpecificationInProductId" class="form-control" disabled />
+
+                    @*ProductId*@
+                    <label for="date">ProductId</label>
+                    <input type="text" name="ProductId" class="form-control" disabled/>
+
+
+                    @*Specification*@
+                    <label for="date">Specification</label>
+                    <input type="text" name="Specification" class="form-control" />
+
+                    @*Value*@
+                    <label for="date">Value</label>
+                    <input type="text" name="Value" class="form-control" />
+
+                    <br />
+                    <button type="submit" class="form-control btn btn-linkedin">Update Specification</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+    /*
+    Products Table and Form
+    */
+    //Initiating the Products table
+
+
+    var productsTable = $("#products-table").DataTable(
+        {
+            "columns": [
+                    { "data": "ProductId" },
+                    { "data": "ProductName" },
+                    { "data": "Unit" },
+                    { "data": "UnitPrice" },
+                    { "data": "StockQuantity" },
+                    { "data": "ApplicationUserId" }
+            ]
+        }, onProductSelected
+        );
+    // binding the table to the products-form
+    var productId = null;
+    var productForm = $("#product-form");
+
+    var onProductSelected = function () {
+        var tableIndex = getTableSelectedRowIndex($("#products-table"));
+
+        var ProductData = productsTable.row(tableIndex).data();
+
+        setFormValues(productForm, ProductData);
+
+        productId = getTableSelectedRowKey($("#products-table"));
+        // needs to put the on specification selection function
+        updateTableFromApi1(specificationsTable, "../../api/Products/GetSpecificationsInProduct/" + productId, onSpecificationSelected, onSpecificationUnSelected);
+    }
+    var onProductUnSelected = function () {
+        specificationsTable.clear().draw();
+        resetForm(specificationForm);
+        resetForm(productForm);
+    }
+    // Update the product table
+    updateTableFromApi1(productsTable, "../../api/Products/GetProducts?ApplicationUserId=@ViewBag.userId", onProductSelected, onProductUnSelected);
+
+        /*
+        Specifications table and form
+        */
+        // Initiating the Specifications table
+
+        var specificationForm = $("#specification-form");
+        var onSpecificationSelected = function () {
+            var tableIndex = getTableSelectedRowIndex($("#specifications-table"));
+
+            var SpecificationData = specificationsTable.row(tableIndex).data();
+
+            setFormValues(specificationForm, SpecificationData);
+        }
+        var onSpecificationUnSelected = function () {
+            resetForm(specificationForm);
+        }
+        var specificationsTable = $("#specifications-table").DataTable(
+            {
+                "bFilter": false,
+                "bInfo": false,
+                "columns": [
+                        { "data": "SpecificationInProductId" },
+                        { "data": "ProductId" },
+                        { "data": "Specification" },
+                        { "data": "Value" },
+                ]
+            }
+            );
+
+
+        //// Ajaxify form submissions
+        $(document).on('submit', '.form-horizontal', function (event) {
+            event.preventDefault();
+            // get form data and send ajax
+            var formData = getFormValues($(this).attr("id"));
+            $.ajax({
+                type: 'post',
+                url: $(this).attr("action"),
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                 
+                }
+            }
+            );
+        });
+    </script>
+}

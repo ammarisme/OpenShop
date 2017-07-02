@@ -1,0 +1,35 @@
+﻿@using RetailShop.Models
+@using RetailShop.Areas.Wholesalers.Models
+@model PendingConfirmationWholesalerViewModel
+@{
+    ViewBag.title = "Pending Confirmation Wholesalers";
+}
+<h5> @ViewBag.title</h5>
+<div class="panel well">
+
+<table class=" table table-striped table-hover" id="pending-confirmation-ratailers-table">
+    <thead>
+        <tr>
+            <th>WholesalerName</th>
+            <th>WholesalerAddress</th>
+            <th>BusinessPhoneNumber</th>
+            <th>BRCNumber</th>
+            <th>Category</th>
+            <th>Currency</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var wholesaler in Model.PendingWholesalers) { 
+        <tr>
+            <td>@wholesaler.WholesalerName</td>
+            <td>@wholesaler.WholesalerAddress</td>
+            <td>@wholesaler.BusinessPhoneNumber</td>
+            <td>@wholesaler.BRCNumber</td>
+            <td>@wholesaler.Category</td>
+            <td>@wholesaler.Currency</td>
+        </tr>
+            }
+    </tbody>
+</table>
+    <a class="btn btn-primary btn-raised">Confirm Wholesaler</a>
+</div>

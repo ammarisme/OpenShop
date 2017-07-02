@@ -1,0 +1,216 @@
+﻿@using ETrading.Models
+@using ETrading.Areas.Quotations.Models
+@model RequestQuotationViewModel
+@{
+    ViewBag.title = "Request for Quotation";
+}
+
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+    <div class="panel-body">
+        <div class="panel panel-default row col-md-7 sub-content-panel">
+            <div class="panel-heading">
+                Products in Quotation
+            </div>
+            <div class="panel-body">
+                <table class="table table-striped table-hover" id="quotation-products-table">
+                    <thead>
+                        <tr>
+                            <th>ProductId</th>
+                            <th>ProductName</th>
+                            <th>Quantity</th>
+                            <th>UnitPrice</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <a href="#" id="remove-product-button" class="btn btn-raised btn-danger">remove</a>
+            </div>
+        </div>
+                <form action="/Api/Quotation/RequestQuotation" method="post" id="quotation">
+        <div class="panel panel-default row col-md-4  sub-content-panel">
+            <div class="panel-heading">
+                <h4 class="row">Wholesaler Information</h4>
+            </div>
+            <div class="panel-body">
+                    @*public string WholesalerId { get; set; }*@
+                    <div class="form-group">
+                        <label for="wholesaler-name" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="wholesaler-id" name="WholesalerId" value="@Model.Wholesaler.Id" hidden="hidden">
+                            <input type="text" class="form-control" id="wholesaler-name" name="WholesalerName" value="@Model.Wholesaler.WholesalerName" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="wholesaler-address" class="col-md-2 control-label">Address</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="wholesaler-address" name="WholesalerAddress" value="@Model.Wholesaler.WholesalerAddress" disabled>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+
+        <div class="panel panel-default row col-md-4  sub-content-panel">
+            <div class="panel-heading">
+                <h4 class="row">Your Information</h4>
+            </div>
+            <div class="panel-body">
+                @*public string RetailerId { get; set; }*@
+                <div class="form-group">
+                    <label for="retailer-name" class="col-md-2 control-label">Name</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="retailer-id" name="RetailerId" value="@Model.Retailer.Id" hidden="hidden" disabled>
+                        <input type="text" class="form-control" id="retailer-name" name="RetailerName" value="@Model.Retailer.RetailerName" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="retailer-address" class="col-md-2 control-label">Adderss</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="retailer-address" name="RetailerAddress" placeholder="" value="@Model.Retailer.RetailerAddress">
+                    </div>
+                </div>
+                <div class="form-group">
+                    @*public string Remark { get; set; }*@
+                    <label for="remark" class="col-md-2 control-label">Remark</label>
+                    <div class="col-md-10">
+                        <textarea class="form-control" rows="4" id="remark" name="Remark"> </textarea>
+                        <span class="help-block">Use this field to let us know any custom information that you would like us to know!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default row col-md-4  sub-content-panel">
+            <div class="panel-heading">
+                <h4 class="row">Delivery Information</h4>
+            </div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label for="select111" class="col-md-2 control-label">Delivery Method</label>
+                    <div class="col-md-10">
+                        <select id="DeliveryMethod" class="form-control" name="DeliveryMethodId">
+                            <option value="StorePickup">Store Pickup</option>
+                            <option value ="Aramex">Aramex</option>
+                            <option value="CSL">CSL</option>
+                            <option value="SLPost">SL Post</option>
+                            <option value="LorryTransport">Lorry Transport</option>
+                            <option value="BusTransport">Bus Transport</option>
+                            <option value="WholesalerDelivery">Wholesaler delivery</option>
+                        </select>
+                    </div>
+                    <label for="select111" class="col-md-12 control-label">Delivery Cost : <span id="delivery-cost">$100</span></label>
+                </div>
+                </div>
+            </div>
+                <div class="panel panel-default row col-md-3  sub-content-panel">
+                    <div class="panel-heading">
+                        <h4 class="row">Payment Information</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="PaymentMethod" class="col-md-2 control-label">Payment Method</label>
+                            <div class="col-md-10">
+                                <select id="PaymentMethod" name="PaymentMethodId" class="form-control">
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Ez-cash">Ez-Cash</option>
+                                    <option value="BT">Bank Transfer</option>
+                                    <option value="BD">Bank Deposit</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="retailer-address" class="col-md-2 control-label">Payment Duration (in days)</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="retailer-address" placeholder="Payment Duration" name="PaymentDuration">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <button type="submit" id="request-quotation-button" class="btn btn-raised btn-success">Request Quotation</button>
+</form>
+            </div>
+        </div>
+
+@section script{
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+    
+    <script>
+        var products = [];
+        if (localStorage.getItem("Quotation")) {
+            var Quotation = getLocalStorageData("Quotation");
+            
+            var wholesalerId = "@Model.Wholesaler.Id";
+
+
+
+
+            //var table = "";
+            // loop through products in quotation and add rows
+                for (var product in Quotation[wholesalerId]["ProductsInQuotation"]) {
+
+                    products.push(Quotation[wholesalerId]["ProductsInQuotation"][product]);
+                    //table = table + "<tr><td>" + Quotation[wholesalerId]["ProductsInQuotation"][product]["ProductId"] + "</td><td>" + Quotation[wholesalerId]["ProductsInQuotation"][product]["ProductName"] + "</td><td>" + Quotation[wholesalerId]["ProductsInQuotation"][product]["Quantity"] + "</td><td>" + Quotation[wholesalerId]["ProductsInQuotation"][product]["UnitPrice"] + "<td></tr>";
+                }
+
+                //table = table + '</tbody></table>'
+                //$("#quotation-products-table").append(table);
+
+
+                var quotationProducts = initiateTable("quotation-products-table", {
+                    data : products ,
+                    "columns": [
+                            { "data": "ProductId" },
+                            { "data": "ProductName" },
+                            { "data": "Quantity" },
+                            { "data": "UnitPrice" }
+                    ],
+                    "paging": false,
+                    "info": false,
+                    "columnDefs": [
+                   {
+                       "targets": [0],
+                       "visible": false
+                   }
+                    ]
+                });
+
+        } else {
+            // empty quotation
+        }
+        $("#remove-product-button").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#quotation-products-table"));
+            quotationProducts.row(selectedRowIndex).remove().draw(false);
+        });
+
+
+        // sending the Quotation Object to the api
+        $("#" + "quotation").on('submit', function (event) {
+            var submitData = {}; // the data that will be sent using ajax
+
+            var quotationProductsData= getTableData(quotationProducts); // the table that will be attached to the data
+
+            quotationProducts.clear().draw(false);
+
+            submitData = getFormValues("quotation");
+
+            submitData["ProductsInQuotation"] = quotationProductsData; // adding the ProductsInQuotation
+
+            console.log(submitData); 
+
+            $.ajax({
+                type: 'post',
+                url: "/api/Quotation/RequestQuotation",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                }
+            });
+
+            event.preventDefault();
+        });
+
+    </script>
+}

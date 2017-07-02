@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.title = "View all Products";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="col-md-12 panel sub-content-panel">
+    <table id="products-table" class="display table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ProductId</th>
+                <th>ProductName</th>
+                <th>Unit</th>
+                <th>Retail Price</th>
+                <th>Wholesale Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>ProductId</th>
+                <th>ProductName</th>
+                <th>Unit</th>
+                <th>Retail Price</th>
+                <th>Wholesale Price</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="col-md-12 panel sub-content-panel">
+    <table id="specification-in-product-table" class="display table table-hover table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Specification In ProductId</th>
+                <th>Specification</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+
+@section script{
+    <script>
+
+        // Initiate Specification in product DT
+        var specificationsInProduct = initiateTable1("specification-in-product-table",
+            {
+                "bLengthChange": false, "columns": [
+                        { "data": "SpecificationInProductId" },
+                        { "data": "Specification" },
+                        { "data": "Value" }
+                ],
+                "columnDefs": [
+                        {
+                            "targets": [0],
+                            "visible": false,
+                            "searchable": false
+                        }
+                ],
+                "sDom": "t"
+            },
+            function () { },
+            function () { }
+            );
+
+
+        // Initiated Product DT
+        var onProductSelection = function () {
+            var id = getTableSelectedRowKey($("#products-table"));
+            updateTableFromApi(specificationsInProduct, "../../api/Products/GetSpecificationsInProduct/" + id, function () { });
+        }
+
+        var productsTable = initiateTable1("products-table",
+            {
+                "bLengthChange": false,
+                 "columns": [
+                        { "data": "ProductId" },
+                        { "data": "ProductName" },
+                        { "data": "Unit" },
+                        { "data": "RetailPrice" },
+                        { "data": "WholesalePrice" }
+                 ],
+                 fullreport: true,
+                 reportname : "Products"
+            }
+            , onProductSelection, function () {
+                specificationsInProduct.clear().draw(false);
+            });
+        
+
+        // Update Products DT from API
+        updateTableFromApi(productsTable, "../../api/Products/GetProducts", onProductSelection);
+
+        $(".navigation-help").html("My Products / All Products");
+
+
+    </script>
+}

@@ -1,0 +1,228 @@
+﻿@using RetailTradingPortal.Models
+@using RetailTradingPortal.Areas.Products.Models
+
+@model CreateProductViewModel
+@{
+    ViewBag.title = "Create Product";
+}
+
+
+<title>@ViewBag.title</title> 
+<h5>@ViewBag.title</h5>
+
+
+@* This navigation tab is used to navigate within the page. *@
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#general-info" data-toggle="tab">General Info</a></li>
+    <li class=""><a href="#specifications" data-toggle="tab">Specifications</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade" id="specifications">
+        <div class="row">
+            <div class="col-md-4  panel sub-content-panel">
+@* Specifications to the product can be added *@
+                <h5>Add Specifications to the Product</h5>
+                <form action="no-implemetation" id="create-specification-in-product-form" method="POST">
+                    <div id="name-group" class="form-group">
+                        @* Name of the specification *@
+                        <label for="name" class="custom-label">Specification Name</label>
+                        <input type="text" class="form-control custom-text-box" pattern="[a-zA-Z]{1,12}$" title="Specification Name must not be null and must be lesser than 12 characters in length. Also must only contain alphabetic letters." name="Specification" placeholder="eg: - Color">
+                    </div>
+                    <div id="name-group" class="form-group">
+                        @*value of the specification*@
+                        <label for="name" class="custom-label">Value</label>
+                        <input type="text" class="form-control custom-text-box" name="Value" pattern="[a-zA-Z0-9]{1,12}$" title="Value can either be a number or containing letters. Length of the value must be between 1 and 12 characters." placeholder="eg :- red, 1.2 , 1, A1, Red">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-raised">Add<span class="fa fa-arrow-down"></span></button>
+                    <button type="button" class="btn btn-default btn-raised" id="removeSpecification">Remove<span class="fa fa-arrow-right"></span></button>
+                </form>
+            </div>
+
+            <div class="panel sub-content-panel col-md-7">
+                <table id="specifications-in-product-table" class="table table-striped table-hover " cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Specification</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @* General information form *@
+    <div class="tab-pane fade active in" id="general-info">
+        <div class="col-md-5  panel  sub-content-panel">
+            <form action="no-implementation" id="create-product-form" method="POST">
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Product Name</label>
+                    <input type="text" name="ProductName" pattern="[A-Za-z0-9\s]{1,12}" title="Product name can only contain alphateic characters, spaces and numbers." class="form-control custom-text-box" required>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Unit</label>
+                    <input type="text" name="Unit" pattern="[A-Za-z]{1,5}" class="form-control custom-text-box" required>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Retail Price </label>
+                    <input type="number"  min="0" name="RetailPrice" step="0.01" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" class="form-control custom-text-box" required>
+                </div>
+
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Wholesale Price </label>
+                    <input type="number" min="0" name="WholesalePrice" step="0.01" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" class="form-control custom-text-box" required>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Short Description</label>
+                    <input type="text" pattern="[A-Za-z0-9\s]{5,30}" name="ShortDescription" title="Short Description can only contain alphabetic characters and numbers. Also the text must be lesser than 30 chars." class="form-control custom-text-box" required>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Current Stock Quantity   (Currency : LKR)</label>
+                    <input type="number"  min="0" step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  name="StocksQuantity" class="form-control custom-text-box" />
+                </div>
+            </form>
+            <button class="btn btn-primary btn-raised" id="create-product-button">Create Product</button>
+        </div>
+        <div class="col-md-6 panel sub-content-panel">
+            <h5>Add images</h5>
+            <form action="/Products/MyProducts/SaveUploadedFile"
+                  class="dropzone"
+                  id="my-awesome-dropzone">
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section script{
+    <script src="~/Scripts/dropzone.js"></script>
+    <script>
+        
+        // Update the form on selection of the specifications table
+        var onSelection = function () {
+
+        };
+
+        // Reset the form on unselection of the specification table
+        var onUnselection = function () {
+
+        };
+
+        /// Initiating the specifications-in-materials-table
+        var specificationsInProductTable = initiateTable1("specifications-in-product-table", {
+            "bLengthChange": false, "columns": [
+                    { "data": "Specification" },
+                    { "data": "Value" }
+            ],
+            "sDom": "t"
+        }
+        , onSelection
+        , onUnselection
+        );
+
+        $("#removeSpecification").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#specifications-in-product-table"));
+            specificationsInProductTable.row(selectedRowIndex).remove().draw(false);
+        }); //can be used commonly with as a table removal button
+
+        var onCompletion = function () { }; // a dummy functio
+
+        //  Linking the specifications table to specifications form
+        syncFormWithTable("create-specification-in-product-form", specificationsInProductTable, "Specification", onCompletion, onCompletion); // connecting the table with the form
+
+
+        // sending the final object
+
+        $("#" + "create-product-button").on('click', function (event) {
+            onCompletion(); // before submission
+            var valid = true; // to keep track of data validity
+            var errorMessage = ""; // future error messages
+
+            // validate forms
+            if (!$("#create-product-form")[0].checkValidity()) {
+                document.forms["create-product-form"].reportValidity();
+                valid = false;
+                errorMessage = errorMessage + "</br>Product information errors exist";
+            }
+            
+
+            var submitData = {}; // the data that will be sent using ajax
+
+            var specificationsInProduct = getTableData(specificationsInProductTable); // the table that will be attached to the data
+
+            specificationsInProductTable.clear().draw(false);
+
+            submitData = getFormValues("create-product-form");
+
+            // check if the product already exist
+            var apiUrl = "../../api/Products/ProductExistsByName/?name=" + submitData["ProductName"]
+            $.ajax({
+                type: 'get',
+                url:apiUrl ,
+                dataType: 'json',
+                async: false,
+                contentType: 'application/json',
+                statusCode: {
+                    200: function (response) {
+                        // the product already exist
+                        valid = false;
+                        errorMessage = errorMessage + "</br>Product already exist";
+                    },
+                    404: function () {
+                        // do nothing, product dont exist
+                    }
+                }
+            });
+
+            
+            submitData["SpecificationsInProduct"] = specificationsInProduct; // adding the materials in datatable
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            if (!valid) {
+                showModalMessage("Errors in input detected", errorMessage);
+                return ;
+            }
+
+            $.ajax({
+                type: 'post',
+                url: "/api/Products/AddProduct",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                aync : false ,
+                dataType: 'json',
+                contentType: 'application/json',
+                statusCode: {
+                    201: function (data) {
+                        showModalMessage("Product Created",
+                            "<strong>Product Id</strong> : " + data.ProductId +
+                            "<br/><strong>Product Name </strong>: " + data["ProductName"] +
+                            "<br/><strong>Retail price: </strong>" + data["RetailPrice"] +
+                            "<br/><strong>Wholesale price: </strong>" + data["WholesalePrice"] +
+                            "<br/><strong>Quantity in Stock:</strong> " + data["StocksQuantity"] +
+                            " </br></br>Now you can use this product for various purposes");
+                    }
+                }
+            }
+            );
+            
+
+            event.preventDefault();
+        });
+
+        $(document).ready(function () {
+        //File Upload response from the server
+        Dropzone.options.dropzoneForm = {
+            init: function () {
+                this.on("complete", function (data) {
+                    //var res = eval('(' + data.xhr.responseText + ')');
+                    var res = JSON.parse(data.xhr.responseText);
+                });
+            }
+        };
+        });
+    
+        $(".navigation-help").html("My Products / Create new Product");
+    </script>
+}

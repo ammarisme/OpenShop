@@ -1,0 +1,66 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+            <!-- Navigation toggle buttton -->
+            @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>*@
+            <!-- Brand logo -->
+            @*<a class="navbar-brand" href="javascript:void(0)">ETrading</a>*@
+            @if (User.IsInRole("Administrator"))
+            {
+                <a href="#" data-activates="slide-out" class="btn button-collapse show-on-large"><i class="material-icons">menu</i></a>
+            }
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Account links -->
+                <li class="dropdown">
+                    <a href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        My Account
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="~/Administrators/Administrator/Dashboard">Dashboard</a></li>
+                        <li class="divider"></li>
+                        @using (Html.BeginForm("LogOff", "../Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <li>
+                                <a class="btn btn-warning btn-raised" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<ul id="slide-out" class="side-nav custom-side-nav">
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i><span>Retailers</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Retailers/Retailer/PendingConfirmationRetailers">Confirmation Pending Retailers</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Retailers/Retailer/RegisteredRetailers">Registered Retailers</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i><span>Wholesalers</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Wholesalers/Wholesaler/PendingConfirmationWholesalers">Confirmation Pending Users</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Wholesalers/Wholesaler/RegisteredWholesalers">Registered Users</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>Customers</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Customers/Customer/RegisteredCustomers">Registered Customers</a></li>
+        </ul>
+    </li>
+</ul>
+

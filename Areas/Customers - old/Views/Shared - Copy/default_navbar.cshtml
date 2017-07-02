@@ -1,0 +1,52 @@
+﻿    <div class="navbar navbar-default navbar-fixed-top custom-navbar">
+        <div class="container-fluid">
+            <!-- Navigation Header -->
+            <div class="navbar-header">
+                <!-- Navigation toggle buttton -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- Brand logo -->
+                <a class="navbar-brand" href="javascript:void(0)">RetailShop</a>
+            </div>
+
+            <!-- navigation body -->
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!--  Login / Register Link-->
+                    <li><a href="Quote" id="Quote" class="btn btn-raised btn-default custom-navbar-links ">Quote</a></li>
+                    <li><a href="RetailCart" id="Cart" class="btn btn-raised btn-default shopping-cart"><i></i></a></li>
+                    <li><a href="LoginRegister" id="LoginRegister" class="btn btn-raised btn-default custom-navbar-links ">Login/Register</a></li>
+                    <!-- Account links -->
+                    <li class="dropdown">
+                        <a href="" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                            My Account
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Sales/MyRetailOrder/ViewHistory">My Orders</a></li>
+                            <li><a href="/Customers/Customer/Manage">My Profile</a></li>
+                            <li><a href="javascript:void(0)">My Wishlist</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <!-- Logout button -->
+                                    <div class="">
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            using (Html.BeginForm("LogOff", "../Account", FormMethod.Post, new { id = "logoutForm"}))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                    <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                            }
+                                        }
+                                    </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>

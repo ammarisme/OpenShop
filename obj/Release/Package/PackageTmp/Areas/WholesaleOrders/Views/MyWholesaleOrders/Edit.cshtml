@@ -1,0 +1,248 @@
+﻿@{
+    ViewBag.Title = "Edit Wholesale Order";
+}
+<section class="content-header">
+    <h1>@ViewBag.Title</h1>
+</section>
+<section class="content">
+    <div class="col-md-12 well">
+        <div class="col-md-12">
+            <table id="orders-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>OrderId</th>
+                        <th>OrderDate</th>
+                        <th>OrderDueDate</th>
+                        <th>OrderStatus</th>
+                        <th>DeliveredDate</th>
+                        <th>DeliveryStatus</th>
+                        <th>Remark</th>
+                        <th>RetailerId</th>
+                        <th>WholesalerId</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in ViewBag.orders)
+                    {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.OrderDate</td>
+                            <td>@order.OrderDueDate</td>
+                            <td>@order.OrderStatus</td>
+                            <td>@order.DeliveredDate</td>
+                            <td>@order.DeliveryStatus</td>
+                            <td>@order.Remark</td>
+                            <td>@order.RetailerId</td>
+                            <td>@order.WholesalerId</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <form action="../../api/WholesaleOrders/UpdateOrder" id="order-form" class="form-horizontal" method="POST">
+                <div id="name-group" class="form-group">
+                    <div class="col-md-4">
+                        <label for="date">OrderId</label>
+                        <input type="text" name="OrderId" class="form-control" disabled />
+                        @*FirstName*@
+                        <label for="date">OrderDate</label>
+                        <input type="text" name="OrderDate" class="form-control" disabled />
+
+                        @*FirstName*@
+                        <label for="date">OrderDueDate</label>
+                        <input type="text" name="OrderDueDate" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        @*LastName*@
+                        <label for="date">OrderStatus</label>
+                        <input type="text" name="OrderStatus" class="form-control" />
+
+                        @*Designation*@
+                        <label for="date">DeliveredDate</label>
+                        <input type="text" name="DeliveredDate" class="form-control" />
+
+                        @*Remark*@
+                        <label for="date">DeliveryStatus</label>
+                        <input type="text" name="DeliveryStatus" class="form-control" />
+                    </div>
+                    <div class="col-md-4">
+                        @*LastName*@
+                        <label for="date">Remark</label>
+                        <input type="text" name="Remark" class="form-control" />
+
+                        @*Designation*@
+                        <label for="date">RetailerId</label>
+                        <input type="text" name="RetailerId" class="form-control" disabled />
+
+                        @*Remark*@
+                        <label for="date">WholesalerId</label>
+                        <input type="text" name="WholesalerId" class="form-control" disabled />
+                    </div>
+                    <br />
+                    <div class="col-md-4 pull-right">
+                        <button type="submit" class="form-control btn btn-linkedin">Update Order</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12 well">
+        <div class="col-md-12">
+            <table id="products-in-order-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ProductInWholesaleOrderId</th>
+                        <th>ProductId</th>
+                        <th>WholesaleOrderId</th>
+                        <th>Quantity</th>
+                        <th>UnitPrice</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-12">
+            <form action="/api/WholesaleOrders/UpdateProductInWholesaleOrder" class="form-horizontal" id="product-in-order-form" method="POST">
+                <div id="name-group" class="form-group">
+                    <div class="col-md-4">
+
+                        <label for="date">ProductInWholesaleOrderId</label>
+                        <input type="text" name="ProductInWholesaleOrderId" class="form-control" disabled />
+
+                        @*ProductId*@
+                        <label for="date">ProductId</label>
+                        <input type="text" name="ProductId" class="form-control" disabled />
+
+
+                        @*Specification*@
+                        <label for="date">WholesaleOrderId</label>
+                        <input type="text" name="WholesaleOrderId" class="form-control" />
+                    </div>
+
+                    <div class="col-md-4">
+                        <label for="date">Quantity</label>
+                        <input type="text" name="Quantity" class="form-control" />
+
+
+                        <label for="date">UnitPrice</label>
+                        <input type="text" name="UnitPrice" class="form-control" />
+
+                        <label for="date">Description</label>
+                        <input type="text" name="Description" class="form-control" />
+                    </div>
+                    <br />
+                    <div class="col-md-4 pull-right">
+                        <button type="submit" class="form-control btn btn-linkedin">Update Product In Order</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+    /*
+    orders Table and Form
+    */
+    //Initiating the Orders table
+
+        // binding the table to the ordersts-form
+        var orderId = null;
+        var orderForm = $("#order-form");
+
+        var onOrderSelection = function () {
+            var tableIndex = getTableSelectedRowIndex($("#orders-table"));
+            orderId = getTableSelectedRowKey($("#orders-table"));
+            var OrderData = ordersTable.row(tableIndex).data();
+
+            setFormValues(orderForm, OrderData);
+
+            updateTableFromApi(productsInOrderTable, "../../api/WholesaleOrders/GetProductsInWholesaleOrder/" + orderId, function () { });
+
+            resetForm(productInOrderForm);
+        }
+
+        var onOrderUnSelected = function () {
+            productsInOrderTable.clear().draw();
+            resetForm(productInOrderForm);
+            resetForm(orderForm);
+        }
+
+        var ordersTable = initiateTable1(
+        "orders-table",
+        {
+            "columns": [
+                    { "data": "OrderId" },
+                    { "data": "OrderDate" },
+                    { "data": "OrderDueDate" },
+                    { "data": "OrderStatus" },
+                    { "data": "DeliveredDate" },
+                    { "data": "DeliveryStatus" },
+                    { "data": "Remark" },
+                    { "data": "RetailerId" },
+                    { "data": "WholesalerId" }
+            ]
+        }, onOrderSelection
+        , onOrderUnSelected
+        );
+    
+
+        /*
+        products in order table and form
+        */
+        // Initiating the Products in Order  table and form
+
+        var productInOrderForm = $("#product-in-order-form");
+
+        var onProductSelected = function () {
+            var tableIndex = getTableSelectedRowIndex($("#products-in-order-table"));
+
+            var ProductData = productsInOrderTable.row(tableIndex).data();
+
+            setFormValues(productInOrderForm, ProductData);
+        }
+
+        var onProductUnSelected = function () {
+            resetForm(productInOrderForm);
+        }
+        var productsInOrderTable =initiateTable1(
+            "products-in-order-table",
+            {
+                "bFilter": false,
+                "bInfo": false,
+                "columns": [
+                     { "data": "ProductInWholesaleOrderId" },
+                     { "data": "ProductId" },
+                     { "data": "WholesaleOrderId" },
+                     { "data": "Quantity" },
+                     { "data": "UnitPrice" },
+                     { "data": "Description" }
+                ]
+            }
+            , onProductSelected,
+            onProductUnSelected
+            );
+
+
+        //// Ajaxify form submissions
+        $(document).on('submit', '.form-horizontal', function (event) {
+            event.preventDefault();
+            // get form data and send ajax
+            var formData = getFormValues($(this).attr("id"));
+            $.ajax({
+                type: 'post',
+                url: $(this).attr("action"),
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                 
+                }
+            }
+            );
+        });
+    </script>
+}

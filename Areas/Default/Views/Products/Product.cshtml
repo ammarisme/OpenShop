@@ -1,0 +1,28 @@
+﻿@using WholesaleTradingPortal.Models;
+@using WholesaleTradingPortal.Areas.Default.Models;
+
+@model ProductViewModel
+@{
+    ViewBag.title = "Product: " + Model.Product.ProductName;
+}
+
+<title>@ViewBag.title @Model.Product.ProductName </title>
+
+        <div class="panel sub-content-panel seller-profile-info">
+            <h4 class="seller-name">@Model.Product.ProductName</h4>
+            <img class="tile-img seller-image col-md-4" src="/Images/products/@Model.Product.EnterpriseId/product1.png" />
+            <ul class="col-md-8 seller-profile-data">
+                <li>Price               : <strong>@Model.Enterprise.Currency @Model.Product.Price</strong></li>
+                <li>Description         : <strong>@Model.Product.ShortDescription</strong></li>
+                <li>Available Quantity  : <strong>@Model.Product.StocksQuantity @Model.Product.Unit (s)</strong> </li>
+                <li>Category            : <strong>@Model.Product.Category</strong></li>
+                <li>Seller              : <strong>@Model.Enterprise.EnterpriseName</strong></li>
+            </ul>
+        </div>
+        <a href="/Default/Products/BySeller/@Model.Product.EnterpriseId" class="btn btn-warning">View Other Products of the Seller</a>
+        <a href="/Default/Products/Category/@Model.Product.Category" class="btn btn-warning">View Other Products in the Same Category</a>
+
+@section script{
+    <script>
+    </script>
+}

@@ -1,0 +1,731 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RetailEnterprise.BundleConfig" Collapsed="true">
+    <Position X="22.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\BundleConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.FilterConfig" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\FilterConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.EmailService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="26" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RetailEnterprise.SmsService" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="RetailEnterprise.ApplicationUserManager" Collapsed="true">
+    <Position X="20.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.ApplicationSignInManager" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\IdentityConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.RouteConfig" Collapsed="true">
+    <Position X="20.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\RouteConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Startup" Collapsed="true">
+    <Position X="20.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAgAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\Startup.Auth.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.WebApiConfig" Collapsed="true">
+    <Position X="12" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App_Start\WebApiConfig.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.MvcApplication" Collapsed="true">
+    <Position X="17.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Global.asax.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Customers.Controllers.CustomerController" Collapsed="true">
+    <Position X="19" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAgAAAAAAAAAAAEAQAAAAACEIAIEAAAAAAAgCAA=</HashCode>
+      <FileName>Areas\Customers\Controllers\CustomerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Customers.CustomersAreaRegistration" Collapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Customers\CustomersAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Customers.Models.UserViewModel" Collapsed="true">
+    <Position X="13.75" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Customers\Models\CustomerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Customers.Models.RegisterCustomerViewModel" Collapsed="true">
+    <Position X="12.5" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAEAAAAAAIAAAAAAAAAAAAAAACAAAAAAAAIAg=</HashCode>
+      <FileName>Areas\Customers\Models\CustomerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Customers.Models.ManageCustomerViewModel" Collapsed="true">
+    <Position X="14.75" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAEAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Areas\Customers\Models\CustomerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Customers.Models.RegisteredCustomersViewModel" Collapsed="true">
+    <Position X="12" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Customers\Models\CustomerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Products.Controllers.MyProductsController" Collapsed="true">
+    <Position X="19" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAQAAAAAAAAAAAAAAAAAEACAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Products\Controllers\MyProductsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Products.Models.ProductViewModel" Collapsed="true">
+    <Position X="19" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Products\Models\ProductViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Products.ProductsAreaRegistration" Collapsed="true">
+    <Position X="26" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Products\ProductsAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Stocks.Controllers.MyStocksController" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAQAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Stocks\Controllers\MyStocksController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Stocks.Models.CreateProductStocksViewModel" Collapsed="true">
+    <Position X="12" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Stocks\Models\StocksViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Stocks.StocksAreaRegistration" Collapsed="true">
+    <Position X="13.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Stocks\StocksAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Quotations.Controllers.MyQuotationsController" Collapsed="true">
+    <Position X="22.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAABABAAAAA=</HashCode>
+      <FileName>Areas\Quotations\Controllers\MyQuotationsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Quotations.Models.RecievedQuotationsViewModel" Collapsed="true">
+    <Position X="10.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Areas\Quotations\Models\QuotationVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Quotations.Models.RequestedQuotationsViewModel" Collapsed="true">
+    <Position X="17.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Areas\Quotations\Models\QuotationVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Quotations.QuotationsAreaRegistration" Collapsed="true">
+    <Position X="26" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Quotations\QuotationsAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.Models.RetailerViewModel" Collapsed="true">
+    <Position X="6.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAAAAAAAQAAAAAAAAAAAAEAAAAAAABICAA=</HashCode>
+      <FileName>Areas\Accounts\Models\RetailerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.Models.RegisterRetailerViewModel">
+    <Position X="5.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAA=</HashCode>
+      <FileName>Areas\Accounts\Models\RetailerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.Models.ManageRetailerViewModel">
+    <Position X="7.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Accounts\Models\RetailerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.Models.RetailEnterpriseViewModel" Collapsed="true">
+    <Position X="19" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Accounts\Models\RetailerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.Models.PendingConfirmationRetailerViewModel" Collapsed="true">
+    <Position X="15.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Areas\Accounts\Models\RetailerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.Models.RegisteredRetailersViewModel" Collapsed="true">
+    <Position X="13.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Accounts\Models\RetailerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Accounts.RetailersAreaRegistration" Collapsed="true">
+    <Position X="26" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Accounts\AccountAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.Controllers.MySalesController" Collapsed="true">
+    <Position X="24.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAEAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\Controllers\MySalesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.Models.CreateRetailOrderView" Collapsed="true">
+    <Position X="15.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\Models\RetailOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.Models.CreateRetailOrder" Collapsed="true">
+    <Position X="13.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAEAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\Models\RetailOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.Models.ViewAllMyRecievedOrders" Collapsed="true">
+    <Position X="26" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\Models\RetailOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.Models.OrderView" Collapsed="true">
+    <Position X="12" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\Models\RetailOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.Models.PlacedOrdersView" Collapsed="true">
+    <Position X="19" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\Models\RetailOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Sales.SalesAreaRegistration" Collapsed="true">
+    <Position X="12" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Sales\RetailOrdersAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.WholeSales.Controllers.MyPurchaseOrders" Collapsed="true">
+    <Position X="26" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAQAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\PurchaseOrders\Controllers\MyPurchaseOrdersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.WholeSales.Models.CreateWholesaleOrderView" Collapsed="true">
+    <Position X="17.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAQAAAAEA=</HashCode>
+      <FileName>Areas\PurchaseOrders\Models\WholesaleOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.WholeSales.Models.ViewAllMyRecievedOrders" Collapsed="true">
+    <Position X="10.25" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\PurchaseOrders\Models\WholesaleOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.WholeSales.Models.OrderView" Collapsed="true">
+    <Position X="13.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\PurchaseOrders\Models\WholesaleOrderVIewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.WholeSales.WholeSalesAreaRegistration" Collapsed="true">
+    <Position X="13.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\PurchaseOrders\WholeSalesAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Controllers.WholesalerController" Collapsed="true">
+    <Position X="19" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAgAAAAAAAAAAAEAQAAAAACEIAIEAAAAAAAgCAA=</HashCode>
+      <FileName>Areas\Wholesalers\Controllers\WholesalerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Models.WholesalerViewModel" Collapsed="true">
+    <Position X="1.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEgAAAAEgAAAAAAAAAAAAAAACAIAAAEAAAAEAAAICAA=</HashCode>
+      <FileName>Areas\Wholesalers\Models\WholesalerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Models.RegisterWholesalerViewModel" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAIAA=</HashCode>
+      <FileName>Areas\Wholesalers\Models\WholesalerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Models.ManageWholesalerViewModel" Collapsed="true">
+    <Position X="2.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Wholesalers\Models\WholesalerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Models.ShopViewModel" Collapsed="true">
+    <Position X="13.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Wholesalers\Models\WholesalerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Models.PendingConfirmationWholesalerViewModel" Collapsed="true">
+    <Position X="17.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Wholesalers\Models\WholesalerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.Models.RegisteredWholesalersViewModel" Collapsed="true">
+    <Position X="15.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Wholesalers\Models\WholesalerViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Areas.Wholesalers.WholesalersAreaRegistration" Collapsed="true">
+    <Position X="20.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Areas\Wholesalers\WholesalersAreaRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.AccountController" Collapsed="true">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAABghAKAAAAAAAAGgEgEABADFMKIAAAMRAAQgCAA=</HashCode>
+      <FileName>Controllers\AccountController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.HomeController" Collapsed="true">
+    <Position X="20.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAEACAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Controllers\HomeController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.API.ProductsController" Collapsed="true">
+    <Position X="10.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAACAQAAAAAAgAYAiAAAAAAAAAQAAACAAAAIA=</HashCode>
+      <FileName>Controllers\API\ProductsController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.API.StocksController" Collapsed="true">
+    <Position X="17.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAACAQAAAAAEACAAAEAABACAAAAAAAAAEAgAA=</HashCode>
+      <FileName>Controllers\API\StocksController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.API.QuotationController" Collapsed="true">
+    <Position X="24.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQACEgEAAEAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\API\QuotationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.API.SalesController" Collapsed="true">
+    <Position X="13.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgACAQAAAAEAAAAAACAABAAAIAAAACAAAIAAE=</HashCode>
+      <FileName>Controllers\API\RetailOrdersController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Controllers.API.WholeSalesController" Collapsed="true">
+    <Position X="15.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQCAAAggAGAQAAAAAAAAAEAAAAiAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\API\WholeSalesController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.DAL.ApplicationDbContext" Collapsed="true">
+    <Position X="15.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACEBAAAAQAABAAQAEAAAAAAAEACAAMCQAAAAQAAAAAQ=</HashCode>
+      <FileName>DAL\ApplicationDBContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.DAL.ApplicationDbInitializer" Collapsed="true">
+    <Position X="17.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\ApplicationDbInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.DAL.DatabaseContext" Collapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\DatabaseContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.DAL.DatabaseInitializer" Collapsed="true">
+    <Position X="24.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DAL\DatabaseInitializer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Migrations.Configuration" Collapsed="true">
+    <Position X="26" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Migrations\Configuration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Customer">
+    <Position X="0.5" Y="23" Width="2.25" />
+    <Members>
+      <Property Name="CustomerFullName" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEEAAAAAAIAAAAAAAAAAAAAhAAAAAAAAAAAQg=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ApplicationUser" Collapsed="true">
+    <Position X="4" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAACA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.IndexViewModel" Collapsed="true">
+    <Position X="10.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAQAAAAAAAAAAAAAAQAAAEAEA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ManageLoginsViewModel" Collapsed="true">
+    <Position X="15.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.FactorViewModel" Collapsed="true">
+    <Position X="13.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.SetPasswordViewModel" Collapsed="true">
+    <Position X="10.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ChangePasswordViewModel" Collapsed="true">
+    <Position X="24.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.AddPhoneNumberViewModel" Collapsed="true">
+    <Position X="12" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.VerifyPhoneNumberViewModel" Collapsed="true">
+    <Position X="24.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ConfigureTwoFactorViewModel" Collapsed="true">
+    <Position X="10.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ManageViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Order">
+    <Position X="7.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAAAACABAAAAAAAAAAAAAAAAAAAAAgAAAAAQA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.PurchaseOrder">
+    <Position X="6" Y="20.5" Width="2.25" />
+    <Members>
+      <Property Name="Accounts" Hidden="true" />
+      <Property Name="Wholesalers" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAABAAgAACAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.SaleOrder">
+    <Position X="8.5" Y="20.5" Width="2" />
+    <Members>
+      <Property Name="Accounts" Hidden="true" />
+      <Property Name="Customers" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAACAAAAAAAAAAAAAABCAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInOrder">
+    <Position X="7.75" Y="22.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInRetailOrder">
+    <Position X="6" Y="25" Width="2" />
+    <Members>
+      <Property Name="Sales" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInPurchaseOrder">
+    <Position X="8.75" Y="25" Width="2.5" />
+    <Members>
+      <Property Name="WholeSales" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAACAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Product">
+    <Position X="1" Y="12.75" Width="1.5" />
+    <Members>
+      <Property Name="ProductsInRetailOrder" Hidden="true" />
+      <Property Name="ProductsInWholesaleOrder" Hidden="true" />
+      <Property Name="SpecificationInProduct" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAgAAACAIAAAAIACAAAgAAAAIAAAQAAIAAA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductStocks">
+    <Position X="4.25" Y="12.75" Width="2" />
+    <Members>
+      <Property Name="ProductsInProductStocks" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAAgAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ProductStocks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInProductStocks">
+    <Position X="4.25" Y="14.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EEAAAAAAAoAAAAAAAAAAABAAAAgAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Models\ProductStocks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Quotation">
+    <Position X="8" Y="12.75" Width="2" />
+    <Members>
+      <Property Name="ProductsInQuotation" Hidden="true" />
+      <Property Name="Wholesalers" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>BAADAAAEAAABAAAAAAAAAAAABAAAAAQAAAAgQAAAAAA=</HashCode>
+      <FileName>Models\Quotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInQuotation">
+    <Position X="8" Y="15" Width="2" />
+    <Members>
+      <Property Name="Products" Hidden="true" />
+      <Property Name="Quotations" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>NAABAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAQ=</HashCode>
+      <FileName>Models\Quotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Account">
+    <Position X="3.75" Y="18.75" Width="1.5" />
+    <Members>
+      <Property Name="Quotations" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AEABAAAEAAAAAAAAAQAAAAAACAAAAAEAAAAAAABICAA=</HashCode>
+      <FileName>Models\Retailer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.SpecificationInProduct">
+    <Position X="1" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>Models\SpecificationInProduct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ResetPasswordViewModel" Collapsed="true">
+    <Position X="22.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAgAAAAAAAAAAACAAAAAAAAIAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ForgotPasswordViewModel" Collapsed="true">
+    <Position X="17.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.AllUsersViewModel" Collapsed="true">
+    <Position X="13.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ExternalLoginConfirmationViewModel" Collapsed="true">
+    <Position X="10.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ExternalLoginListViewModel" Collapsed="true">
+    <Position X="12" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.SendCodeViewModel" Collapsed="true">
+    <Position X="22.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAEAAAIAAAAAAAAAAAAAAAAAAIAAAAgAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.VerifyCodeViewModel" Collapsed="true">
+    <Position X="22.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAEAAAAAAAgAAAAAAAAAAAAAAIAAAAgAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ForgotViewModel" Collapsed="true">
+    <Position X="19" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.LoginViewModel" Collapsed="true">
+    <Position X="13.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAgAAA=</HashCode>
+      <FileName>Models\ViewModels\AccountViewModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Wholesaler">
+    <Position X="3.75" Y="23" Width="1.5" />
+    <Members>
+      <Property Name="Quotations" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AEgBAAAEgAAAAAAAAAAAAAAADAIAAAEAAAAEAAAICAA=</HashCode>
+      <FileName>Models\Wholesaler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

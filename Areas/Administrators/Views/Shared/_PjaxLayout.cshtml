@@ -1,0 +1,14 @@
+﻿    <!-- Body -->
+        @RenderBody()
+
+
+        @if (IsSectionDefined("script"))
+        {
+            @RenderSection("script");
+        }
+        else
+        {
+            @Html.Partial("administrator_default_script");
+        }
+    
+

@@ -1,0 +1,184 @@
+﻿@using WholesaleTradingPortal.Areas.Enterprises.Models;
+@model ManageServicesOfEnterprisesViewModel
+
+@{
+    ViewBag.title = "Integrated Accounts and Enterprises";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+
+<div class="col-md-12 panel sub-content-panel">
+    <table id="accounts-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Status</th>
+                <th>Designation</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Status</th>
+                <th>Designation</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="col-md-12 panel sub-content-panel">
+    <table id="enterprises-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>EnterpriseId </th>
+                <th>EnterpriseTypeId </th>
+                <th>EnterpriseName </th>
+                <th>EntepriseAddress </th>
+                <th>Rating </th>
+                <th>BusinessPhoneNumber </th>
+                <th>Status </th>
+                <th>BRCNumber </th>
+                <th>Category </th>
+                <th>Currency </th>
+                <th>Country </th>
+                <th>Region </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>EnterpriseId </th>
+                <th>EnterpriseTypeId </th>
+                <th>EnterpriseName </th>
+                <th>EntepriseAddress </th>
+                <th>Rating </th>
+                <th>BusinessPhoneNumber </th>
+                <th>Status </th>
+                <th>BRCNumber </th>
+                <th>Category </th>
+                <th>Currency </th>
+                <th>Country </th>
+                <th>Region </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+
+@section script{
+    <script>
+        var onAccountSelection = function () {
+            var id = getTableSelectedRowKey($("#accounts-table"));
+            updateTableFromApi(enterprisesTable, "../../api/Accounts/GetAccountEnterprises/" + id, function () { });
+        }
+        var accountsTable = initiateTable1("accounts-table",
+            {
+                "bLengthChange": false, "columns": [
+                    { "data": "Id" },
+                    { "data": "Name" },
+                    { "data": "Address" },
+                    { "data": "PhoneNumber" },
+                    { "data": "Status" },
+                    { "data": "Designation" }
+                ],
+                fullreport: true,
+                reportname: "Accounts of Enterprise"
+            },
+            onAccountSelection,
+            function () { }
+            );
+
+
+
+        // Initiated Enterprise DT
+        var onEnterpriseSelection = function () {
+            var id = getTableSelectedRowKey($("#enterprises-table"));
+            updateTableFromApi(accountsTable, "../../api/Enterprises/GetEnterpriseAccounts/" + id, function () { });
+        }
+
+        var enterprisesTable = initiateTable1("enterprises-table",
+            {
+                "bLengthChange": false,
+                "columns": [
+               { "data": "EnterpriseId" },
+               { "data": "EnterpriseTypeId" },
+               { "data": "EnterpriseName" },
+               { "data": "EntepriseAddress" },
+               { "data": "Rating" },
+               { "data": "BusinessPhoneNumber" },
+               { "data": "Status" },
+               { "data": "BRCNumber" },
+               { "data": "Category" },
+               { "data": "Currency" },
+               { "data": "Country" },
+               { "data": "Region" }
+                ],
+                fullreport: true,
+                reportname: "Enterprises of Account"
+            }
+            , onEnterpriseSelection, function () {
+            });
+
+
+        // Update Enterprises and Accounts DT from API
+        updateTableFromApi(enterprisesTable, "../../api/Enterprises/GetEnterprises", onEnterpriseSelection);
+        updateTableFromApi(accountsTable, "../../api/Accounts/GetAccounts", onEnterpriseSelection);
+
+        // onclick of add button send a json object
+        $("#add-service-to-enterprise").on("click", function () {
+            var serviceId = $("#Type").val();
+            var enterpriseId = getTableSelectedRowKey($("#enterprises-table"));
+            var data = {
+                "ServiceId": serviceId,
+                "EnterpriseId": enterpriseId
+            };
+
+            sendObjectToServer("../../api/Enterprises/AddEnterpriseService", data, function () {
+                showModalMessage("Service successfully added", "");
+            }, function () {
+                showModalMessage("Service addtion failed");
+            });
+        });
+
+        // onclick of remove button send a json object
+        $("#remove-service-from-enterprise").on("click", function () {
+            var serviceId = getTableSelectedRowKey($("#services-of-enterprise-table"));
+            var enterpriseId = getTableSelectedRowKey($("#enterprises-table"));
+            var data = {
+                "ServiceId": serviceId,
+                "EnterpriseId": enterpriseId
+            };
+
+            sendObjectToServer("../../api/Enterprises/RemoveEnterpriseService", data, function () {
+                showModalMessage("Operation Success", "Service successfully removed from the Enterprise");
+            }, function () {
+                showModalMessage("Operation failed");
+            });
+        });
+
+        $(".navigation-help").html("Enterprises / Manage Services");
+
+
+
+    </script>
+}
+@* <div class="divider row"></div>
+    <div>
+        <div id="name-group" class="form-group">
+            <label for="name">Service</label>
+            @Html.DropDownListFor(m => m.ServiceId,
+                                  new SelectList(Model.ServiceId,
+                               "ServiceId", "Type",
+                                                          Model.ServiceId.First().ServiceId), new { @class = "form-control custom-text-box  custom-label", id = "Type" })
+        </div>
+        <buttn class="btn btn-default" id="add-service-to-enterprise">Add</buttn>
+        <buttn class="btn btn-update" id="remove-service-from-enterprise">Remove</buttn>
+    </div> *@

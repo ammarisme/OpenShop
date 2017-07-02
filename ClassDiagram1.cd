@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RetailEnterprise.Models.Customer">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAEEAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAQg=</HashCode>
+      <FileName>Models\Customer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ApplicationUser">
+    <Position X="4" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\IdentityModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Order">
+    <Position X="7" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAAAACABAAAAAAAAAAAAAAAAAAAAAgAAAAAQA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.WholesaleOrder">
+    <Position X="5.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAABAAAAAAAAAAAABAAgAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.RetailOrder">
+    <Position X="8" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAEAAAAAAAACAAAAAAAAAAAAAABAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInOrder">
+    <Position X="4.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Product">
+    <Position X="9.25" Y="2.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAgAAACAIAAAAIACAAAgCAAAIAAAQAAIAAA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductStocks">
+    <Position X="14.75" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>GAAAAAAAAgAAAASAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ProductStocks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInProductStocks">
+    <Position X="17.25" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EEAAAAAAAoAAAAAAAAAAABAAAAgAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Models\ProductStocks.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Quotation">
+    <Position X="10.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAADAEAEAAABAAAAAAAAAAAABAAAAAQAAAAgQAAAAAA=</HashCode>
+      <FileName>Models\Quotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.ProductInQuotation">
+    <Position X="12.25" Y="8.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>NAABAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAQ=</HashCode>
+      <FileName>Models\Quotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Retailer">
+    <Position X="4.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABAAAEAAAAAAAAAQAAAAAACAAAAAEAAAAAAABICAA=</HashCode>
+      <FileName>Models\Retailer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.SpecificationInProduct">
+    <Position X="12.25" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAgCAAAAAA=</HashCode>
+      <FileName>Models\SpecificationInProduct.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RetailEnterprise.Models.Wholesaler">
+    <Position X="2.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEgBAAAEgAAAAAAAAAAAAAAACAIAAAEAAAAEAAAICAA=</HashCode>
+      <FileName>Models\Wholesaler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

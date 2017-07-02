@@ -1,0 +1,274 @@
+﻿@using ETrading.Models
+@using ETrading.Areas.WholesaleOrders.Models
+@model CreateWholesaleOrderView
+@{
+    ViewBag.title = "Place New wholesale Order";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+
+@* Internal navigation bar *@
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#products" data-toggle="tab">Products</a></li>
+    <li class=""><a href="#wholesaler-information" data-toggle="tab">Wholesaler</a></li>
+    <li class=""><a href="#my-information" data-toggle="tab">My Information</a></li>
+    <li class=""><a href="#delivery" data-toggle="tab">Delivery</a></li>
+    <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
+</ul>
+
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="products">
+        <div class="row">
+            <div class="panel panel-default row col-md-7 sub-content-panel">
+                <div class="panel-heading">
+                    <h5> Products</h5>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-hover" id="order-products-table">
+                        <thead>
+                            <tr>
+                                <th>ProductId</th>
+                                <th>ProductName</th>
+                                <th>Quantity</th>
+                                <th>UnitPrice</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <a href="#" id="remove-product-button" class="btn btn-raised btn-danger">remove</a>
+                </div>
+            <div class="panel-footer">
+                <a class="btn btn-raised btn-default next-button" href="#wholesaler-information" data-toggle="tab">Confirm</a>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-pane fade in" id="wholesaler-information">
+        <div class="row">
+            <form action="/Api/Quotation/RequestQuotation" method="post" id="wholesaler-information">
+                <div class="panel panel-default row col-md-4  sub-content-panel">
+                    <div class="panel-heading">
+                        <h5 class="row">Wholesaler Information</h5>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="wholesaler-name" class="col-md-2 control-label">Name</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control  custom-text-box" id="wholesaler-id" name="WholesalerId" value="@Model.Wholesaler.Id" hidden="hidden">
+                                <input type="text" class="form-control  custom-text-box" id="wholesaler-name" name="WholesalerName" value="@Model.Wholesaler.WholesalerName" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="wholesaler-address" class="col-md-2 control-label">Address</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control  custom-text-box" id="wholesaler-address" name="WholesalerAddress" value="@Model.Wholesaler.WholesalerAddress" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <a class="btn btn-raised btn-default next-button" href="#wholesaler-information" data-toggle="tab">Confirm</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="tab-pane fade in" id="payments">
+        <div class="row">
+            <div class="panel panel-default row col-md-3  sub-content-panel">
+                <div class="panel-heading">
+                    <h5 class="row">Payment Information</h5>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="PaymentMethod" class="col-md-2 control-label">Payment Method</label>
+                        <div class="col-md-10">
+                            <select id="PaymentMethod" name="PaymentMethodId" class="form-control  custom-text-box">
+                                <option value="Cheque">Cheque</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Ez-cash">Ez-Cash</option>
+                                <option value="BT">Bank Transfer</option>
+                                <option value="BD">Bank Deposit</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="retailer-address" class="col-md-2 control-label">Payment Duration (in days)</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control  custom-text-box" id="retailer-address" placeholder="Payment Duration" name="PaymentDuration">
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-raised btn-primary" href="#wholesaler-information" data-toggle="tab">Place Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="tab-pane fade in" id="my-information">
+        <div class="row">
+            <div class="panel panel-default row col-md-4  sub-content-panel">
+                <div class="panel-heading">
+                    <h5 class="row">My Information</h5>
+                </div>
+                <div class="panel-body">
+                    @*public string RetailerId { get; set; }*@
+                    <div class="form-group">
+                        <label for="retailer-name" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control  custom-text-box" id="retailer-id" name="RetailerId" value="@Model.Retailer.Id" hidden="hidden" disabled>
+                            <input type="text" class="form-control  custom-text-box" id="retailer-name" name="RetailerName" value="@Model.Retailer.RetailerName" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="retailer-address" class="col-md-2 control-label">Adderss</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control  custom-text-box" id="retailer-address" name="RetailerAddress" placeholder="" value="@Model.Retailer.RetailerAddress">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @*public string Remark { get; set; }*@
+                        <label for="remark" class="col-md-2 control-label">Remark</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control  custom-text-box" rows="4" id="remark" name="Remark"> </textarea>
+                            <span class="help-block">Use this field to let us know any custom information that you would like us to know!</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-raised btn-default next-button" href="#wholesaler-information" data-toggle="tab">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="tab-pane fade in" id="delivery">
+        <div class="row">
+            <div class="panel panel-default row col-md-4  sub-content-panel">
+                <div class="panel-heading">
+                    <h5>Delivery Information</h5>
+                </div>
+                <div class="panel-body">
+                    <form action="no-implementation" id="delivery-form" method="POST">
+                        <div id="name-group" class="form-group">
+                            <label for="name" class="custom-label">DeliveredDate</label>
+                            <input type="date" name="DeliveredDate" class="form-control custom-text-box" />
+                        </div>
+                        <div id="name-group" class="form-group">
+                            <label for="name" class="custom-label">DeliveryStatus</label>
+                            <input type="text" name="DeliveryStatus" class="form-control custom-text-box" />
+                        </div>
+                        <div id="name-group" class="form-group">
+                            <label for="name" class="custom-label">Remark</label>
+                            <input type="text" name="Remark" class="form-control custom-text-box" />
+                        </div>
+                        <div class="form-group">
+                            <label for="select111" class="col-md-2 control-label">Delivery Method</label>
+                            <div class="col-md-10">
+                                <select id="DeliveryMethod" class="form-control  custom-text-box" name="DeliveryMethodId">
+                                    <option value="StorePickup">Store Pickup</option>
+                                    <option value="Aramex">Aramex</option>
+                                    <option value="CSL">CSL</option>
+                                    <option value="SLPost">SL Post</option>
+                                    <option value="LorryTransport">Lorry Transport</option>
+                                    <option value="BusTransport">Bus Transport</option>
+                                    <option value="WholesalerDelivery">Wholesaler delivery</option>
+                                </select>
+                            </div>
+                            <label for="select111" class="col-md-12 control-label">Delivery Cost : <span id="delivery-cost">$100</span></label>
+                        </div>
+                    </form>
+                    
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-raised btn-default next-button" href="#wholesaler-information" data-toggle="tab">Confirm</a>
+                </div>
+            </div>   
+        </div>
+    </div>
+
+
+</div>
+
+    <script src="~/Scripts/jquery.dataTables.js"></script>
+
+@section script{
+    <script>
+        // update the products in order table from local storage
+        var products = [];
+        var orderProducts;
+        var wholesalerId = "@Model.Wholesaler.Id";
+        var Order;
+
+        if (localStorage.getItem("Order")) {
+            Order = getLocalStorageData("Order");
+
+            for (var product in Order[wholesalerId]["ProductsInOrder"]) {
+                products.push(Order[wholesalerId]["ProductsInOrder"][product]);
+            }
+
+            orderProducts = initiateTable("order-products-table", {
+                data: products,
+                "columns": [
+                        { "data": "ProductId" },
+                        { "data": "ProductName" },
+                        { "data": "Quantity" },
+                        { "data": "UnitPrice" }
+                ],
+                "paging": false,
+                "info": false,
+                "columnDefs": [
+               {
+                   "targets": [0],
+                   "visible": false
+               }
+                ]
+            });
+
+        } else {
+            // empty order
+        }
+        $("#remove-product-button").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#order-products-table"));
+            orderProducts.row(selectedRowIndex).remove().draw(false);
+        });
+
+        $(".next-button").on('click', function () {
+            var target = $(this).attr("href");
+            $("nav-tabs").find("href[" + target + "]").click();
+            
+        });
+
+        //// sending the Order Object to the api
+        //$("#" + "order").on('submit', function (event) {
+        //    var submitData = {}; // the data that will be sent using ajax
+
+        //    var orderProductsData = getTableData(orderProducts); // the table that will be attached to the data
+
+        //    orderProducts.clear().draw(false);
+
+        //    submitData = getFormValues("order");
+
+        //    submitData["ProductsInOrder"] = orderProductsData; // adding the ProductsInOrder
+
+        //    console.log(submitData);
+
+        //    $.ajax({
+        //        type: 'post',
+        //        url: "/api/WholesaleOrders/WholesaleOrder/",
+        //        data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+        //        dataType: 'json',
+        //        contentType: 'application/json',
+        //        success: function (data) {
+        //        }
+        //    });
+
+        //    event.preventDefault();
+        //});
+
+    </script>
+}

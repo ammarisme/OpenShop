@@ -1,0 +1,103 @@
+﻿@using RetailShop.Models
+@using RetailShop.Areas.WholesalePortal.Models
+@model ShopViewModel
+@{
+    ViewBag.title = "Products of Shop" + Model.Wholesaler.WholesalerName;
+}
+
+<div class="panel panel-default row items-panel">
+    <div class="panel-heading">
+        Products of @Model.Wholesaler.WholesalerName
+    </div>
+    <div class="panel-body">
+        <ul class="ìtems">
+        @foreach(var product in Model.ProductId){
+        <!-- single item -->
+            <li class="panel panel-default col-md-4 item" data-id="@product.ProductId" data-name="@product.ProductName" data-price="@product.WholesalePrice">
+                <div class="panel-heading">
+                    <a href="~/Products/Product/ShowWholesaleProduct?id=@product.ProductId"><h4>@product.ProductName</h4></a>
+                </div>
+                <div class="panel-body">
+                    <a href="~/Products/Product/ShowWholesaleProduct?id=@product.ProductId"></a><img src="~/Content/sample_product.jpg" alt="item" class="" /></a>
+                    <p class="short-description">
+                        @product.ShortDescription
+                    </p>
+                    <p>Price : <span class="price">@Model.Wholesaler.Currency  @product.WholesalePrice </span></p>
+                </div>
+                <div class="form-group label-floating">
+                    <label class="control-label" for="focusedInput1">Quantity</label>
+                    <input class="form-control" id="focusedInput1" type="number">
+                </div>
+                <a href="javascript:void(0)" class="btn btn-raised btn-warning add-to-cart">Add To Cart</a>
+                <a href="javascript:void(0)" class="btn btn-raised btn-primary add-to-quote">Get Quote</a>
+            </li>
+        }
+        </ul>
+    </div>
+</div>
+
+@section script{
+    <script>
+
+        var wholesalerId = "@Model.Wholesaler.Id";
+    // -- copy paste from stackoverflow
+    
+        // Setting local storage items for the cart and quote if it doesn't exist
+
+    if (localStorage.getItem('cart')) {
+        var cart = {};
+        cart.products = [];
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    
+
+    var productForQuote;
+
+    $(document).ready(function () {
+
+        // Add to Cart button click event
+        $('.add-to-cart').on('click', function () {
+            var product = $(this).parent();
+
+            var quantity = $(product).find('input[type=number]').val();
+            $(product).find('input[type=number]').val("");
+            $(product).find('.label-floating').addClass("is-Empty");
+            $(product).find('.label-floating').removeClass("is-focused");
+
+            product.id = $(product).attr('data-id');
+            product.name = $(product).attr('data-name');
+            product.price = $(product).attr('data-price');
+            product.quantity = quantity;
+
+            addToCart(product);
+        });
+
+        // Add to Quote button click event
+        $('.add-to-quote').on('click', function () {
+            // show a modal
+            $("#add-to-quote-modal").modal('show');
+
+            // save the product which the modal is going to add to the quote
+            productForQuote = $(this).parent();
+            
+        });
+
+        $("#add-to-quote-form").on('submit', function () {
+
+            // ProductInformation
+            var product = {};
+            product.ProductId = $(productForQuote).attr('data-id');
+            product.ProductName = $(productForQuote).attr('data-name');
+            product.Quantity = $(this).find('input[name=Quantity]').val();
+            product.UnitPrice = $(this).find('input[name=UnitPrice]').val();
+
+            addToQuote(product, wholesalerId);
+            resetForm($(this));
+            event.preventDefault();
+        });
+
+    });
+     
+</script>
+    }

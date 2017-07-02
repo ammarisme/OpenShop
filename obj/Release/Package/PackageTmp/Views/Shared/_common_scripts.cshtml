@@ -1,0 +1,48 @@
+﻿<script type="text/javascript" language="javascript" src="~/Scripts/jquery.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="~/Scripts/jquery-ui.js"></script>
+
+<script type="text/javascript" language="javascript" src="~/Content/bootstrap-3.3.6/dist/js/bootstrap.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="~/Scripts/bootstrap.js"></script>
+<!-- AdminLTE App -->
+<script src="~/Scripts/Template/js/app.js"></script>
+<script src="~/Scripts/form-master/jquery.form.js"></script>
+
+<script src="~/Scripts/jquery-ui.js"></script>
+<script src="~/Scripts/jquery.pjax.js"></script>
+
+<script src="~/Scripts/Custom.js" ></script>
+
+<script>
+
+    var loader = $("#loader");
+    
+    $.pjax.defaults.timeout = false;
+
+    $('#sidebar-links a[withpjax]').each(function () {
+        console.log($(this).html());
+        $(this).pjax(
+            {
+                container: ".content-panel",
+            }
+        );
+    });
+
+    $(document)
+  .on('pjax:send', '#container', function () {
+        $(".content-wrapper").append(loader);
+        $(".content").addClass("hidden"); // -wrapper
+        $("#loader").removeClass("hidden");
+        console.log("loading");
+  })
+  .on('pjax:complete', '#container', function () {
+        loader.remove();
+        $(".content").removeClass("hidden");
+        $("#loader").addClass("hidden");
+        console.log("loading finished");
+  });
+
+    $("#refresh-button").on('click', function () {
+        $.pjax.reload('#container');
+    });
+</script>

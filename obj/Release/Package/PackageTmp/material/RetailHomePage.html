@@ -1,0 +1,339 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title> Retail Home</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Material Design fonts -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="../Content/bootstrap-3.3.6/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap Material Design -->
+    <link href="dist/css/bootstrap-material-design.css" rel="stylesheet">
+    <link href="dist/css/ripples.min.css" rel="stylesheet">
+    <!-- Dropdown.js -->
+    <link href="../Content/jquery.dropdown.css" rel="stylesheet">
+    <!-- Page style -->
+    <link href="index.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="../Scripts/jquery-2.0.0.js"></script>
+
+</head>
+<body>
+    <!-- Retail Cart Modal -->
+    <div class="modal" id="CartModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login / Register modal -->
+    <div class="modal" id="LoginRegisterModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                        <li class="active"><a href="#login" data-toggle="tab">Home</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="bootstrap-elements.html" data-target="#">
+                                Register As <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#customer" data-toggle="tab">Customer</a></li>
+                                <li><a href="#retailer" data-toggle="tab">Retailer</a></li>
+                                <li><a href="#wholesaler" data-toggle="tab">Wholesaler</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-body">
+                    <div id="myTabContent" class="tab-content">
+                        <div class="tab-pane fade active in" id="login">
+                            <p>Login form</p>
+                        </div>
+                        <div class="tab-pane fade" id="retailer">
+                            <p>Retailer reg form</p>
+                        </div>
+                        <div class="tab-pane fade" id="wholesaler">
+                            <p>Wholesaler  reg form</p>
+                        </div>
+                        <div class="tab-pane fade" id="customer">
+                            <p>Customer reg form</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default">Register</button>
+                    <button type="button" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <!-- The Navigation Bar -->
+    <div class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Navigation Header -->
+            <div class="navbar-header">
+            <!-- Navigation toggle buttton -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            <!-- Brand logo -->
+                <a class="navbar-brand" href="javascript:void(0)">ETrading</a>
+            </div>
+
+            <!-- navigation body -->
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!--  Login / Register Link-->
+                    <li><a href="LoginRegister" id="LoginRegister">Login/Register</a></li>
+                    <li><a href="RetailCart" id="Cart">Your Cart</a></li>
+                    <!-- Account links -->
+                    <li class="dropdown">
+                        <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Dropdown
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">My Orders</a></li>
+                            <li><a href="javascript:void(0)">My Profile</a></li>
+                            <li><a href="javascript:void(0)">My Wishlist</a></li>
+                            <li class="divider"></li>
+                            <li>
+                                <!-- Logout button -->
+                                <form class="navbar-form">
+                                    <div class="">
+                                        <button type="submit" class="btn btn-warning" placeholder="Logout">Logout</button>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Search form -->
+    <div class="col-md-12">
+        <form>
+            <div class="col-md-6 pull-right">
+                <div class="form-group col-md-6">
+                    <select class="form-control">
+                        <option>Catergory</option>
+                    </select>    
+                </div>
+                <div class="form-group col-md-6">
+                    <select class="form-control">
+                        <option>Location</option>
+                    </select>
+                </div>    
+                    
+                    <div class="form-group label-floating col-md-8">
+                        <label class="control-label" for="focusedInput2">Search</label>
+                        <input class="form-control" id="focusedInput2" type="text">
+                        <p class="help-block">Enter product or location</p>
+                    </div>
+                    <a href="javascript:void(0)" type="button" class="btn btn-raised btn-primary col-md-2 bottom">Go</a>
+                </div>
+            
+        </form>
+    </div>
+
+    <!-- Locations -->
+    <div class="panel panel-default col-md-6">
+        <div class="panel-heading">Store Locations</div>
+        <div class="panel-body">
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">Store 1</div>
+                <div class="panel-body">
+                    Store info
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Categories -->
+    <div class="panel panel-default col-md-6">
+        <div class="panel-heading">
+            Product
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+            <div class="panel panel-default col-md-4">
+                <div class="panel-heading">
+                    Category
+                </div>
+                <div class="panel-body">
+                    info
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+    <p>footer</p>
+    </div>
+
+    
+    <!-- Twitter Bootstrap -->
+    <script src="../Content/bootstrap-3.3.6/dist/js/bootstrap.js"></script>
+    <!-- Material Design for Bootstrap -->
+    <script src="dist/js/material.js"></script>
+    <script src="dist/js/ripples.min.js"></script>
+    <script>
+        $.material.init();
+    </script>
+
+    <!-- Sliders -->
+    <script src="../Scripts/jquery.nouislider.min.js"></script>
+    
+    <!-- Dropdown.js -->
+    <script src="../Scripts/jquery.dropdown.js"></script>
+    <script>
+        $("#dropdown-menu select").dropdown();
+        $("#Cart").on('click', function (event) {
+            $("#CartModal").modal('show');
+            event.preventDefault();
+        });
+        $("#LoginRegister").on('click', function (event) {
+            $("#LoginRegisterModal").modal('show');
+            event.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

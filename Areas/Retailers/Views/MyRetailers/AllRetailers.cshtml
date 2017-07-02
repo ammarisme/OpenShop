@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.title = "All Enterprises";
+}
+<title>@ViewBag.title</title>
+
+<div class="panel sub-content-panel col-md-12">
+    <h5>@ViewBag.title</h5>
+    <table id="Enterprises-table" class="display table table-hover table-striped " cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>EnterpriseId</th>
+                <th>Name</th>
+                <th>EnterpriseAddress</th>
+                <th>BusinessPhoneNumber</th>
+                <th>Status</th>
+                <th>BRCNumber</th>
+                <th>Category</th>
+                <th>Currency</th>
+                <th>Country</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>EnterpriseId</th>
+                <th>Name</th>
+                <th>EnterpriseAddress</th>
+                <th>BusinessPhoneNumber</th>
+                <th>Status</th>
+                <th>BRCNumber</th>
+                <th>Category</th>
+                <th>Currency</th>
+                <th>Country</th>
+                <th>Region</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+
+
+@section script{
+    <script>
+
+        // Initiated Enterprise DT
+        var onEnterpriseSelection = function () {
+            var id = getTableSelectedRowKey($("#Enterprises-table"));
+        }
+
+        var EnterprisesTable = initiateTable1("Enterprises-table", 
+            {
+                "bLengthChange": false, "columns": [
+                { "data" : "EnterpriseId" },
+                { "data" : "EnterpriseName" },
+                { "data" : "EnterpriseAddress" },
+                { "data" : "BusinessPhoneNumber" },
+                { "data" : "Status" },
+                { "data" : "BRCNumber" },
+                { "data" : "Category" },
+                { "data" : "Currency" },
+                { "data" : "Country" },
+                { "data" : "Region" }
+                ],
+                fullreport: true,
+                reportname : "Enterprises (Wholesale Customers)"
+            }
+            , onEnterpriseSelection, function () { });
+
+        $(".navigation-help").html("Enterprises / All Enterprises");
+        updateTableFromApi(EnterprisesTable, "../../api/Enterprises/GetEnterprises", function () { });
+        
+    </script>
+}

@@ -1,0 +1,229 @@
+﻿<div class="col-md-12">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@* show the job card  list from the database *@
+<div class="col-md-12 col-sm-12">
+    <table id="job-cards-table" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>JobCardId</th>
+                <th>IssuedDate</th>
+                <th>Status</th>
+                <th>DueDate</th>
+                <th>CompletedDate</th>
+                <th>CustomerOrderId</th>
+                <th>EmployeeId</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>JobCardId</th>
+                <th>IssuedDate</th>
+                <th>Status</th>
+                <th>DueDate</th>
+                <th>CompletedDate</th>
+                <th>CustomerOrderId</th>
+                <th>EmployeeId</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="col-md-12 bg-aqua-active" id="action-buttons">
+    <button class="btn btn-primary" id="show-damaged-material-form" for="damaged-material-form"> Add Damaged Material</button>
+    <button class="btn btn-primary" id="show-complete-job-card-form" for="job-card-complete-form"> Complete job card </button>
+</div>
+
+<div class="col-md-12" id="editor-forms">
+    <div id="job-card-complete-form" class="col-md-6 hidden">
+        <form action="/api/JobCards/ChangeJobCardStatus" id="job-card-status" method="POST">
+            <div id="name-group" class="form-group">
+                @*
+                *@
+                @*CompletedDate*@
+                <label for="date">CompletedDate</label>
+                <input type="date" name="CompletedDate" class="form-control" />
+
+                @*Status*@
+                <label for="name">Status</label>
+                @Html.DropDownList("Status", new SelectList(ViewBag.statuses, "JobCardStatusName", "JobCardStatusName"), htmlAttributes: new { @class = "form-control", id = "Status" })
+
+                @*Remark*@
+                <label for="date">Remark</label>
+                <input type="text" name="Remark" class="form-control" />
+
+                <input type="number" name="JobCardId" id="JobCardId" class="form-control hidden" value=""/>
+            </div>
+            <button type="submit" class="btn btn-success">Completed Job Card</button>
+            <button type="reset" class="btn btn-primary"> Reset form</button>
+        </form>
+    </div>
+    <div id="damaged-material-form" class="col-md-12 hidden">
+        <div class="col-md-6 ">
+        <form action="/api/JobCards/ChangeJobCard" id="damaged-material-form" method="POST">
+            <div id="name-group" class="form-group">
+                                                @*
+                            MaterialInJobCardId - auto generated
+                            JobCardId set by selected row
+                            MaterialInJobCardId - auto generated
+        JobCardId
+                            Damaged bool=true, set in a hidden input
+                                                *@
+
+                @*MaterialId*@
+                <label for="name">MaterialId</label>
+                @Html.DropDownList("MaterialId", new SelectList(ViewBag.materials, "MaterialId", "MaterialName"), htmlAttributes: new { @class = "form-control", id = "MaterialName" })
+
+                @*Quantity*@
+                <label for="date">Quantity</label>
+                <input type="number" name="Quantity" class="form-control" />
+
+                @*Remark*@
+                <label for="date">Remark</label>
+                <input type="text" name="Remark" class="form-control" />
+                
+                @*Damaged*@
+                <input type="text" name="Damaged" class="form-control hidden" value="true"/>
+            <button type="submit" class="btn btn-success">Add Damaged Material</button>
+            <button type="reset" class="btn btn-primary"> Reset form</button>
+            </div>
+        </form>
+        </div>
+        <div class="col-md-6">
+            <table id="damaged-materials-in-job-card-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        @*MaterialInJobCardId*@
+                        <th>JobCardId</th>
+                        <th>MaterialId</th>
+                        <th>MaterialName</th>
+                        <th>Quantity</th>
+                        <th>Remark</th>
+                        <th>Damaged</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <button type="submit" class="btn btn-success pull-right" id="add-damaged-products-to-database">Done</button>
+    </div>
+</div>
+<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+<script>
+    viewControllerRoute = "../JobCards/ChangeJobCards"; // where the user is in
+
+
+    // switching views when clicking buttons - 
+    initiateTableActionButtons();
+    
+    /// Initiating the job cards table
+
+    var jobCardsTable = $("#job-cards-table").DataTable({
+        "columns": [
+                { "data": "JobCardId" },
+                { "data": "IssuedDate" },
+                { "data": "Status" },
+                { "data": "DueDate" },
+                { "data": "CompletedDate" },
+                { "data": "CustomerOrderId" },
+                { "data": "EmployeeId" }
+                    ]
+    });
+
+    // initiating the damaged materials in job card table
+    var damagedMaterialsInJobCardTable = $("#damaged-materials-in-job-card-table").DataTable({
+        "columns": [
+            {
+                "data": "JobCardId",
+                "defaultContent": ""
+            },
+            { "data": "MaterialId" },
+            { "data": "MaterialName" },
+            { "data": "Quantity" },
+            { "data": "Remark" },
+            { "data": "Damaged" },
+        ]
+        
+    });
+    var jobCardId = null;
+
+    var onJobCardSelected = function () {
+        jobCardId = getTableSelectedRowKey($("#job-cards-table"));
+        $("#action-buttons").css("pointer-events", "");
+        $("#JobCardId").each(function () {
+            $(this).val(jobCardId);
+        });
+    }
+
+    var onJobCardUnselected = function () {
+        jobCardId = null;
+        $("#action-buttons").css("pointer-events", "none"); //css("pointer-events", "none");
+        $("#editor-forms").children().each(function () {
+            $(this).addClass("hidden");
+        });
+        $("#action-buttons").children().each(function () {
+            $(this).removeClass("btn-warning").addClass("btn-primary");
+        });
+    }
+    updateTableFromApi1(jobCardsTable, "/api/JobCards/GetJobCards", onJobCardSelected, onJobCardUnselected);
+
+    syncFormWithTable("damaged-material-form", damagedMaterialsInJobCardTable, "MaterialId", function () { }, function () { });
+
+    $("#add-damaged-products-to-database").on('click', function () {
+        var damagedMaterials = getTableData(damagedMaterialsInJobCardTable);
+        var data = {};
+        data.DamagedMaterialInJobCard = damagedMaterials;
+        data.JobCardId = jobCardId;
+        console.log(data);
+
+            $.ajax({
+                type: 'post',
+                url: "/api/JobCards/AddDamagedJobCards",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    console.log(data);
+                }
+            }
+                );
+    });
+
+    $("#job-card-status").ajaxForm();
+    //$("#job-card-form").on('submit', function (event) {
+    //    var FormData = getFormValues('job-card-form');
+    //    FormData.JobCardId = jobCardId; // this column will say if this job card already  exist in db or not
+    //    $.ajax({
+    //        type: 'post',
+    //        url: "/api/JobCards/UpdateJobCard",
+    //        data: JSON.stringify(FormData),
+    //        dataType: 'json',
+    //        contentType: 'application/json',
+    //        success: function (data) {
+    //            jobCardsTable.clear();
+    //            updateTableFromApi(jobCardsTable, "/api/JobCards/GetJobCards", onJobCardSelected);
+    //        }
+    //    }
+    //        );
+    //    event.preventDefault();
+    //});
+
+</script>

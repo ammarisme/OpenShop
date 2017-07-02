@@ -1,0 +1,159 @@
+﻿@using RetailTradingPortal.Areas.Services.Models
+@model AddServiceToAccountViewModel
+
+@{
+    ViewBag.title = "Integrated Accounts and Services";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+
+
+<div class="col-md-12 panel sub-content-panel">
+    <h6>Accounts :</h6>
+    <table id="accounts-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Status</th>
+                <th>Designation</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>PhoneNumber</th>
+                <th>Status</th>
+                <th>Designation</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<div class="col-md-12 panel sub-content-panel">
+    <h6>Services :</h6>
+    <table id="services-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ServiceId</th>
+                <th>Type</th>
+                <th>Uri</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>ServiceId</th>
+                <th>Type</th>
+                <th>Uri</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+<div class="col-md-12 panel sub-content-panel">
+    <div id="name-group" class="form-group">
+        <label for="name">Service</label>
+        @Html.DropDownListFor(m => m.ServiceId,
+                                  new SelectList(Model.ServiceId,
+                               "ServiceId", "Type",
+                                                          Model.ServiceId.First().ServiceId), new { @class = "form-control custom-text-box  custom-label", id = "Type" })
+    </div>
+    <buttn class="btn btn-default" id="add-account-to-service">Add</buttn>
+    <buttn class="btn btn-update" id="remove-account-from-service">Remove</buttn>
+</div>
+
+
+@section script{
+    <script>
+        var onAccountSelection = function () {
+            var id = getTableSelectedRowKey($("#accounts-table"));
+            updateTableFromApi(servicesTable, "../../api/Services/GetAccountServices/" + id, function () { });
+        }
+        var accountsTable = initiateTable1("accounts-table",
+            {
+                "bLengthChange": false, "columns": [
+                    { "data": "Id" },
+                    { "data": "Name" },
+                    { "data": "Address" },
+                    { "data": "PhoneNumber" },
+                    { "data": "Status" },
+                    { "data": "Designation" }
+                ]
+            },
+            onAccountSelection,
+            function () { }
+            );
+
+
+
+        // Initiated Enterprise DT
+        var onServiceSelection = function () {
+            var id = getTableSelectedRowKey($("#services-table"));
+            updateTableFromApi(accountsTable, "../../api/Services/GetServiceAccounts/" + id, function () { });
+        }
+
+        var servicesTable = initiateTable1("services-table",
+            {
+                "bLengthChange": false,
+                "columns": [
+               { "data": "ServiceId" },
+                { "data": "Type" },
+                { "data": "Uri" },
+                { "data": "Status" }
+                ]
+            }
+            , onServiceSelection, function () {
+            });
+
+
+        // Update Enterprises and Accounts DT from API
+        updateTableFromApi(servicesTable, "../../api/Services/GetServices", onServiceSelection);
+        updateTableFromApi(accountsTable, "../../api/Accounts/GetAccounts", onServiceSelection);
+
+        // onclick of add button send a json object
+        $("#add-account-to-service").on("click", function () {
+            var serviceId = $("#Type").val();
+            var accountId = getTableSelectedRowKey($("#accounts-table"));
+            var data = {
+                "ServiceId": serviceId,
+                "Id": accountId
+            };
+
+            sendObjectToServer("../../api/Services/AddServiceAccount", data, function () {
+                showModalMessage("Service successfully added", "");
+            }, function () {
+                showModalMessage("Service addition failed");
+            });
+        });
+
+        // onclick of remove button send a json object
+        $("#remove-account-from-service").on("click", function () {
+            var serviceId = getTableSelectedRowKey($("#services-table"));
+            var accountId = getTableSelectedRowKey($("#accounts-table"));
+            var data = {
+                "ServiceId": serviceId,
+                "Id": accountId
+            };
+
+            sendObjectToServer("../../api/Services/RemoveServiceAccount", data, function () {
+                showModalMessage("Operation Success", "Service successfully removed from the Enterprise");
+            }, function () {
+                showModalMessage("Operation failed");
+            });
+        });
+
+        $(".navigation-help").html("Enterprises / Manage Services");
+
+
+
+    </script>
+}

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ETrading.Models.SalaryPayment>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PaidDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Remark)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmployeeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaidDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Remark)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SalaryPaymentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SalaryPaymentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SalaryPaymentId })
+        </td>
+    </tr>
+}
+
+</table>

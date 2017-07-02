@@ -1,0 +1,63 @@
+﻿@model RetailShop.Areas.Customers.Models.RegisterCustomerViewModel
+@{
+    ViewBag.Title = "Register as a Customer";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<div class="col-md-12">
+    <div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">Close</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@* User Creation Form *@
+<div class="col-md-6 col-sm-12" id="user-registration-forms">
+    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+    <form action="~/Customers/Customer/Register" id="customer-form" method="POST" class="well">
+        <div id="name-group" class="form-group">
+            @*Email*@
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+
+            @*Password*@
+            <label for="date">Password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+
+            @*ConfirmPassword*@
+            <label for="date">ConfirmPassword</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+
+            <label for="name">FirstName</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+
+            <label for="name">LastName</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+
+            <label for="name">City</label>
+            @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+
+            <label for="name">BillingAddress</label>
+            @Html.TextBoxFor(m => m.BillingAddress, new { @class = "form-control" })
+
+            <label for="name">PhoneNumber</label>
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
+        </div>
+        <input type="submit" class="btn btn-default btn-raised" value="Register Customer" />
+    </form>
+</div>
+

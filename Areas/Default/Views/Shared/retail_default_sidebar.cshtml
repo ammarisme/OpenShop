@@ -1,0 +1,70 @@
+﻿@using WholesaleTradingPortal.DAL;
+@{
+    ApplicationDbContext db = new ApplicationDbContext();
+    var locations = db.Enterprises.Select(r => r.EnterpriseAddress).Distinct();
+    var categories = db.Enterprises.Select(r => r.Category).Distinct();
+    var productCategories = db.Products.Select(p => p.Category).Distinct();
+}
+
+<style>
+    .location-selection-box {
+        height: 200px;
+        overflow-y: scroll;
+    }
+
+    .seller-category-selection-box {
+    }
+
+    .sidebar-select {
+        height: 150px !important;
+        background-color: #EEEEEE !important;
+        overflow-y: scroll;
+    }
+
+        .sidebar-select option {
+            color: white;
+            padding: 10px;
+            margin: 5px;
+            text-align: center;
+            background-color: #c8c8c8;
+        }
+
+        .sidebar-select .option-selected {
+            color: black;
+            background-color: #2196F3 !important;
+            box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+        }
+</style>
+<div class="left" style="display:block;width:20%">
+    <div>
+        <h5><strong>Choose Seller Location</strong></h5>
+        <select id="location-selector" multiple="" class="form-control sidebar-select">
+            @foreach (var location in locations)
+            {
+                <option class="" value="@location">@location</option>
+            }
+        </select>
+        <a id="location-filter-btn" class="btn btn-primary btn-raised">Search</a>
+    </div>
+
+    <div class="seller-category-selection-box">
+        <h5><strong>Choose Seller Category</strong></h5>
+        <select id="seller-category-selector" multiple="" class="form-control sidebar-select">
+            @foreach (var category in categories)
+            {
+                <option class="" value="@category">@category</option>
+            }
+        </select>
+        <a id="category-filter-btn" class="btn btn-primary btn-raised">Search</a>
+    </div>
+    <div class="seller-category-selection-box">
+        <h5><strong>Choose Product Category</strong></h5>
+        <select id="product-category-selector" multiple="" class="form-control sidebar-select">
+            @foreach (var category in productCategories)
+            {
+                <option class="" value="@category">@category</option>
+            }
+        </select>
+        <a id="product-category-filter-btn" class="btn btn-primary btn-raised">Search</a>
+    </div>
+</div>

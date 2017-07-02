@@ -1,0 +1,60 @@
+﻿@using WholesaleTradingPortal.Areas.Accounts.Models
+
+@model ManageAccountViewModel
+@{
+    ViewBag.Title = "My profile";
+    
+}
+
+<title>@ViewBag.title</title>
+ <h5>@ViewBag.title</h5>
+
+<div class="panel sub-content-panel col-md-12">
+    <form action="no-implementation" id="account-form" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Address</label>
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber2, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group hidden">
+            <label for="name">Status</label>
+            @Html.TextBoxFor(m => m.Status, new { @class = "form-control custom-text-box" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Designation</label>
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control custom-text-box" })
+        </div>
+        <input type="submit" class="btn btn-primary btn-raised" value="Save Changes" />
+    </form>
+</div>
+
+@section script
+    {
+    <script>
+        $("#account-form").on('submit', function (event) {
+            var data = getFormValues("account-form");
+            data.Id = "@ViewBag.id";                
+            sendObjectToServer("../../../api/Accounts/EditAccount", data, function () {
+                showModalMessage("Your Account Information Changed successfully", "");
+            }, function () { console.log("f"); });
+            event.preventDefault();
+        });
+
+        $(".navigation-help").html("Accounts / My Profile");
+    </script>
+}

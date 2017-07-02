@@ -1,0 +1,126 @@
+﻿<div class="modal" id="CartModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">My Order Cart</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-hover" id="cart-products">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>dummy</td>
+                            <td>dummy</td>
+                            <td>x</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Checkout!</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Retail Cart Modal -->
+
+
+<div class="modal" id="QuoteModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                @*<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>*@
+                <h4 class="modal-title">My Quotation(s)</h4>
+            </div>
+            <div class="modal-body">
+                <div id="quotation-tables"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Login / Register modal -->
+<div class="modal" id="LoginRegisterModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <ul class="nav nav-tabs" style="margin-bottom: 15px;">
+                    <li class="active"><a href="#login" data-toggle="tab">Home</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="bootstrap-elements.html" data-target="#">
+                            Register As <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#customer" data-toggle="tab">Customer</a></li>
+                            <li><a href="#retailer" data-toggle="tab">Retailer</a></li>
+                            <li><a href="#wholesaler" data-toggle="tab">Wholesaler</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="modal-body">
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane fade active in" id="login">
+                        <p>Login form</p>
+                    </div>
+                    <div class="tab-pane fade" id="retailer">
+                        <p>Retailer reg form</p>
+                    </div>
+                    <div class="tab-pane fade" id="wholesaler">
+                        <p>Wholesaler  reg form</p>
+                    </div>
+                    <div class="tab-pane fade" id="customer">
+                        <p>Customer reg form</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default">Register</button>
+                <button type="button" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="add-to-quote-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Enter Quantity and the Price</h4>
+            </div>
+            <div class="modal-body">
+                <form action="/" method="post" id="add-to-quote-form">
+                    <div class="form-group label-floating col-md-6">
+                        <label class="control-label" for="Quantity">Quantity</label>
+                        <input class="form-control" name="Quantity" type="number">
+                    </div>
+                    <div class="form-group label-floating col-md-6">
+                        <label class="control-label" for="UnitPrice">Price</label>
+                        <input class="form-control" name="UnitPrice" type="number">
+                    </div>
+                    <button type="submit" class="btn btn-primary form-control col-md-6">Add</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default form-control" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

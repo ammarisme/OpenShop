@@ -1,0 +1,81 @@
+﻿@model RetailTradingPortal.Areas.Customers.Models.AllCustomersViewModel
+@{
+    ViewBag.title = "All Customers";
+}
+<title>@ViewBag.title</title>
+
+<div class="panel sub-content-panel col-md-12">
+    <h5>@ViewBag.title</h5>
+    <table id="customers-table" class="display table-hover table-striped " cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>CustomerId</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>PhoneNumber</th>
+                <th>BillingAddress</th>
+                <th>Remark</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.Customers)
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.FirstName @customer.LastName</td>
+                    <td>@customer.City</td>
+                    <td>@customer.PhoneNumber</td>
+                    <td>@customer.BillingAddress</td>
+                    <td>@customer.Remark</td>
+                    <td>@customer.Status</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>CustomerId</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>PhoneNumber</th>
+                <th>BillingAddress</th>
+                <th>Remark</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+
+
+
+@section script{
+    <script>
+
+        // Initiated Customer DT
+        var onCustomerSelection = function () {
+            var id = getTableSelectedRowKey($("#customers-table"));
+        }
+
+        var CustomersTable = initiateTable1("customers-table",
+            {
+                "bLengthChange": false, "columns": [
+                { "data": "CustomerId" },
+                        { "data": "Name" },
+                        { "data": "City" },
+                        { "data": "PhoneNumber" },
+                        { "data": "BillingAddress" },
+                        { "data": "Remark" },
+                        { "data": "Status" }
+                ]
+                ,
+                fullreport: true,
+                reportname: "Customers"
+            }
+            , onCustomerSelection, function () { });
+
+        // Update Customers DT from API
+        //updateTableFromApi(CustomersTable, "../../api/Customers/GetCustomers", onCustomerSelection);
+
+        $(".navigation-help").html("My Customers / All");
+    </script>
+}

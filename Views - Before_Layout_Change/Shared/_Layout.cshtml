@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="~/Content/jquery-ui-1.9.2.custom.css" />
+    <!-- Datatable css-->
+    <link rel="stylesheet" href="~/Content/jquery.dataTables.css" />
+    <!-- Bootstrap 3.3.6 -->
+    <link rel="stylesheet" href="~/Content/bootstrap-3.3.6/dist/css/bootstrap.css"/>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/AdminLTE.css"/>
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+        page. However, you can choose any other skin. Make sure you
+        apply the skin class to the body tag so the changes take effect.
+    -->
+    <link rel="stylesheet" href="~/Content/skins/skin-blue.css"/>
+    <link rel="stylesheet" href="~/Content/bootstrap-datetimepicker.css" />
+    <!-- Custom script by Ammar-->
+    <link rel="stylesheet" href="~/Content/Custom.css"/>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    @* This is the loader. Usually hidden. Can be invoken when something happens behind the scene *@
+    <div id="loader" class="cs-loader bg-aqua-active hidden">
+        <div class="cs-loader-inner">
+            <label>	●</label>
+            <label>	●</label>
+            <label>	●</label>
+            <label>	●</label>
+            <label>	●</label>
+            <label>	●</label>
+        </div>
+    </div>
+  @* This part will contain a clean navigation bar *@
+  <header class="main-header">
+    @Html.Partial("_main_header")
+  </header>
+
+  @*THis is the part that is reservered for the application to manipulate. Each View() should be coded as that comes within below div*@
+    <div class="content-wrapper custom-content-wrapper" id="container">
+        @RenderBody()
+    </div>
+
+  @*The footer*@ 
+  <footer class="main-footer">
+    @Html.Partial("_footer")
+  </footer>
+
+  <div class="control-sidebar-bg"> </div>
+</div>
+<!-- Jquery is loaded here.The bundle is configured in the CS -->
+    @Scripts.Render("~/bundles/jquery")
+
+@*All the javascript executions except those affecting #container has been placed in _common_scripts*@
+    @Html.Partial("_common_scripts")
+
+@* All the javascript that affect the #container will be rendered. This needs to be declared on particular views *@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

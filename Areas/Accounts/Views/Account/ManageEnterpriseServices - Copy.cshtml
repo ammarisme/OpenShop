@@ -1,0 +1,145 @@
+﻿@using WholesaleTradingPortal.Areas.Enterprises.Models;
+@model ManageServicesOfEnterprisesViewModel
+
+@{
+    ViewBag.title = "Manage Enterprise Services";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+<div class="col-md-12 panel sub-content-panel">
+    <table id="enterprises-table" class="display table table-hover table-striped" cellspacing="0" >
+        <thead>
+            <tr>
+                <th>EnterpriseId </th>
+                <th>EnterpriseTypeId </th>
+                <th>EnterpriseName </th>
+                <th>EntepriseAddress </th>
+                <th>Rating </th>
+                <th>BusinessPhoneNumber </th>
+                <th>Status </th>
+                <th>BRCNumber </th>
+                <th>Category </th>
+                <th>Currency </th>
+                <th>Country </th>
+                <th>Region </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12 panel sub-content-panel">
+    <table id="services-of-enterprise-table" class="display table table-hover table-striped" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ServiceId</th>
+                <th>Type</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+        <div class="divider row"></div>
+    <div>
+        <div id="name-group" class="form-group">
+            <label for="name">Service</label>
+            @Html.DropDownListFor(m => m.ServiceId,
+                                  new SelectList(Model.ServiceId,
+                               "ServiceId", "Type",
+                                                          Model.ServiceId.First().ServiceId), new { @class = "form-control custom-text-box  custom-label", id = "Type" })
+        </div>       
+        <buttn class="btn btn-default" id="add-service-to-enterprise">Add</buttn>
+        <buttn class="btn btn-update" id="remove-service-from-enterprise">Remove</buttn>
+    </div>
+</div>
+
+
+@section script{
+    <script>
+
+         //Initiate Services in enterprise DT
+        var servicesOfEnterprise = initiateTable1("services-of-enterprise-table",
+            {
+                "bLengthChange": false, "columns": [
+                    { "data": "ServiceId" },
+                    { "data": "Type" },
+                    { "data": "Status" },
+                ],
+                "sDom": "t"
+            },
+            function () { },
+            function () { }
+            );
+
+
+        // Initiated Enterprise DT
+        var onEnterpriseSelection = function () {
+            var id = getTableSelectedRowKey($("#enterprises-table"));
+            updateTableFromApi(servicesOfEnterprise, "../../api/Enterprises/GetServicesOfEnterprise/" + id, function () { });
+        }
+
+        var enterprisesTable = initiateTable1("enterprises-table",
+            {
+                "bLengthChange": false,
+                 "columns": [
+                { "data": "EnterpriseId" },
+                { "data": "EnterpriseTypeId" },
+                { "data": "EnterpriseName" },
+                { "data": "EntepriseAddress" },
+                { "data": "Rating" },
+                { "data": "BusinessPhoneNumber" },
+                { "data": "Status" },
+                { "data": "BRCNumber" },
+                { "data": "Category" },
+                { "data": "Currency" },
+                { "data": "Country" },
+                { "data": "Region" }
+                 ],
+            }
+            , onEnterpriseSelection, function () {
+                //specificationsInEnterprise.clear().draw(false);
+            });
+        
+
+        // Update Enterprises DT from API
+        updateTableFromApi(enterprisesTable, "../../api/Enterprises/GetEnterprises", onEnterpriseSelection);
+
+        // onclick of add button send a json object
+        $("#add-service-to-enterprise").on("click", function () {
+            var serviceId = $("#Type").val();
+            var enterpriseId = getTableSelectedRowKey($("#enterprises-table"));
+            var data = {
+                "ServiceId": serviceId,
+                "EnterpriseId" : enterpriseId
+            };
+
+            sendObjectToServer("../../api/Enterprises/AddEnterpriseService", data, function () {
+                showModalMessage("Service successfully added", "");
+            }, function () {
+                showModalMessage("Service addtion failed");
+            });
+        });
+
+        // onclick of remove button send a json object
+        $("#remove-service-from-enterprise").on("click", function () {
+            var serviceId = getTableSelectedRowKey($("#services-of-enterprise-table"));
+            var enterpriseId = getTableSelectedRowKey($("#enterprises-table"));
+            var data = {
+                "ServiceId": serviceId,
+                "EnterpriseId": enterpriseId
+            };
+
+            sendObjectToServer("../../api/Enterprises/RemoveEnterpriseService", data, function () {
+                showModalMessage("Operation Success", "Service successfully removed from the Enterprise");
+            }, function () {
+                showModalMessage("Operation failed");
+            });
+        });
+
+        $(".navigation-help").html("Enterprises / Manage Services");
+
+
+
+    </script>
+}

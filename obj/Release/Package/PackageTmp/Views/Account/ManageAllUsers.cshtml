@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Manage All Users (Non-Administrator)";
+}
+
+<h2>@ViewBag.Title.</h2>
+<table>
+    <thead>
+        <tr>
+        <td>user name </td>
+        <td>email</td>
+            </tr>
+    </thead>
+@foreach (var item in ViewBag.allUsers)
+{
+    <tr>
+        <td>@item.UserName</td>
+        <td>@item.Email</td>
+        <td>
+            @item.Confirmed
+        </td>
+    </tr>
+}
+</table>

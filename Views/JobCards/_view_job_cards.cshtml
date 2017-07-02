@@ -1,0 +1,117 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <!-- This content goes into index.cshtml-->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="col-md-9">
+        <table id="jobCards-table" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Job Card Id</th>
+                    <th>Issued Date</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Customer Order Id</th>
+                    <th>Employee Id</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+            <tfoot>
+                <tr>
+                    <th>Job Card Id</th>
+                    <th>Issued Date</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Customer Order Id</th>
+                    <th>Employee Id</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-success">Process Job Card<span class="fa fa-arrow-right"></span></button>
+    </div>
+    <div class="col-md-9 well">
+        <table id="materials-in-jobCard-table" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    @*// foreign key to Job Card
+                        public int JobCardId { get; set; }*@
+                    <th>JobCardId</th>
+                    <th>MaterialInJobCardId</th>
+                    <th>MaterialId</th>
+                    <th>Quantity</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="col-md-9 well">
+        <table id="products-in-jobCard-table" class="display" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    @*// foreign key to Job Card
+                        public int JobCardId { get; set; }*@
+                    <th>JobCardId</th>
+                    <th>ProductInJobCardId</th>
+                    <th>ProductId</th>
+                    <th>Quantity</th>
+                    <th>Remark</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</section>
+
+<!-- /.content -->
+<script>
+    viewControllerRoute = "../JobCards/ViewJobCards"; // where the user is in
+    var jobCardsTable = $("#jobCards-table").DataTable({
+        "columns" : [
+            { "data": "JobCardId" },
+            { "data": "IssuedDate" },
+            { "data": "Status" },
+            { "data": "DueDate" },
+            { "data": "CustomerOrderId" },
+            { "data": "EmployeeId" }
+            ]
+    });
+    var materialsInJobCardTable = $("#materials-in-jobCard-table").DataTable(
+        {
+            "bFilter": false,
+            "bInfo": false,
+            "columns": [
+                { "data": "JobCardId" },
+                { "data": "MaterialInJobCardId" },
+                { "data": "MaterialId" },
+                { "data": "Quantity" },
+                { "data": "Remark" }
+                    ]
+        }
+        );
+    var productsInJobCardTable = $("#products-in-jobCard-table").DataTable(
+        {
+            "bFilter": false,
+            "bInfo": false,
+            "columns": [
+                    { "data": "JobCardId" },
+                    { "data": "ProductInJobCardId" },
+                    { "data": "ProductId" },
+                    { "data": "Quantity" },
+                    { "data": "Remark" }
+                        ]
+        }
+        );
+
+
+    var onJobCardSelected = function () {
+        var id = getTableSelectedRowKey($("#jobCards-table"));
+
+        updateTableFromApi(materialsInJobCardTable, "../api/JobCards/GetMaterialsInJobCard/" + id, function () { });
+        updateTableFromApi(productsInJobCardTable, "../api/JobCards/GetProductsInJobCard/" + id, function () { });
+    }
+    updateTableFromApi(jobCardsTable, "../api/JobCards/GetJobCards", onJobCardSelected);
+</script>

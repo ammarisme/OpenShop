@@ -1,0 +1,25 @@
+﻿@using WholesaleTradingPortal.Models;
+
+@model Enterprise
+@{
+    ViewBag.title = "Enterprise : " + Model.EnterpriseName;
+}
+
+<title>@ViewBag.title @Model.EnterpriseName</title>
+
+        <div class="panel sub-content-panel seller-profile-info">
+            <h4 class="seller-name">@Model.EnterpriseName</h4>
+            <img class="tile-img seller-image col-md-4" src="/Images/@Model.EnterpriseId/logo.png" />
+            <ul class="col-md-8 seller-profile-data">
+                <li>Region : <strong>@Model.Region</strong></li>
+                <li>Rating : <strong>@Model.Rating</strong></li>
+                <li>Address: <strong>@Model.EnterpriseAddress</strong></li>
+                <li>Status : <strong>@Model.Status</strong></li>
+            </ul>
+        </div>
+        <a href="/Default/Products/BySeller/@Model.EnterpriseId" class="btn btn-warning">View Seller products</a>
+
+@section script{
+    <script>
+    </script>
+}

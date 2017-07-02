@@ -1,0 +1,54 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+            
+            <div class="search-container">
+                <form action="" class="Search">
+                    <input class="Search-box" type="search" id="Search-box" autocomplete="off" placeholder="Search products">
+                    <label class="Search-label" for="Search-box"><i class="material-icons">search</i></label>
+                </form>
+            </div>
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="http://localhost:51981" class="btn-primary btn-raised">Home</a></li>
+                <li><a id="cart-button" class="btn btn-raised btn-default shopping-cart"><i class="material-icons">shopping_cart</i></a></li>
+                <li><a id="quote-button" class="btn btn-raised btn-default shopping-cart"><i class="material-icons">transfer_within_a_station</i></a></li>
+                <!-- Account links -->
+                @if (Session["Authenticated"]=="Authenticated")
+                {
+                
+                    
+                <li class="dropdown">
+                    <a href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        My Account
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/Default/Orders/MyOrders">My Orders</a></li>
+                        <li><a href="/Accounts/Account/MyAccount">My Profile</a></li>
+                        <li  class="divider"></li>
+                            <!-- Logout button -->
+                        @using (Html.BeginForm("LogOff", "../Accounts/Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                        {
+                            <li>
+                                <a class="btn btn-warning btn-raised" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                            </li>
+                        }
+                            
+                    </ul>
+                </li>
+                }
+                else
+                {
+                    <li><a href="~/Accounts/Account/Login" class="btn btn-raised btn-default custom-navbar-links" >Login</a></li>
+                    <li><a href="http://localhost:51980/Accounts/Account/Register" class="btn btn-raised btn-primary custom-navbar-links" style="margin-right: 20px; ">Register</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

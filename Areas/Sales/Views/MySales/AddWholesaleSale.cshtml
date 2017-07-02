@@ -1,0 +1,300 @@
+﻿@using RetailTradingPortal.Models
+@using RetailTradingPortal.Areas.Sales.Models
+@model AddNewSaleViewModel
+@{
+    ViewBag.title = "New Wholesale Sale";
+}
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+
+<ul class="nav nav-tabs" style="margin-bottom: 15px;">
+    <li class="active"><a href="#products" data-toggle="tab">Products</a></li>
+    <li class=""><a href="#delivery" data-toggle="tab">Delivery</a></li>
+    <li class=""><a href="#payments" data-toggle="tab">Payments</a></li>
+    <li class=""><a href="#general-info" data-toggle="tab">General Information</a></li>
+    <li class=""><a href="#customer-information" data-toggle="tab">Enterprise</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade active in" id="products">
+        <div class="row">
+            <h5>Add Product(s) to Sale</h5>
+            <div class="col-md-5 panel sub-content-panel">
+                <form action="no-implemetation" id="create-retail-order-product-form" method="POST">
+
+                    @*public int ProductsInOrderId { get; set; }
+                        public int OrderId { get; set; }*@
+                    <div id="name-group" class="form-group">
+                        <label for="name" class="custom-label">Product</label>
+                        @Html.DropDownListFor(m => m.ProductId,
+                                  new SelectList(Model.ProductId,
+                               "ProductId", "ProductName",
+                                                 Model.ProductId.First().ProductId), new { @class = "form-control custom-text-box", id = "ProductName" })
+                    </div>
+                    <div id="name-group" class="form-group">
+                        <label for="name" class="custom-label">Quantity</label>
+                        <input type="number"   step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');"  min="1" title="Minimum Quantity is 1" class="form-control custom-text-box" name="Quantity" id="quantity-input" required>
+                    </div>
+                    <div id="name-group" class="form-group">
+                        <label for="name" class="custom-label">Price per unit</label>
+                        <input type="number"  min="0" step="0.01" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" class="form-control custom-text-box" id="unit-price-input"name="UnitPrice" required>
+                    </div>
+                    <div id="name-group" class="form-group">
+                        <label for="name" class="custom-label">Description</label>
+                        <input type="text" pattern="[A-Za-z0-9\s]{0,20}" class="form-control custom-text-box" name="Description">
+                    </div>
+
+                    <input type="text" id="subtotal-input" class="form-control custom-text-box" name="SubTotal" value="" hidden>
+
+                    <button type="submit" class="btn btn-primary btn-raised">Add Product<span class="fa fa-arrow-down"></span></button>
+                </form>
+                <button type="button" class="btn btn-default btn-raised" id="removeProduct">Remove Product<span class="fa fa-arrow-right"></span></button>
+            </div>
+            <table id="products-retail-order-table" class="display col-md-6 panel sub-content-panel" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>ProductName</th>
+                        <th>Quantity</th>
+                        <th>UnitPrice</th>
+                        <th>Description</th>
+                        <th>Sub Total</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        <div class="col-md-6 panel sub-content-panel">
+            <h5 class="pull-right" >Total: <strong>Rs.</strong><span id="total-sale-amount" style="font-weight:bold">0.00</span></h5>
+        </div>
+
+        </div>
+        
+
+    </div>
+
+    <div class="tab-pane fade in" id="general-info">
+        <form action="no-implementation" id="general-info-form" method="POST">
+            <div class="panel sub-content-panel">
+                <h5>General Information</h5>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">OrderDate</label>
+                    <input type="date" name="OrderDate" class="form-control custom-text-box">
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">OrderStatus</label>
+                    <select id="OrderStatus" name="OrderStatusId" class="form-control custom-text-box">
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">OrderDueDate</label>
+                    <input type="date" name="OrderDueDate" class="form-control custom-text-box">
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Remark</label>
+                    <input type="text" name="Remark" class="form-control custom-text-box" />
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="tab-pane fade in" id="delivery">
+        <form action="no-implementation" id="delivery-form" method="POST">
+            <div class="panel sub-content-panel">
+                <h5>Delivery Information</h5>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">DeliveredDate</label>
+                    <input type="date" name="DeliveredDate" class="form-control custom-text-box" />
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">DeliveryStatus</label>
+                    <select id="DeliveryStatus" name="DeliveryStatusId" class="form-control custom-text-box">
+                        <option value="Delivered">Delivered</option>
+                        <option value="Dispatched">Dispatched</option>
+                        <option value="Processing">Processing</option>
+                    </select>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Mode of delivery</label>
+                    <select id="DeliveryMode" name="DeliveryModeId" class="form-control custom-text-box">
+                        <option value="ByHand">By Hand</option>
+                        <option value="Lorry">Lorry</option>
+                        <option value="Bus">Bus</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="tab-pane fade in" id="customer-information">
+        <form action="no-implementation" id="customer-form" method="POST">
+            <div class="panel sub-content-panel">
+                <h5>Customer Information</h5>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Choose Customer</label>
+                    @Html.DropDownListFor(m => m.CustomerId,
+                                  new SelectList(Model.CustomerId,
+                                "CustomerId", "CustomerFullName",
+                                                 Model.CustomerId.First().CustomerId), new { @class = "form-control custom-text-box", id = "FirstName" })
+                </div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="tab-pane fade in" id="payments">
+        <form action="no-implementation" id="payment-form" method="POST">
+            <div class="panel sub-content-panel">
+                <h5>Payment Information</h5>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Payment Method</label>
+                    <select id="PaymentMethod" name="PaymentMethodId" class="form-control custom-text-box">
+                        <option value="Cash">Cash</option>
+                        <option value="Cheque">Cheque</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div id="name-group" class="form-group">
+                    <label for="name" class="custom-label">Payment Duration (in days)</label>
+                    <input type="number"  min="0" step="1" onblur="this.value=this.value.replace(/^0+(?=\d)/,'');" oninput="this.value = this.value.replace(/[^0-9]/g, '');"   name="PaymentDuration" class="form-control custom-text-box" value="0" required/>
+                </div>
+            </div>
+        </form>
+    </div>
+    <button class="btn btn-primary btn-raised" id="create-retail-order-button">Complete Sale</button>
+</div>
+
+@section script{
+    <script>
+        /// Initiating the specifications-in-materials-table
+        var productInRetailOrderTable = initiateTable("products-retail-order-table", {
+            "bLengthChange": false, "columns": [
+            { "data": "ProductId" },
+            { "data": "ProductName" },
+            { "data": "Quantity" },
+            { "data": "UnitPrice" },
+            { "data": "Description" },
+            { "data": "SubTotal" }
+            ],
+            "sDom": "t",
+            "language": {
+                "emptyTable": "No Products added to the Sale yet"
+            }
+        }); // initiating the table with all the defauls features loaded in this function
+
+        $("#removeProduct").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#products-retail-order-table"));
+            productInRetailOrderTable.row(selectedRowIndex).remove().draw(false);
+            onCompletion();
+
+        }); //can be used commonly with as a table removal button
+
+        var onCompletion = function () {
+            var sale = getTableData(productInRetailOrderTable);
+            var total = 0.00;
+            for (var key in sale) {
+                if (sale.hasOwnProperty(key)) {
+                    var unitPrice = sale[key]["UnitPrice"];
+                    var quantity = sale[key]["Quantity"];
+                    var subTotal = unitPrice * quantity;
+                    total = total + subTotal;
+                }    
+            }
+
+
+            if (total - parseInt(total) > 0) {
+                // this is a float number
+                if (((total - parseInt(total)) * 100) < 10 || parseInt(((total - parseInt(total)) * 100)) % 10!=0) {
+                    $("#total-sale-amount").html(total + "0");
+                } else {
+                    $("#total-sale-amount").html(total + "0");
+
+                }
+
+            } else {
+            $("#total-sale-amount").html(total+".00")
+            }
+        }; 
+
+        var beforeSubmission = function () {
+            var subtotal = parseFloat($("#unit-price-input").val())* parseFloat($("#quantity-input").val());
+            $("#subtotal-input").val(subtotal);
+        }
+
+        //  Linking the specifications table to specifications form
+        syncFormWithTable("create-retail-order-product-form", productInRetailOrderTable, "ProductId", beforeSubmission, onCompletion); // connecting the table with the form
+
+        // sending the final object
+
+        $("#" + "create-retail-order-button").on('click', function (event) {
+            
+            var submitData = {}; // the data that will be sent using ajax
+
+            var productInRetailOrderData = getTableData(productInRetailOrderTable); // the table that will be attached to the data
+
+            submitData["ProductsWholesaleOrder"] = productInRetailOrderData; // adding the materials in datatable
+
+            generalInfo = JSON.stringify(getFormValues("general-info-form"));
+            payment = JSON.stringify(getFormValues("payment-form"));
+            delivery = JSON.stringify(getFormValues("delivery-form"));
+            customer = JSON.stringify(getFormValues("customer-form"));
+
+            allformdata = generalInfo + payment + delivery + customer;
+
+            submitData = JSON.stringify(submitData) + allformdata;
+            //submitData = submitData.replace(/}}}/g, "}},");
+            submitData = submitData.replace(/}{/g, ",");
+            
+            // check validation errors in all forms
+            if (!($("#general-info-form")[0].checkValidity() && $("#payment-form")[0].checkValidity()
+                && $("#delivery-form")[0].checkValidity() && $("#customer-form")[0].checkValidity()))
+            {
+                showMessageModal("Validation error", "Please check input forms for validation errors.");
+                return;
+            }
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/Sales/AddWholesaleSale",
+                data: submitData, // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                statusCode:{
+                    201: function (data) {
+                        
+                        showModalMessage("Sale completed", 'Please print the invoice here <a href="#" data-table="#products-retail-order-table" report-name="' + data + '- Invoice" id="generate-report-button" onClick="generateInvoice(this, '+data+')" class="btn report-button">Invoice</a></br><a class="btn btn-default" href="AddWholesaleSale">New Sale</a>');
+
+                        //productInRetailOrderTable.clear().draw(false);
+                        return;
+                    }
+                } 
+            });
+
+            event.preventDefault();
+        });
+
+        $("#ProductName").change(function () {
+            // update the product price field with min attribute and val
+
+            $.ajax({
+                type: 'get',
+                url: "../../api/Products/GetProduct/1",
+                dataType: 'json',
+                async: false,
+                contentType: 'application/json',
+                success: function (response) {
+                    // set the product price field
+                    $("input[name='UnitPrice']").val(response["WholesalePrice"]);
+                    $("input[name='UnitPrice']").attr("min", response["WholesalePrice"]);
+                    $("input[name='Quantity']").attr("max", response["StocksQuantity"]);
+                },
+                error: function (response) {
+                    console.log("failure" + response);
+                }
+            });
+        });
+
+        $(".navigation-help").html("My Sales / New Wholesale Sale");
+    </script>
+}

@@ -1,0 +1,123 @@
+﻿<h1>Create Material</h1>
+<div class="col-md-6  well">
+    <h3>Created Specifications of the material</h3>
+    <form action="no-implemetation" id="create-specification-form" method="POST">
+
+        @*
+            database auto generated
+            public int MaterialSpecificationId { get; set; }
+            public int MaterialId { get; set; }*@
+
+        <div id="name-group" class="form-group">
+        @*public string Specification { get; set; }*@
+            <label for="name">Specification</label>
+            <input type="text" class="form-control" name="Specification" placeholder="eg: - Name">
+            <!-- errors will go here -->
+
+        @*public string Value { get; set; }*@
+            <label for="name">Value</label>
+            <input type="text" class="form-control" name="Value" placeholder="eg :- red, 1.2 , 1">
+        </div>
+        <button type="submit" class="btn btn-success">Add Specification<span class="fa fa-arrow-down"></span></button>
+    </form>
+        <button class="btn btn-warning" id="removeRow" >Remove Specification<span class="fa fa-arrow-right"></span></button>
+</div>
+
+<div class="col-md-6  well">
+    <form action="no-implementation" id="create-material-form" method="POST"
+        <div id="name-group" class="form-group">
+            @*public string MaterialName { get; set; }*@
+            <label for="name">Material Name</label>
+            <input type="text" name="MaterialName" class="form-control" >
+
+            @*public float Cost { get; set; }*@
+            <label for="name">Cost (Currency : LRK)</label>
+            <input type="number" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" name="Cost" class="form-control" />
+
+        </div>
+    </form>
+    <button class="btn btn-success" id="create-material">Create Material</button>
+</div>
+
+
+<div class="col-md-12">
+    <table id="specifications-in-material-table" class="display" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Specification</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+            <tr>
+                <th>Specification</th>
+                <th>Value</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<script>
+    viewControllerRoute = "../Material/CreateMaterial"; // where the user is in
+
+    /// Initiating the specifications-in-materials-table
+    var specificationsInMaterialTable = initiateTable("specifications-in-material-table", {
+        "columns": [
+                { "data": "Specification" },
+                { "data": "Value" }
+        ]
+    }); // initiating the table with all the defauls features loaded in this function
+
+    // Initiating the specifications creation and updation form
+    var createSpecificationForm = $("#create-specification-form"); // jquery object of specification form
+
+    // initiating the material form
+    var createMaterialForm = $("#create-material-form");
+
+    $("#removeRow").on('click', function () {
+        var selectedRowIndex = getTableSelectedRowIndex($("#specifications-in-material-table"));
+        specificationsInMaterialTable.row(selectedRowIndex).remove().draw(false);
+    }); //can be used commonly with as a table removal button
+
+    var onCompletion = function () { }; // a dummy functio
+
+    //  Linking the above created form and table
+    syncFormWithTable("create-specification-form", specificationsInMaterialTable, "Specification", onCompletion, onCompletion); // connecting the table with the form
+    
+    //sendComplexObjectOnClick("create-material", specificationsInMaterialTable, "SpecificationsInMaterial", "create-material-form", "/api/Materials/AddMaterial", onCompletion, onCompletion);
+
+
+    $("#" + "create-material").on('click', function (event) {
+        onCompletion(); // before submission
+        var submitData = {}; // the data that will be sent using ajax
+
+        var tableData = getTableData(specificationsInMaterialTable); // the table that will be attached to the data
+
+        specificationsInMaterialTable.clear().draw(false);
+
+        //$("#" + "create-material-form" + " .form-control").each(function () {
+        //    submitData[$(this).attr2("name")] = $(this).val();
+        //    $(this).val("");
+        //});
+
+        submitData = getFormData(createMaterialForm);
+        
+        submitData["SpecificationsInMaterial"] = tableData; // adding the materials in datatable
+
+        console.log(submitData); // to make sure we got the the right object going
+
+        $.ajax({
+            type: 'post',
+            url: "/api/Materials/AddMaterial",
+            data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                onCompletion();
+            }
+        });
+
+        event.preventDefault();
+    });
+
+</script>

@@ -1,0 +1,17 @@
+﻿@{
+    if (User.Identity.IsAuthenticated)
+    {
+        if (Request.Headers["X-PJAX"] != null)
+        {
+            Layout = "Shared/_PjaxLayout.cshtml";
+        }
+        else
+        {
+            Layout = "Shared/_Layout.cshtml";
+        }
+    }
+    else
+    {
+        Layout = "~/Areas/RetailPortal/Views/Shared/_Layout.cshtml";
+    }
+}

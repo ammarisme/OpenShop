@@ -1,0 +1,125 @@
+﻿    <div class="navbar navbar-default navbar-fixed-top custom-navbar">
+        <div class=".content-panel-fluid">
+            <!-- Navigation Header -->
+            <div class="navbar-header">
+                <!-- Navigation toggle buttton -->
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>*@
+                <!-- Brand logo -->
+                @*<a class="navbar-brand" href="javascript:void(0)">ETrading</a>*@
+                @if (User.IsInRole("Wholesaler"))
+                {
+                <a href="#" data-activates="slide-out" class="btn button-collapse show-on-large"><i class="material-icons">menu</i></a>
+                }
+            </div>
+            <!-- navigation body -->
+            
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!--  Login / Register Link-->
+                    @if (User.IsInRole("Retailer"))
+                    {
+                    <li><a href="#" id="Quote" class="btn btn-raised btn-default custom-navbar-links ">Quote</a></li>
+                    <li><a href="#" id="Cart" class="btn btn-raised btn-default shopping-cart"><i></i></a></li>
+                    }
+                    <!-- Account links -->
+
+                    <li class="dropdown">
+                        <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                            My Account
+                            <b class="caret"></b>
+                        </a>
+                            @if (User.IsInRole("Wholesaler"))
+                            {
+                                
+                        <ul class="dropdown-menu">
+                            <li><a href="~/Wholesalers/Wholesaler/Dashboard">Dashboard</a></li>
+                            <li class="divider"></li>
+                                <!-- Logout button -->
+                            @using (Html.BeginForm("LogOff", "../Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <li>
+                                    <a class="btn btn-warning btn-raised" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                </li>
+                            }
+                                
+                        </ul>
+                            }
+                            else
+                            {
+                                <ul class="dropdown-menu">
+                                    <li><a href="~/Retailers/Retailer/Dashboard">Dashboard</a></li>
+                                    <li class="divider"></li>
+                                    <!-- Logout button -->
+                                    @using (Html.BeginForm("LogOff", "../Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <li>
+                                            <a class="btn btn-warning btn-raised" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+                                        </li>
+                                    }
+
+                                </ul>
+                            }
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+<ul id="slide-out" class="side-nav custom-side-nav">
+    @*<li class="header">HEADER</li>*@
+    <!-- Optionally, you can add icons to the links -->
+
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i><span>Products</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/Create">Create Product(s)</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/Edit">Edit Products</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Products/MyProducts/ViewAll">View All</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i><span>Stock</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../ProductStocks/MyProductStocks/AddStock">Add Stock</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../ProductStocks/MyProductStocks/Edit">Edit Stock</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../ProductStocks/MyProductStocks/ViewStockHistory">Add Stock History</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>Purchase Orders</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            @*<li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../WholesaleOrders/MyWholesaleOrders/Create">Create Order</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../WholesaleOrders/MyWholesaleOrders/Edit">Edit Orders</a></li>*@
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../WholesaleOrders/MyWholesaleOrders/ViewHistory">P/O History</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>Sales</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../RetailOrders/MyRetailOrder/Create">New Sale</a></li>
+            @*<li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../RetailOrders/MyRetailOrder/Edit">Edit Orders</a></li>*@
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../RetailOrders/MyRetailOrder/ViewHistory">Sales History</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>Quotations</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Quotations/MyQuotations/RequestedQuotations">Requested Quotations</a></li>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="../../Quotations/MyQuotations/SentQuotations">Sent Quotations</a></li>
+        </ul>
+    </li>
+    <li class="treeview">
+        <a href="#"><i class="fa fa-link"></i> <span>My Account</span> <i class="fa fa-angle-left pull-right"></i></a>
+        <ul>
+            <li><a withpjax="with-ajax" data-pjax=".content-panel" href="~/Wholesalers/Wholesaler/Manage">Manage Store Profile</a></li>
+        </ul>
+    </li>
+
+</ul>

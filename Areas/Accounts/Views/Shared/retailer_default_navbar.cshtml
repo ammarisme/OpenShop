@@ -1,0 +1,39 @@
+﻿<div class="navbar navbar-default navbar-fixed-top custom-navbar">
+    <div class=".content-panel-fluid">
+        <!-- Navigation Header -->
+        <div class="navbar-header">
+        </div>
+        <!-- navigation body -->
+
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="" withpjax="with-ajax" data-pjax=".content-panel" class="btn navigation-help btn-flat"></a></li>
+                <!--  Login / Register Link-->
+                <!-- Account links -->
+                <li class="dropdown">
+                    <a style="margin-right: 20px;" href="#" data-target="#" class="dropdown-toggle btn btn-raised btn-default custom-navbar-links " data-toggle="dropdown">
+                        @User.Identity.Name
+                        <b class="caret"></b>
+                    </a>
+                    @if (Session["Authenticated"] != null)
+                    {
+                        
+                    <ul class="dropdown-menu">
+                        <li><a id="dashboard-link" withpjax="with-ajax" data-pjax=".content-panel" href="/Accounts/Account/MyAccount" >My Account</a></li>
+                        <li>
+                            <!-- Logout button -->
+                            @using (Html.BeginForm("LogOff", "/Accounts/Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            <li>
+                                <a class="btn btn-default btn-raised logoff-button" placeholder="Logout" href="javascript:document.getElementById('logoutForm').submit()">Log off <i class="material-icons pull-right">directions_run</i></a>
+                            </li>
+                            }
+                        </ul>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+

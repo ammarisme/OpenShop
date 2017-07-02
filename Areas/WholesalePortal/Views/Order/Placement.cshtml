@@ -1,0 +1,145 @@
+﻿@*public int OrderId { get; set; }*@
+
+                @*public DateTime? OrderDate { get; set; }*@
+
+                @*public DateTime? OrderDueDate { get; set; }*@
+
+                @*public string OrderStatus { get; set; }*@
+
+                @*public DateTime? DeliveredDate { get; set; }
+
+                public string DeliveryStatus { get; set; }*@
+
+                
+
+
+                
+
+    @{
+        ViewBag.title = "Order Placement";
+    }
+
+    <div class="panel panel-default row content-panel">
+        <div class="panel-heading">
+            @ViewBag.title
+        </div>
+        <div class="panel-body">
+            <div class="panel panel-default row col-md-4 sub-content-panel">
+                <div class="panel-heading">
+                    Order Information
+                </div>
+                <div class="panel-body">
+                    
+                        @*public string WholesalerId { get; set; }*@
+                <h4>Wholesaler Information</h4>
+                    <div class="form-group">
+                        <label for="retailer-address" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="retailer-address" placeholder="Wholesaler Name" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="retailer-address" class="col-md-2 control-label">Address</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="retailer-address" placeholder="Wholesaler Address" disabled>
+                        </div>
+                    </div>
+                        @*public string RetailerId { get; set; }*@
+                        <h4>Your Information</h4>
+                    <div class="form-group">
+                        <label for="retailer-address" class="col-md-2 control-label">Name</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="retailer-address" placeholder="My Name" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="retailer-address" class="col-md-2 control-label">Adderss</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control" id="retailer-address" placeholder="My Address">
+                        </div>
+                        </div>
+                    <div class="form-group">
+                        @*public string Remark { get; set; }*@
+                        <label for="remark" class="col-md-2 control-label">Remark</label>
+                        <div class="col-md-10">
+                            <textarea class="form-control" rows="4" id="remark"></textarea>
+                            <span class="help-block">Use this field to let us know any custom information that you would like us to know!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-default row col-md-7 sub-content-panel pull-right">
+                <div class="panel-heading">
+                    Delivery Information
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="select111" class="col-md-2 control-label">Delivery Method</label>
+
+                        <div class="col-md-10">
+                            <select id="select111" class="form-control">
+                                <option>Store Pickup</option>
+                                <option>Aramex</option>
+                                <option>CSL</option>
+                                <option>SL Post</option>
+                                <option>Lorry Transport</option>
+                                <option>Bus Transport</option>
+                                <option>Wholesaler delivery</option>
+                            </select>
+                        </div>
+                        <label for="select111" class="col-md-6 control-label">Delivery Cost : <span id="delivery-cost">$100</span></label>
+                    </div>
+                    
+            </div>
+                </div>
+            <div class="panel panel-default row col-md-7 pull-right sub-content-panel">
+                <div class="panel-heading">
+                    Products in Order
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-hover" id="quote-products">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Special Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>dummy</td>
+                                <td>dummy</td>
+                                <td>x</td>
+                            </tr>
+                            <tr>
+                                <td>dummy</td>
+                                <td>dummy</td>
+                                <td>x</td>
+                            </tr>
+                            <tr>
+                                <td>dummy</td>
+                                <td>dummy</td>
+                                <td>x</td>
+                            </tr>
+                            <tr>
+                                <td>dummy</td>
+                                <td>dummy</td>
+                                <td>x</td>
+                            </tr>
+                            <tr>
+                                <td>dummy</td>
+                                <td>dummy</td>
+                                <td>x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @section script{
+        <script>
+        </script>
+    }

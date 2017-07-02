@@ -1,0 +1,111 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <!-- This content goes into index.cshtml-->
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="col-md-6">
+        <div class="col-md-9">
+            <table id="products-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>ProductName</th>
+                        <th>Unit</th>
+                        <th>UnitPrice</th>
+                        <th>StockQuantity</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th>ProductId</th>
+                        <th>ProductName</th>
+                        <th>Unit</th>
+                        <th>UnitPrice</th>
+                        <th>StockQuantity</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-6 well">
+            <table id="specification-in-product-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>SpecificationInProductId</th>
+                        <th>Specification</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-6 well">
+            <table id="materials-in-product-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>MaterialInProductId</th>
+                        <th>ProductId</th>
+                        <th>MaterialId</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+<script>
+
+
+    var specificationsInProduct = $("#specification-in-product-table").DataTable(
+        {
+            "bFilter": false,
+            "bInfo": false,
+            "columns": [
+                    { "data": "SpecificationInProductId" },
+                    { "data": "Specification" },
+                    { "data": "Value" }
+                        ]
+        }
+        );
+    var materialsInProduct = $("#materials-in-product-table").DataTable(
+        {
+            "bFilter": false,
+            "bInfo": false,
+            "columns" : [
+                    { "data": "MaterialInProductId" },
+                    { "data": "ProductId" },
+                    { "data": "MaterialId" },
+                    { "data": "Quantity" }
+                        ]
+        }
+        );
+
+
+    var onProductSelection = function () {
+        var id = getTableSelectedRowKey($("#products-table"));
+
+        updateTableFromApi(specificationsInProduct, "../../api/Products/GetSpecificationsInProduct/" + id, function (){});
+    }
+
+    var productsTable = $("#products-table").DataTable(
+        {
+            "columns": [
+                    { "data": "ProductId" },
+                    { "data": "ProductName" },
+                    { "data": "Unit" },
+                    { "data": "UnitPrice" },
+                    { "data": "StockQuantity" }
+                        ]
+        }, onProductSelection
+        );
+
+    updateTableFromApi(productsTable, "../../api/Products/GetProducts?ApplicationUserId=@ViewBag.userId", onProductSelection);
+
+</script>
+}

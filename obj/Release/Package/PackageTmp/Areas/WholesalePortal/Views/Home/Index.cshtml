@@ -1,0 +1,45 @@
+﻿@using ETrading.Models
+@using ETrading.Areas.WholesalePortal.Models
+@model HomeViewModel 
+
+@{
+    ViewBag.title = "Wholesale Home";
+}
+
+<div class="panel panel-default row items-panel">
+    <div class="panel-heading">
+        @ViewBag.title
+    </div>
+    <div class="panel-body">
+        <ul class="ìtems">
+            @foreach (var wholesaler in Model.Wholesalers)
+            {
+        <!-- single item -->
+                <li class="panel panel-default col-md-4 item" >
+                    <a withpjax="with-ajax" data-pjax=".content-panel" href="~/Wholesalers/Wholesaler/Shop/?id=@wholesaler.Id">
+                        <div class="panel-heading">
+                            <h4 class="">@wholesaler.WholesalerName</h4>
+                        </div>
+                        <div class="panel-body">
+                            <img src="~/Content/sample_product.jpg" alt="item" class="" />
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+
+    <script>
+        $(document).ready(function () {
+
+            $('a[withpjax]').each(function () {
+                console.log("pjaxification");
+                $(this).pjax(
+                    {
+                        container: ".content-panel",
+                    }
+                );
+            })
+        });
+    </script>

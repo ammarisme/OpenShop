@@ -1,0 +1,86 @@
+﻿/*
+    Modal to be used when required.
+*/
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+}
+
+/*Customize the content-wrapper*/
+.custom-content-wrapper {
+overflow: hidden ;
+}
+
+/*The body
+  main-header
+        navbar
+  content-wrapper custom-content-wrapper
+
+  main-footer
+
+*/
+body {
+    background:#ffffff;
+    overflow : hidden;
+}
+.navbar-fixed-top .nav {
+    margin : 5px ;
+}
+
+.navbar-fixed-top .navbar-brand {
+    height :inherit ;
+}
+
+
+.user-button{
+    color : white; 
+    background-color : orange ;
+}
+.dropbtn {
+    background-color: #3498db;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+    background-color: #2980b9;
+}

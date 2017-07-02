@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ETrading.Models.Product>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RetailPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.WholesalePrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StockQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ApplicationUserId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RetailPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.WholesalePrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StockQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ApplicationUserId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ProductId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ProductId })
+        </td>
+    </tr>
+}
+</table>

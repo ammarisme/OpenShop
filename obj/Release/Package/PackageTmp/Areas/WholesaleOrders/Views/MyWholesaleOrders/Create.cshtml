@@ -1,0 +1,143 @@
+﻿@using ETrading.Models
+@using ETrading.Areas.WholesaleOrders.Models
+@model  CreateWholesaleOrderView
+@{
+    ViewBag.title = "Create Wholesale Order";
+}
+<h1>Create Order</h1>
+
+<div class="col-md-12">
+    <div class="col-md-6  well">
+        <h3>Add Product(s) in Wholesale Order</h3>
+        <form action="no-implemetation" id="create-wholesale-order-product-form" method="POST">
+            <div id="name-group" class="form-group">
+                @*public int ProductsInOrderId { get; set; }
+                public int OrderId { get; set; }*@
+
+                @Html.LabelFor(m => m.ProductId)
+                @Html.DropDownListFor(m => m.ProductId,
+                                  new SelectList(Model.ProductId,
+                               "ProductId", "ProductName",
+                                        Model.ProductId.First().ProductId), new { @class = "form-control", id = "ProductName" })
+                <label for="name">Quantity</label>
+                <input type="text" class="form-control" name="Quantity" placeholder="eg :- red, 1.2 , 1">
+
+                <label for="name">UnitPrice</label>
+                <input type="text" class="form-control" name="UnitPrice" placeholder="eg :- red, 1.2 , 1">
+
+                <label for="name">Description</label>
+                <input type="text" class="form-control" name="Description" placeholder="eg :- red, 1.2 , 1">
+            </div>
+            <button type="submit" class="btn btn-success">Add Product<span class="fa fa-arrow-down"></span></button>
+        </form>
+        <button class="btn btn-warning" id="removeProduct">Remove Product<span class="fa fa-arrow-right"></span></button>
+    </div>
+
+    <div class="col-md-6">
+        <table id="products-wholesale-order-table" class="display" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>ProductId</th>
+                    <th>ProductName</th>
+                    <th>Quantity</th>
+                    <th>UnitPrice</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<div class="col-md-12  well">
+    <form action="no-implementation" id="create-wholesale-order-form" method="POST">
+        <div id="name-group" class="form-group">
+            @*public int OrderId { get; set; }
+                public string WholesalerId { get; set; }*@
+
+            <label for="name">OrderDate</label>
+            <input type="date" name="OrderDate" class="form-control">
+
+            <label for="name">OrderStatus</label>
+            <input type="text" name="OrderStatus" class="form-control">
+
+            <label for="name">OrderDueDate</label>
+            <input type="date" name="OrderDueDate" class="form-control">
+
+            <label for="name">DeliveredDate</label>
+            <input type="date" name="DeliveredDate" class="form-control" />
+
+            <label for="name">DeliveryStatus</label>
+            <input type="text" name="DeliveryStatus" class="form-control" />
+
+            <label for="name">DeliveredDate</label>
+            <input type="date" name="DeliveredDate" class="form-control" />
+
+            <label for="name">Remark</label>
+            <input type="text" name="Remark" class="form-control" />
+
+            @Html.LabelFor(m => m.RetailerId)
+            @Html.DropDownListFor(m => m.RetailerId,
+                                         new SelectList(Model.RetailerId,
+                                                      "Id", "RetailerName",
+                                                          Model.ProductId.First().ProductId), new { @class = "form-control", id = "RetailerName" })
+
+        </div>
+    </form>
+    <button class="btn btn-success" id="create-wholesale-order-button">Create Wholesale Order</button>
+</div>
+
+@section scripts{
+    <script>
+        /// Initiating the specifications-in-materials-table
+        var productInWholesaleOrderTable = initiateTable("products-wholesale-order-table", {
+            "columns": [
+            { "data": "ProductId" },
+            { "data": "ProductName" },
+            { "data": "Quantity" },
+            { "data": "UnitPrice" },
+            { "data": "Description" }
+            ]
+        }); // initiating the table with all the defauls features loaded in this function
+
+        $("#removeProduct").on('click', function () {
+            var selectedRowIndex = getTableSelectedRowIndex($("#products-wholesale-order-table"));
+            productInWholesaleOrderTable.row(selectedRowIndex).remove().draw(false);
+        }); //can be used commonly with as a table removal button
+
+        var onCompletion = function () { }; // a dummy functio
+
+        //  Linking the specifications table to specifications form
+        syncFormWithTable("create-wholesale-order-product-form", productInWholesaleOrderTable, "ProductId", onCompletion, onCompletion); // connecting the table with the form
+
+        // sending the final object
+
+        $("#" + "create-wholesale-order-button").on('click', function (event) {
+            onCompletion(); // before submission
+            var submitData = {}; // the data that will be sent using ajax
+
+            var productInWholesaleOrderData = getTableData(productInWholesaleOrderTable); // the table that will be attached to the data
+
+            productInWholesaleOrderTable.clear().draw(false);
+
+            submitData = getFormValues("create-wholesale-order-form");
+
+            submitData["ProductsWholesaleOrder"] = productInWholesaleOrderData; // adding the materials in datatable
+
+            console.log(submitData); // to make sure we got the the right object going
+
+            $.ajax({
+                type: 'post',
+                url: "/api/WholesaleOrders/AddOrder",
+                data: JSON.stringify(submitData), // need to be strigified to avoid browser hang
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    onCompletion();
+                }
+            });
+
+            event.preventDefault();
+        });
+
+    </script>
+}

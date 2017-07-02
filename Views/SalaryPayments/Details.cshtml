@@ -1,0 +1,51 @@
+﻿@model ETrading.Models.SalaryPayment
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SalaryPayment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmployeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Remark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Remark)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SalaryPaymentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

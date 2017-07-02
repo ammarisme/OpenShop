@@ -1,0 +1,74 @@
+﻿@using WholesaleTradingPortal.Areas.Accounts.Models
+
+@model AddAccountViewModel
+@{
+    ViewBag.Title = "Create an Account";
+
+}
+
+<title>@ViewBag.title</title>
+ <h5>@ViewBag.title</h5>
+
+<div class="panel sub-content-panel col-md-12">
+    <form action="no-implementation" id="account-form" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="name">Email</label>
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control custom-text-box"  , required="true" , type="email"})
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Password</label>
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control custom-text-box"  , required="true" , pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$" ,title=""})
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Confirm Password</label>
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control custom-text-box"  , required="true" , pattern="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$" ,title="" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">First Name</label>
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Za-z]{4,12}" ,title="First Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Last Name</label>
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Za-z]{4,12}" ,title="Last Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Address</label>
+            @Html.TextBoxFor(m => m.Address, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Z0-9a-z\\s]" ,title="" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Phone Number</label>
+            @Html.TextBoxFor(m => m.PhoneNumber2, new { @class = "form-control custom-text-box"  , required="true" , pattern="[0-9]{10}" ,title="Phone number must contain 10 numeric characters." })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Designation</label>
+            @Html.TextBoxFor(m => m.Designation, new { @class = "form-control custom-text-box"  , required="true" , pattern="[A-Za-z]{2,10}" ,title="Designation can only contain alphabetic letters and should contain less than 10 characters" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Role</label>
+            @Html.DropDownListFor(m => m.Id,
+                                  new SelectList(Model.Id,
+                               "Id", "Name",
+                                        Model.Id.First().Id), new { @class = "form-control custom-text-box  custom-label", id = "Name" ,name="Id"})
+        </div>
+
+        <input type="submit" class="btn btn-primary btn-raised" value="Create Account" />
+    </form>
+</div>
+
+@section script
+    {
+    <script>
+        $("#account-form").on('submit', function (event) {
+            var data = getFormValues("account-form");
+            sendObjectToServer("../../api/Accounts/Register", data,
+               function () {
+                showModalMessage("Staff account created successfully", "Staff account have limited priviledges compared to Manager accounts.");
+            }, function (data) {
+                showModalMessage("Account creation error", "The error could be any of the following <ul><li>A staff with the same email address already exist.</li><li>Your loggin session has expired</li><li>Database connection failures</li></ul>");
+                });
+            event.preventDefault();
+        });
+
+        $(".navigation-help").html("Accounts / Create a new Account");
+    </script>
+}

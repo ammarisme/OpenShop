@@ -1,0 +1,16 @@
+﻿    <!-- Body -->
+        @RenderBody()
+
+
+        @if (IsSectionDefined("script"))
+        {
+            @RenderSection("script");
+        }
+        else
+        {
+            @Html.Partial("Enterprise_default_script");
+        }
+
+        @Html.Partial("inter_view_script");
+    
+

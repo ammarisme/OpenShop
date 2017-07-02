@@ -1,0 +1,208 @@
+﻿@* Only scripts need to ne changed *@
+@{
+    ViewBag.Title = "Edit Product Stock";
+}
+<section class="content-header">
+</section>
+<section class="content">
+    <div class="col-md-12 well">
+        <div class="col-md-9">
+            <table id="product-stocks-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ProductStockId</th>
+                        <th>OrderId</th>
+                        <th>RecievedDate</th>
+                        <th>ApplicationUserId</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <th>ProductStockId</th>
+                        <th>OrderId</th>
+                        <th>RecievedDate</th>
+                        <th>ApplicationUserId</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div class="col-md-3">
+            <form action="../../api/ProductStocks/UpdateStock" id="product-form" class="form-horizontal" method="POST">
+                <div id="name-group" class="form-group">
+                    @*ApplicationUserId*@
+                    <label for="date">ProductStockId</label>
+                    <input type="text" name="ProductStockId" class="form-control" disabled />
+
+                    @*FirstName*@
+                    <label for="date">OrderId</label>
+                    <input type="text" name="OrderId" class="form-control" disabled />
+
+                    @*FirstName*@
+                    <label for="date">RecievedDate</label>
+                    <input type="text" name="RecievedDate" class="form-control" disabled/>
+
+                    @*LastName*@
+                    <label for="date">ApplicationUserId</label>
+                    <input type="text" name="ApplicationUserId" class="form-control" disabled/>
+
+                    <br />
+                    <button type="submit" class="form-control btn btn-linkedin">Update Stock</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-12 well">
+        <div class="col-md-6">
+            <table id="products-in-stock-table" class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>ProductInProductStockId</th>
+                        <th>ProductId</th>
+                        <th>ProductStockId</th>
+                        <th>QuantityRecieved</th>
+                        <th>QuantityDispatched</th>
+                        <th>Cost</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <form action="/api/Products/UpdateProductSpecifications" class="form-horizontal" id="specification-form" method="POST">
+                <div id="name-group" class="form-group">
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    @*SpecificationInProductId*@
+                    <label for="date">ProductInProductStockId</label>
+                    <input type="text" name="ProductInProductStockId" class="form-control" disabled />
+
+                    @*ProductId*@
+                    <label for="date">ProductId</label>
+                    <input type="text" name="ProductId" class="form-control" disabled/>
+
+
+                    @*Specification*@
+                    <label for="date">ProductStockId</label>
+                    <input type="text" name="ProductStockId" class="form-control" />
+
+                    @*Value*@
+                    <label for="date">QuantityRecieved</label>
+                    <input type="text" name="QuantityRecieved" class="form-control" />
+
+                    @*Value*@
+                    <label for="date">QuantityDispatched</label>
+                    <input type="text" name="QuantityDispatched" class="form-control" />
+                    
+                    @*Value*@
+                    <label for="date">Cost</label>
+                    <input type="text" name="Cost" class="form-control" />
+
+                    <label for="date">Remarks</label>
+                    <input type="text" name="Remarks" class="form-control" />
+                    <br />
+                    <button type="submit" class="form-control btn btn-linkedin">Update Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script>
+    @*/*
+    Products Table and Form
+    */
+    //Initiating the Products table
+
+
+    var productsTable = $("#products-table").DataTable(
+        {
+            "columns": [
+                    { "data": "ProductId" },
+                    { "data": "ProductName" },
+                    { "data": "Unit" },
+                    { "data": "UnitPrice" },
+                    { "data": "StockQuantity" },
+                    { "data": "ApplicationUserId" }
+            ]
+        }, onProductSelected
+        );
+    // binding the table to the products-form
+    var productId = null;
+    var productForm = $("#product-form");
+
+    var onProductSelected = function () {
+        var tableIndex = getTableSelectedRowIndex($("#products-table"));
+
+        var ProductData = productsTable.row(tableIndex).data();
+
+        setFormValues(productForm, ProductData);
+
+        productId = getTableSelectedRowKey($("#products-table"));
+        // needs to put the on specification selection function
+        updateTableFromApi1(specificationsTable, "../../api/Products/GetSpecificationsInProduct/" + productId, onSpecificationSelected, onSpecificationUnSelected);
+    }
+    var onProductUnSelected = function () {
+        specificationsTable.clear().draw();
+        resetForm(specificationForm);
+        resetForm(productForm);
+    }
+    // Update the product table
+    updateTableFromApi1(productsTable, "../../api/Products/GetProducts?ApplicationUserId=@ViewBag.userId", onProductSelected, onProductUnSelected);
+
+        /*
+        Specifications table and form
+        */
+        // Initiating the Specifications table
+
+        var specificationForm = $("#specification-form");
+        var onSpecificationSelected = function () {
+            var tableIndex = getTableSelectedRowIndex($("#specifications-table"));
+
+            var SpecificationData = specificationsTable.row(tableIndex).data();
+
+            setFormValues(specificationForm, SpecificationData);
+        }
+        var onSpecificationUnSelected = function () {
+            resetForm(specificationForm);
+        }
+        var specificationsTable = $("#specifications-table").DataTable(
+            {
+                "bFilter": false,
+                "bInfo": false,
+                "columns": [
+                        { "data": "SpecificationInProductId" },
+                        { "data": "ProductId" },
+                        { "data": "Specification" },
+                        { "data": "Value" },
+                ]
+            }
+            );
+
+
+        //// Ajaxify form submissions
+        $(document).on('submit', '.form-horizontal', function (event) {
+            event.preventDefault();
+            // get form data and send ajax
+            var formData = getFormValues($(this).attr("id"));
+            $.ajax({
+                type: 'post',
+                url: $(this).attr("action"),
+                data: JSON.stringify(formData),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                 
+                }
+            }
+            );
+        });*@
+    </script>
+}

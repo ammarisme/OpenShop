@@ -1,0 +1,77 @@
+﻿@using ETrading.Models
+@using ETrading.Areas.Retailers.Models
+@model RetailShopViewModel
+@{
+    ViewBag.title = "Shop : " + Model.Retailer.RetailerName;
+}
+
+<div class="panel panel-default row items-panel">
+    <div class="panel-heading">
+        Products of @Model.Retailer.RetailerName
+    </div>
+    <div class="panel-body">
+        <ul class="ìtems">
+            @foreach (var product in Model.ProductId)
+            {
+        <!-- single item -->
+                <li class="panel panel-default col-md-4 item" data-id="@product.ProductId" data-name="@product.ProductName" data-price="@product.RetailPrice">
+                    <div class="panel-heading">
+                        <a withpjax="with-ajax" data-pjax=".content-panel" href="~/Products/Product/ShowRetailProduct?id=@product.ProductId"><h4>@product.ProductName</h4></a>
+                    </div>
+                    <div class="panel-body">
+                        <a href="~/Products/Product/ShowRetailProduct?id=@product.ProductId">
+                            <img src="~/Content/sample_product.jpg" alt="item" class="" />
+                        </a>
+                        <p class="short-description">
+                            @product.ShortDescription
+                        </p>
+                        <p>Price : <span class="price">@Model.Retailer.Currency  @product.RetailPrice </span></p>
+                    </div>
+                    <div class="form-group label-floating">
+                        <label class="control-label" for="focusedInput1">Quantity</label>
+                        <input class="form-control" id="OrderQuantity" type="number">
+                    </div>
+                    <a href="javascript:void(0)" class="btn btn-raised btn-warning add-to-retail-cart">Add To Cart</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+@section script{
+<script>
+
+    var retailerId = "@Model.Retailer.Id";
+    // -- copy paste from stackoverflow
+
+    // Setting local storage items for the cart and quote if it doesn't exist
+
+    var productSelected;
+
+    $(document).ready(function () {
+
+        // Add to Cart button click event
+        $('.add-to-retail-cart').on('click', function () {
+            productSelected = $(this).parent();
+            var product = {};
+
+            product.ProductId = $(productSelected).attr('data-id');
+            product.ProductName = $(productSelected).attr('data-name');
+            product.Quantity = $(productSelected).find("#OrderQuantity").val();
+            product.UnitPrice = $(productSelected).attr('data-price');
+
+            console.log(product);
+            addToRetailOrder(product, retailerId);
+            event.preventDefault();
+        });
+        $('a[withpjax]').each(function () {
+            console.log("pjaxification");
+            $(this).pjax(
+                {
+                    container: ".content-panel",
+                }
+            );
+        });
+    });
+
+</script>
+}

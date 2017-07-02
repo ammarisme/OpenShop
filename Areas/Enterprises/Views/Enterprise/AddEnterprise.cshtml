@@ -1,0 +1,76 @@
+﻿@using RetailTradingPortal.Areas.Enterprises.Models
+
+@model AddEnterpriseViewModel
+@{
+    ViewBag.Title = "Add an Enterprise";
+
+}
+
+<title>@ViewBag.title</title>
+<h5>@ViewBag.title</h5>
+
+<div class="panel sub-content-panel col-md-12">
+    <form action="no-implementation" class="col-md-12" id="enterprise-form" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="name">Enterprise Type</label>
+            @Html.DropDownListFor(m => m.EnterpriseTypeId,
+                                  new SelectList(Model.EnterpriseTypeId,
+                               "EnterpriseTypeId", "Name",
+                                        Model.EnterpriseTypeId.First().EnterpriseTypeId), new { @class = "form-control custom-text-box  custom-label", id = "Name" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Name</label>
+            @Html.TextBoxFor(m => m.EnterpriseName, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{4,12}", title = "Last Name field can only contain alphabetic characters, and must of length between 5 - 12" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Address</label>
+            @Html.TextBoxFor(m => m.EntepriseAddress, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Z0-9a-z\\s]", title = "" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Business Phone number</label>
+            @Html.TextBoxFor(m => m.BusinessPhoneNumber, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z]{2,10}", title = "Designation can only contain alphabetic letters and should contain less than 10 characters" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Status</label>
+            @Html.TextBoxFor(m => m.Status, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Business Registration Ceritificate Number</label>
+            @Html.TextBoxFor(m => m.BRCNumber, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Z]{2}\\d{4,8}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Category of the Business</label>
+            @Html.TextBoxFor(m => m.Category, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Currency</label>
+            @Html.TextBoxFor(m => m.Currency, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Country</label>
+            @Html.TextBoxFor(m => m.Country, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <div id="name-group" class="form-group">
+            <label for="name">Region</label>
+            @Html.TextBoxFor(m => m.Region, new { @class = "form-control custom-text-box", required = "true", pattern = "[A-Za-z0-9\\s]{0,40}" })
+        </div>
+        <input type="submit" class="btn btn-primary btn-raised" value="Create Enterprise" />
+    </form>
+</div>
+
+@section script
+    {
+    <script>
+        $("#enterprise-form").on('submit', function (event) {
+            var data = getFormValues("enterprise-form");
+            sendObjectToServer("../../api/Enterprises/AddEnterprise", data, function () {
+                showModalMessage("Enterprise added", "Enterprise added successfully to the system. Now you may add sales for this enterprise and do other operations.");
+            }, function () {
+                showModalMessage("Enterprise adding failed", "Please contact support.");
+            });
+            event.preventDefault();
+        });
+
+        $(".navigation-help").html("My Enterprises / New Enterprise");
+    </script>
+}

@@ -1,0 +1,36 @@
+﻿@{
+    var path = "~/Areas/";
+
+    if (User.IsInRole("Retailer"))
+    {
+        path = path + "Retailers";
+    }
+    if (User.IsInRole("Wholesaler"))
+    {
+        path = path + "Wholesalers";
+    }
+    if (User.IsInRole("Customer"))
+    {
+        path = path + "Customers";
+    }
+
+    if (User.IsInRole("Administrator"))
+    {
+        path = path + "Administrator";
+    }
+    if (!User.Identity.IsAuthenticated)
+    {
+        path = path + "RetailPortal";
+    }
+
+    if (Request.Headers["X-PJAX"] != null)
+    {
+        path = path + "/Views/Shared/_PjaxLayout.cshtml";
+    }
+    else
+    {
+        path = path + "/Views/Shared/_Layout.cshtml";
+    }
+
+    Layout = path;
+}
