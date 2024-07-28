@@ -122,6 +122,79 @@ OpenShop is an e-commerce website built using ASP.NET MVC. The project utilizes 
 6. **Access the Application**:
    - Use the login and registration forms to authenticate and access the e-commerce features.
 ---
+---
+|-- .gitattributes
+|-- App_Start
+|   |-- BundleConfig.cs
+|   |-- FilterConfig.cs
+|   |-- IdentityConfig.cs
+|   |-- RouteConfig.cs
+|   |-- Startup.Auth.cs
+|   |-- WebApiConfig.cs
+|-- Areas
+|   |-- Accounts
+|   |   |-- Controllers
+|   |   |   |-- AccountController.cs
+|   |   |-- Models
+|   |   |   |-- AccountViewModels.cs
+|   |   |-- Views
+|   |   |   |-- Account
+|   |   |   |   |-- AddAccount.cshtml
+|   |   |   |   |-- AllAccounts.cshtml
+|   |   |   |   |-- ChangePassword.cshtml
+|   |   |   |   |-- Dashboard.cshtml
+|   |   |   |   |-- Login.cshtml
+|   |   |   |   |-- ManageAccountEnterprises.cshtml
+|   |   |   |   |-- ManageAccounts.cshtml
+|   |   |   |   |-- ManageMyAccount.cshtml
+|   |   |   |   |-- MyAccount.cshtml
+|   |   |   |   |-- Products.cshtml
+|   |   |   |   |-- Register.cshtml
+|   |   |   |   |-- RegisteredRetailers.cshtml
+|   |   |   |-- Shared
+|   |   |   |   |-- _Layout.cshtml
+|   |   |   |   |-- retailer_Login_form.cshtml
+|-- Controllers
+|   |-- API
+|   |   |-- AccountsController.cs
+|   |   |-- CustomerOrdersController.cs
+|   |   |-- CustomersController.cs
+|   |   |-- EmployeesController.cs
+|   |   |-- EnterprisesController.cs
+|   |   |-- OrdersController.cs
+|   |   |-- ProductsController.cs
+|   |   |-- PurchaseOrdersController.cs
+|   |   |-- QuotationController.cs
+|   |   |-- SalaryPaymentsController.cs
+|   |   |-- ServicesController.cs
+|   |   |-- SettingsController.cs
+|-- DAL
+|   |-- ApplicationDBContext.cs
+|   |-- ApplicationDbInitializer.cs
+|   |-- DatabaseContext.cs
+|   |-- DatabaseInitializer.cs
+|-- Models
+|   |-- Account.cs
+|   |-- Customer.cs
+|   |-- Employee.cs
+|   |-- Product.cs
+|   |-- Order.cs
+|   |-- Payment.cs
+|   |-- Quotation.cs
+|-- Views
+|   |-- Account
+|   |   |-- Login.cshtml
+|   |   |-- Register.cshtml
+|   |-- Home
+|   |   |-- Index.cshtml
+|   |-- Products
+|   |   |-- Index.cshtml
+|   |-- Orders
+|   |   |-- PlaceOrder.cshtml
+|   |-- Shared
+|   |   |-- _Layout.cshtml
+|   |   |-- _LoginPartial.cshtml
+---
 
 ## Conclusion
 
