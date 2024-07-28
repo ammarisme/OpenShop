@@ -122,7 +122,7 @@ OpenShop is an e-commerce website built using ASP.NET MVC. The project utilizes 
 6. **Access the Application**:
    - Use the login and registration forms to authenticate and access the e-commerce features.
 ---
----
+```
 |-- .gitattributes
 |-- App_Start
 |   |-- BundleConfig.cs
@@ -194,7 +194,7 @@ OpenShop is an e-commerce website built using ASP.NET MVC. The project utilizes 
 |   |-- Shared
 |   |   |-- _Layout.cshtml
 |   |   |-- _LoginPartial.cshtml
----
+```
 
 ## Conclusion
 
